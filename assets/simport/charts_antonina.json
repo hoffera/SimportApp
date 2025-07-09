@@ -1,0 +1,35 @@
+[
+    {
+        "type": "chart MARE ANTONINA",
+        "id": "1918",
+        "x": 0,
+        "y": 4,
+        "width": 3,
+        "height": 3,
+        "extra": {
+            "enabled": true
+        }
+    },
+    {
+        "type": "chart DIRECAO MEDIA ",
+        "id": "1919",
+        "x": 3,
+        "y": 1,
+        "width": 3,
+        "height": 3,
+        "extra": {
+            "enabled": true
+        }
+    },
+    {
+        "type": "chart VENTO",
+        "id": "1885",
+        "x": 3,
+        "y": 6,
+        "width": 3,
+        "height": 3,
+        "extra": {
+            "enabled": true
+        }
+    }
+]

@@ -1,0 +1,286 @@
+{
+    "id": 1918,
+    "minScale": null,
+    "maxScale": null,
+    "active": true,
+    "dataGroup": null,
+    "data": null,
+    "charts": [
+        {
+            "id": 1876,
+            "minScale": null,
+            "maxScale": null,
+            "active": true,
+            "dataGroup": {
+                "type": "Previsão de maré",
+                "fullDescription": null,
+                "active": true,
+                "data": [
+                    {
+                        "route": {
+                            "id": 2748,
+                            "dataGroupId": "S520",
+                            "equipmentId": "S4",
+                            "stationId": 12,
+                            "regionId": 56,
+                            "stationDesc": "Marégrafo - Antonina",
+                            "regionDesc": "Antonina"
+                        },
+                        "id": 2748,
+                        "unitType": "Distance",
+                        "defaultUnit": "METRE",
+                        "operationalValues": [],
+                        "name": "tidePrediction",
+                        "iconURL": "https://tcp.cs.simport.com.br/gallery/29/image-download"
+                    }
+                ],
+                "dataType": {
+                    "id": 44,
+                    "i18n": {
+                        "en": {
+                            "name": "Tide prediction"
+                        },
+                        "es": {
+                            "name": "Pronóstico de la marea"
+                        }
+                    },
+                    "iconURL": "https://appix.cs.simport.com.br/gallery/50/image-download",
+                    "name": "Previsão de maré",
+                    "": "Previsão de maré"
+                },
+                "dataGroupId": "S520",
+                "description": "Previsão de maré",
+                "refreshInterval": 300,
+                "periodInterval": 86400,
+                "": "name"
+            },
+            "data": {
+                "route": {
+                    "id": 2748,
+                    "dataGroupId": "S520",
+                    "equipmentId": "S4",
+                    "stationId": 12,
+                    "regionId": 56,
+                    "stationDesc": "Marégrafo - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2748,
+                "unitType": "Distance",
+                "defaultUnit": "METRE",
+                "dataGroup": {
+                    "type": "Previsão de maré",
+                    "fullDescription": null,
+                    "active": true,
+                    "data": [],
+                    "dataType": {
+                        "id": 44,
+                        "i18n": {
+                            "en": {
+                                "name": "Tide prediction"
+                            },
+                            "es": {
+                                "name": "Pronóstico de la marea"
+                            }
+                        },
+                        "iconURL": "https://appix.cs.simport.com.br/gallery/50/image-download",
+                        "name": "Previsão de maré",
+                        "": "Previsão de maré"
+                    },
+                    "dataGroupId": "S520",
+                    "description": "Previsão de maré",
+                    "refreshInterval": 300,
+                    "periodInterval": 86400,
+                    "": "name"
+                },
+                "operationalValues": [],
+                "name": "tidePrediction",
+                "iconURL": "https://tcp.cs.simport.com.br/gallery/29/image-download"
+            },
+            "chartType": 4,
+            "gradientColors": false,
+            "singleValue": false,
+            "plotBandsIntervals": [],
+            "type": 2
+        },
+        {
+            "id": 1851,
+            "minScale": null,
+            "maxScale": null,
+            "active": true,
+            "dataGroup": {
+                "type": "Maré",
+                "fullDescription": null,
+                "active": true,
+                "data": [
+                    {
+                        "route": {
+                            "id": 2587,
+                            "dataGroupId": "SC20",
+                            "equipmentId": "FJ",
+                            "stationId": 12,
+                            "regionId": 56,
+                            "stationDesc": "Marégrafo - Antonina",
+                            "regionDesc": "Antonina"
+                        },
+                        "id": 2587,
+                        "unitType": "Distance",
+                        "defaultUnit": "METRE",
+                        "operationalValues": [],
+                        "name": "waterLevel",
+                        "iconURL": "https://appa.cs.simport.com.br/gallery/29/image-download"
+                    },
+                    {
+                        "route": {
+                            "id": 2799,
+                            "dataGroupId": "SC20",
+                            "equipmentId": "FJ",
+                            "stationId": 12,
+                            "regionId": 56,
+                            "stationDesc": "Marégrafo - Antonina",
+                            "regionDesc": "Antonina"
+                        },
+                        "id": 2799,
+                        "unitType": "Distance",
+                        "defaultUnit": "METRE",
+                        "operationalValues": [],
+                        "name": "lowTide",
+                        "iconURL": "https://appix.cs.simport.com.br/gallery/175/image-download"
+                    },
+                    {
+                        "route": {
+                            "id": 2800,
+                            "dataGroupId": "SC20",
+                            "equipmentId": "FJ",
+                            "stationId": 12,
+                            "regionId": 56,
+                            "stationDesc": "Marégrafo - Antonina",
+                            "regionDesc": "Antonina"
+                        },
+                        "id": 2800,
+                        "unitType": "Distance",
+                        "defaultUnit": "METRE",
+                        "operationalValues": [],
+                        "name": "highTide",
+                        "iconURL": "https://appix.cs.simport.com.br/gallery/176/image-download"
+                    }
+                ],
+                "dataType": {
+                    "id": 5,
+                    "i18n": {
+                        "en": {
+                            "name": "Tide"
+                        },
+                        "es": {
+                            "name": "Marea"
+                        }
+                    },
+                    "iconURL": "https://appix.cs.simport.com.br/gallery/14/image-download",
+                    "name": "Maré",
+                    "": "Maré"
+                },
+                "dataGroupId": "SC20",
+                "description": "Marégrafo",
+                "refreshInterval": 300,
+                "periodInterval": 86400,
+                "": "name"
+            },
+            "data": {
+                "route": {
+                    "id": 2587,
+                    "dataGroupId": "SC20",
+                    "equipmentId": "FJ",
+                    "stationId": 12,
+                    "regionId": 56,
+                    "stationDesc": "Marégrafo - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2587,
+                "unitType": "Distance",
+                "defaultUnit": "METRE",
+                "dataGroup": {
+                    "type": "Maré",
+                    "fullDescription": null,
+                    "active": true,
+                    "data": [
+                        {
+                            "route": {
+                                "id": 2799,
+                                "dataGroupId": "SC20",
+                                "equipmentId": "FJ",
+                                "stationId": 12,
+                                "regionId": 56,
+                                "stationDesc": "Marégrafo - Antonina",
+                                "regionDesc": "Antonina"
+                            },
+                            "id": 2799,
+                            "unitType": "Distance",
+                            "defaultUnit": "METRE",
+                            "operationalValues": [],
+                            "name": "lowTide",
+                            "iconURL": "https://appix.cs.simport.com.br/gallery/175/image-download"
+                        },
+                        {
+                            "route": {
+                                "id": 2800,
+                                "dataGroupId": "SC20",
+                                "equipmentId": "FJ",
+                                "stationId": 12,
+                                "regionId": 56,
+                                "stationDesc": "Marégrafo - Antonina",
+                                "regionDesc": "Antonina"
+                            },
+                            "id": 2800,
+                            "unitType": "Distance",
+                            "defaultUnit": "METRE",
+                            "operationalValues": [],
+                            "name": "highTide",
+                            "iconURL": "https://appix.cs.simport.com.br/gallery/176/image-download"
+                        }
+                    ],
+                    "dataType": {
+                        "id": 5,
+                        "i18n": {
+                            "en": {
+                                "name": "Tide"
+                            },
+                            "es": {
+                                "name": "Marea"
+                            }
+                        },
+                        "iconURL": "https://appix.cs.simport.com.br/gallery/14/image-download",
+                        "name": "Maré",
+                        "": "Maré"
+                    },
+                    "dataGroupId": "SC20",
+                    "description": "Marégrafo",
+                    "refreshInterval": 300,
+                    "periodInterval": 86400,
+                    "": "name"
+                },
+                "operationalValues": [],
+                "name": "waterLevel",
+                "iconURL": "https://appa.cs.simport.com.br/gallery/29/image-download"
+            },
+            "chartType": 4,
+            "gradientColors": false,
+            "singleValue": false,
+            "plotBandsIntervals": [],
+            "type": 2
+        }
+    ],
+    "plotBandsIntervals": [],
+    "gradientColors": false,
+    "description": "Maré Antonina",
+    "i18n": {
+        "en": {
+            "description": null,
+            "subDescription": null
+        },
+        "es": {
+            "description": null,
+            "subDescription": null
+        }
+    },
+    "subDescription": "Medida x Prevista",
+    "type": 3
+}

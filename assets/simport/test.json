@@ -1,0 +1,137 @@
+{
+    "views": [
+        {
+            "filter_id": "null",
+            "views": [
+                {
+                    "type": "chart",
+                    "id": "1918",
+                    "x": 0,
+                    "y": 4,
+                    "width": 3,
+                    "height": 3,
+                    "extra": {
+                        "enabled": true
+                    }
+                },
+                {
+                    "type": "chart",
+                    "id": "1919",
+                    "x": 3,
+                    "y": 1,
+                    "width": 3,
+                    "height": 3,
+                    "extra": {
+                        "enabled": true
+                    }
+                }
+            ],
+            "group": 3,
+            "dataSource": null,
+            "regionId": "56",
+            "id": 392,
+            "description": "Medição Antonina",
+            "notes": "3",
+            "filter_type": 3,
+            "default_view": false,
+            "icon_url": null,
+            "position": null
+        }
+    ],
+    "layers": [
+        {
+            "text_type": "data_source.type.wms",
+            "id": 214,
+            "name": "CN 1820 - Proximidades da barra",
+            "i18n": {
+                "en": {
+                    "name": null
+                },
+                "es": {
+                    "name": null
+                }
+            },
+            "epsg": 4326,
+            "active": true,
+            "position": null,
+            "origin": "geoserver",
+            "url": "https://gis.appix.com.br/geoserver/acquapro/wms",
+            "fields": [],
+            "legend_type": 0,
+            "layer": "acquapro:CN1820-Proximidades_da_Barra_de_Paranagua",
+            "legend_description": null,
+            "type": 1
+        },
+        {
+            "text_type": "data_source.type.wms",
+            "id": 216,
+            "name": "CN 1821 - Barra de Paranaguá",
+            "i18n": {
+                "en": {
+                    "name": null
+                },
+                "es": {
+                    "name": null
+                }
+            },
+            "epsg": 4326,
+            "active": true,
+            "position": null,
+            "origin": "geoserver",
+            "url": "https://gis.appix.com.br/geoserver/acquapro/wms",
+            "fields": [],
+            "legend_type": 0,
+            "layer": "acquapro:CN1821-Barra_de_Paranagua",
+            "legend_description": null,
+            "type": 1
+        },
+        {
+            "text_type": "data_source.type.wms",
+            "id": 215,
+            "name": "Carta 1822 - Portos de Paranaguá e Antonina",
+            "i18n": {
+                "en": {
+                    "name": null
+                },
+                "es": {
+                    "name": null
+                }
+            },
+            "epsg": 4326,
+            "active": true,
+            "position": null,
+            "origin": "geoserver",
+            "url": "https://idem.dhn.mar.mil.br/geoserver/carta_nautica/wms",
+            "fields": [],
+            "legend_type": 0,
+            "layer": "carta_nautica:carta_1822",
+            "legend_description": null,
+            "type": 1
+        },
+        {
+            "text_type": "data_source.type.wms",
+            "id": 231,
+            "name": "Divisao Sistema Aquaviario Paranagua",
+            "i18n": {
+                "en": {
+                    "name": null
+                },
+                "es": {
+                    "name": null
+                }
+            },
+            "epsg": 31982,
+            "active": true,
+            "position": null,
+            "origin": "geoserver",
+            "url": "https://gis.appix.com.br/geoserver/simport/wms",
+            "fields": [],
+            "legend_type": 0,
+            "layer": "simport:Divisao_Sistema_Aquaviario_Paranagua_Atualizado",
+            "legend_description": null,
+            "type": 1
+        }
+    ],
+    "lastVersion": "2.1",
+    "hash": "d557ce914d4e26071e414ec73201f8fe"
+}

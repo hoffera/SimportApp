@@ -1,0 +1,37 @@
+{
+    "type": "background_degrade",
+    "args": {
+        "child": {
+            "type": "column",
+            "args": {
+                "children": [
+                    {
+                        "type": "container",
+                        "args": {
+                            "height": 200,
+                            "padding": [
+                                16,
+                                8
+                            ],
+                            "child": {
+                                "type": "asset_image",
+                                "args": {
+                                    "fit": "fitHeight",
+                                    "name": "lib/assets/rive/1.png"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "linear_graph",
+                        "args": {
+                            "maximum": 100,
+                            "minimum": 0,
+                            "value": 75.5
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}

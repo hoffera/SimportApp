@@ -1,0 +1,26 @@
+{
+    "type": "center",
+    "args": {
+        "child": {
+            "type": "column",
+            "args": {
+                "children": [
+                    {
+                        "type": "text",
+                        "args": {
+                            "text": "AnimatedAlign"
+                        }
+                    },
+                    {
+                        "type": "linear_graph",
+                        "args": {
+                            "maximum": 100,
+                            "minimum": 0,
+                            "value": 75.5
+                        }
+                    }
+                ]
+            }
+        }
+    }
+}
