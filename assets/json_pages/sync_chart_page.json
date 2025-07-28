@@ -1,0 +1,814 @@
+{
+    "type": "scaffold",
+    "args": {
+        "backgroundColor": "#ffffffff",
+        "body": {
+            "type": "single_child_scroll_view",
+            "args": {
+                "child": {
+                    "type": "column",
+                    "args": {
+                        "children": [
+                            {
+                                "type": "sized_box",
+                                "args": {
+                                    "height": 50.0
+                                }
+                            },
+                            {
+                                "type": "title_widget",
+                                "args": {
+                                    "title": "Maré"
+                                }
+                            },
+                            {
+                                "type": "column",
+                                "args": {
+                                    "children": [
+                                        {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 8.0,
+                                                    "left": 8.0,
+                                                    "right": 8.0,
+                                                    "top": 8.0
+                                                },
+                                                "child": {
+                                                    "type": "chart_widget",
+                                                    "args": {
+                                                        "chart": {
+                                                            "type": "sync_linear_graph",
+                                                            "args": {
+                                                                "cartesianSeries": [
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 1",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#051654",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 12
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 15
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 14
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 2",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#123456",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 8
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 11
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 10
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 3",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#654321",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 20
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 18
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 19
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 4",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#0A3B75",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 14
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 17
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 15
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 5",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#7B1F3A",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 10
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 12
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 13
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 6",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#0F52BA",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 16
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 19
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 18
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 7",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#A23E48",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 13
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 15
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 14
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 8",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#253B6B",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 18
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 21
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 20
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 9",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#3C8DAD",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 22
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 24
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 23
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 10",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#152F4A",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 11
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 13
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 12
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "chartAxis": [
+                                                                    {
+                                                                        "type": "numeric",
+                                                                        "title": "Altura (m)"
+                                                                    }
+                                                                ],
+                                                                "chartAxisX": {
+                                                                    "type": "datetime",
+                                                                    "title": "Horas do dia",
+                                                                    "intervalType": "hours",
+                                                                    "dateFormat": "Hm"
+                                                                }
+                                                            }
+                                                        },
+                                                        "subtitle": "há 10 minutos",
+                                                        "title": "Maré Antonina"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 8.0,
+                                                    "left": 8.0,
+                                                    "right": 8.0,
+                                                    "top": 8.0
+                                                },
+                                                "child": {
+                                                    "type": "chart_widget",
+                                                    "args": {
+                                                        "chart": {
+                                                            "type": "sync_linear_graph",
+                                                            "args": {
+                                                                "cartesianSeries": [
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 1",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#051654",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 12
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 15
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 14
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 2",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#123456",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 8
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 11
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 10
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 3",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#654321",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 20
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 18
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 19
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 4",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#0A3B75",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 14
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 17
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 15
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 5",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#7B1F3A",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 10
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 12
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 13
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 6",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#0F52BA",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 16
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 19
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 18
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 7",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#A23E48",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 13
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 15
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 14
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 8",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#253B6B",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 18
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 21
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 20
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 9",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#3C8DAD",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 22
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 24
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 23
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 10",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#152F4A",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 11
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 13
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 12
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "chartAxis": [
+                                                                    {
+                                                                        "type": "numeric",
+                                                                        "title": "Altura (m)"
+                                                                    }
+                                                                ],
+                                                                "chartAxisX": {
+                                                                    "type": "datetime",
+                                                                    "title": "Horas do dia",
+                                                                    "intervalType": "hours",
+                                                                    "dateFormat": "Hm"
+                                                                }
+                                                            }
+                                                        },
+                                                        "subtitle": "há 10 minutos",
+                                                        "title": "Maré Antonina"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 8.0,
+                                                    "left": 8.0,
+                                                    "right": 8.0,
+                                                    "top": 8.0
+                                                },
+                                                "child": {
+                                                    "type": "chart_widget",
+                                                    "args": {
+                                                        "chart": {
+                                                            "type": "sync_linear_graph",
+                                                            "args": {
+                                                                "cartesianSeries": [
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 1",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#051654",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 12
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 15
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 14
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 2",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#123456",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 8
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 11
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 10
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 3",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#654321",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 20
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 18
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 19
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 4",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#0A3B75",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 14
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 17
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 15
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 5",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#7B1F3A",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 10
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 12
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 13
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 6",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#0F52BA",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 16
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 19
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 18
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 7",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#A23E48",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 13
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 15
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 14
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 8",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#253B6B",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 18
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 21
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 20
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 9",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#3C8DAD",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 22
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 24
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 23
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré 10",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "animationDuration": 300,
+                                                                        "color": "#152F4A",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 11
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 13
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 12
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "chartAxis": [
+                                                                    {
+                                                                        "type": "numeric",
+                                                                        "title": "Altura (m)"
+                                                                    }
+                                                                ],
+                                                                "chartAxisX": {
+                                                                    "type": "datetime",
+                                                                    "title": "Horas do dia",
+                                                                    "intervalType": "hours",
+                                                                    "dateFormat": "Hm"
+                                                                }
+                                                            }
+                                                        },
+                                                        "subtitle": "há 10 minutos",
+                                                        "title": "Maré Antonina"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "sized_box",
+                                            "args": {
+                                                "height": 100.0
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

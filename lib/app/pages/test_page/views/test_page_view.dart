@@ -1,6 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:json_app/components/cards/commom_card.dart';
-import 'package:json_app/components/simport/circular_graph.dart';
+import 'package:swipe_refresh/swipe_refresh.dart';
 
 class TestPageView extends StatefulWidget {
   const TestPageView({super.key});
@@ -10,81 +11,31 @@ class TestPageView extends StatefulWidget {
 }
 
 class _TestPageViewState extends State<TestPageView> {
-  double angle = 0;
-  final List<double> angles = [0, 90, 180, 270];
-  int index = 0;
+  final _controller = StreamController<SwipeRefreshState>.broadcast();
 
-  bool arrowOutward = true;
-  Color pointerColor = Colors.grey[600]!;
-
+  Stream<SwipeRefreshState> get _stream => _controller.stream;
   @override
   void initState() {
     super.initState();
-    _startTest();
   }
 
-  void _startTest() async {
-    while (mounted) {
-      await Future.delayed(const Duration(seconds: 1));
-      setState(() {
-        angle = angles[index];
-        index = (index + 1) % angles.length;
-      });
-    }
-  }
+  Future<void> _refresh() async {
+    await Future<void>.delayed(const Duration(seconds: 3));
 
-  void _toggleArrowDirection() {
-    setState(() {
-      arrowOutward = !arrowOutward;
-    });
-  }
-
-  void _togglePointerColor() {
-    setState(() {
-      pointerColor = pointerColor == Colors.red
-          ? Color.fromRGBO(100, 100, 100, 1)
-          : Colors.red;
-    });
+    /// When all needed is done change state.
+    _controller.sink.add(SwipeRefreshState.hidden);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CommomCard(
-                title: "Mare",
-                subtitle: "há 10 minutos",
-                iconURL:
-                    'https://appa.cs.simport.com.br/gallery/33/image-download',
-              ),
-              const SizedBox(height: 40),
-              CircularGraph(
-                angleDegrees: angle,
-                title: "De\nENE",
-                pointerColor: pointerColor,
-                arrowOutward: arrowOutward,
-              ),
-              const SizedBox(height: 40),
-              ElevatedButton(
-                onPressed: _toggleArrowDirection,
-                child: Text('Alternar direção da seta '),
-              ),
-              const SizedBox(height: 10),
-              ElevatedButton(
-                onPressed: _togglePointerColor,
-                child: Text('Alternar cor '),
-              ),
-            ],
-          ),
-        ),
-      ),
+    return SwipeRefresh.material(
+      stateStream: _stream,
+      onRefresh: () {
+        _refresh().ignore();
+      },
+      padding: const EdgeInsets.symmetric(vertical: 10),
+
+      children: [],
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import 'package:json_app/app/models/chart_1885_model.dart';
 
@@ -24,7 +25,6 @@ class ChartService {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       final chart = chart1885FromJson(response.body);
       return chart;
     } else {

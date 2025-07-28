@@ -3,12 +3,17 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  app_links
   firebase_auth
   firebase_core
+  flutter_localization
   geolocator_windows
+  high_chart
+  permission_handler_windows
   rive_common
   share_plus
   url_launcher_windows
+  webview_windows
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

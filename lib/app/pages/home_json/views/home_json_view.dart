@@ -1,10 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:json_app/app/pages/home_json_screen_page/views/home_json_screen_page_view.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 
 import '../controllers/home_json_controller.dart';
@@ -23,12 +18,7 @@ class HomeJsonView extends GetView<HomeJsonController> {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => JsonScreenPage()),
-                );
-              },
+              onPressed: () {},
               child: Text(page['label'] ?? 'Sem título'),
             ),
           );

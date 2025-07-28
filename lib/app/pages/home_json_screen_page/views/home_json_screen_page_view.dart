@@ -1,112 +1,364 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:json_app/app/models/chart_1885_model.dart';
-import 'package:json_app/services/chart_service.dart';
+import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:http/http.dart' as http;
+import 'package:json_app/app/enum/enum.dart';
+import 'package:json_app/config/api_constants.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 
 class JsonScreenPage extends StatefulWidget {
-  const JsonScreenPage({super.key});
+  const JsonScreenPage({
+    super.key,
+    required this.pageID,
+    required this.placeholder,
+  });
+
+  final int pageID;
+  final JsonWidgetData placeholder;
 
   @override
   State<JsonScreenPage> createState() => _JsonScreenPageState();
 }
 
 class _JsonScreenPageState extends State<JsonScreenPage> {
-  late Future<List<Chart1885>> _futureDados;
-  final registry = JsonWidgetRegistry.instance;
-  Timer? _timer;
+  late JsonWidgetRegistry registry;
+  JsonWidgetData? widgetData;
+  final _advancedDrawerController = AdvancedDrawerController();
+  final ValueNotifier<bool> _drawerNotifier = ValueNotifier(false);
+  bool drawer = false;
+  bool _lights = false;
+  String _idiomaAtual = 'Português';
 
   @override
   void initState() {
     super.initState();
-    _buscarDados();
 
-    // Atualiza a cada 30 segundos, por exemplo:
-    _timer = Timer.periodic(const Duration(seconds: 30), (_) {
-      _buscarDados();
-    });
-  }
+    registry = JsonWidgetRegistry.instance;
 
-  void _buscarDados() {
-    setState(() {
-      _futureDados = ChartService.fetchDados();
+    loadDynamicScreen().then((json) {
+      setState(() {
+        widgetData = JsonWidgetData.fromDynamic(json, registry: registry);
+      });
     });
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _drawerNotifier.dispose();
     super.dispose();
   }
 
-  Map<String, dynamic> montarJsonLayout(Chart1885 chart) {
-    return {
-      "type": "scaffold",
-      "args": {
-        "backgroundColor": "#ffffffff",
-        "body": {
-          "type": "padding",
-          "args": {
-            "padding": {"bottom": 8.0, "left": 8.0, "right": 8.0, "top": 8.0},
-            "child": {
-              "type": "center",
-              "args": {
-                "child": {
-                  "type": "column",
-                  "args": {
-                    "children": [
-                      {
-                        "type": "sized_box",
-                        "args": {"height": 100.0},
-                      },
-                      {
-                        "type": "commom_card",
-                        "args": {
-                          "iconURL":
-                              "https://appa.cs.simport.com.br/gallery/33/image-download",
-                          "subtitle": "há 10 minutos",
-                          "title": "Maré",
-                        },
-                      },
-                      {
-                        "type": "circular_graph",
-                        "args": {
-                          "angleDegrees": chart.windDirectionAverage!
-                              .toDouble(),
-                          "title": chart.windDirectionAverageDescAbv ?? "title",
-                        },
-                      },
-                    ],
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    };
+  Future<Map<String, dynamic>> loadDynamicScreen() async {
+    final url = Uri.parse(ApiConstants.getView(widget.pageID.toString()));
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+
+      return data['json'] as Map<String, dynamic>;
+    } else {
+      throw Exception('Erro ao carregar: ${response.statusCode}');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Chart1885>>(
-      future: _futureDados,
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),
-          );
-        }
+    final content =
+        widgetData?.build(context: context) ??
+        widget.placeholder.build(context: context);
 
-        final lastChart = snapshot.data!.last;
-        final jsonLayout = montarJsonLayout(lastChart);
-        final widgetData = JsonWidgetData.fromDynamic(
-          jsonLayout,
-          registry: registry,
+    return ValueListenableBuilder<bool>(
+      valueListenable: _drawerNotifier,
+      builder: (context, isEnd, _) {
+        return AdvancedDrawer(
+          drawer: SafeArea(
+            child: ValueListenableBuilder<bool>(
+              valueListenable: _drawerNotifier,
+              builder: (context, isEnd, _) {
+                return isEnd ? _endDrawer() : _startDrawer();
+              },
+            ),
+          ),
+
+          backdrop: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(color: AppColors.primary),
+          ),
+          controller: _advancedDrawerController,
+          animationCurve: Curves.easeInOut,
+
+          animationDuration: const Duration(milliseconds: 300),
+          animateChildDecoration: true,
+          rtlOpening: isEnd,
+
+          disabledGestures: true,
+          childDecoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+          child: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              title: Text(
+                'TCP',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                  letterSpacing: 0.53,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              leading: Builder(
+                builder: (context) {
+                  return IconButton(
+                    onPressed: () {
+                      _drawerNotifier.value = false;
+
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        _advancedDrawerController.showDrawer();
+                      });
+                    },
+                    icon: ValueListenableBuilder<AdvancedDrawerValue>(
+                      valueListenable: _advancedDrawerController,
+                      builder: (_, value, _) {
+                        return AnimatedSwitcher(
+                          duration: Duration(milliseconds: 300),
+                          child: Semantics(
+                            label: 'Menu',
+                            onTapHint: 'expand drawer',
+                            child: Icon(
+                              value.visible ? Icons.clear : Icons.settings,
+                              color: Theme.of(context).colorScheme.primary,
+                              key: ValueKey<bool>(value.visible),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    _drawerNotifier.value =
+                        true; // ou false, dependendo do lado
+
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      _advancedDrawerController
+                          .showDrawer(); // Agora a animação roda corretamente
+                    });
+                  },
+                  icon: ValueListenableBuilder<AdvancedDrawerValue>(
+                    valueListenable: _advancedDrawerController,
+                    builder: (_, value, _) {
+                      return AnimatedSwitcher(
+                        duration: Duration(milliseconds: 300),
+                        child: Semantics(
+                          label: 'Menu',
+                          onTapHint: 'expand drawer',
+                          child: Icon(
+                            value.visible ? Icons.clear : Icons.person,
+                            color: Theme.of(context).colorScheme.primary,
+                            key: ValueKey<bool>(value.visible),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+
+            body: AnimatedSwitcher(
+              duration: Duration(milliseconds: 200),
+              switchInCurve: Curves.easeIn,
+              switchOutCurve: Curves.easeOut,
+              transitionBuilder: (Widget child, Animation<double> animation) {
+                return FadeTransition(opacity: animation, child: child);
+              },
+              child: KeyedSubtree(
+                key: ValueKey(widgetData != null),
+                child: RefreshIndicator(
+                  onRefresh: () => loadDynamicScreen().then((json) {
+                    setState(() {
+                      widgetData = JsonWidgetData.fromDynamic(
+                        json,
+                        registry: registry,
+                      );
+                    });
+                  }),
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverFillRemaining(hasScrollBody: false, child: content),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
         );
-
-        return widgetData.build(context: context);
       },
+    );
+  }
+
+  void _handleMenuButtonPressed() {
+    _advancedDrawerController.showDrawer();
+  }
+
+  Widget _startDrawer() {
+    return ListTileTheme(
+      textColor: Colors.white,
+      iconColor: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SizedBox(
+            width: 128.0,
+            height: 128.0,
+            child: Image.asset('assets/images/icon_logo.png'),
+          ),
+
+          SwitchListTile(
+            activeColor: Colors.green,
+            title: Text(
+              'Tema escuro',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            secondary: Icon(Icons.brightness_6),
+            value: _lights,
+            onChanged: (bool value) {
+              setState(() {
+                _lights = value;
+              });
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.language),
+            title: Text(
+              'Idioma',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            trailing: PopupMenuButton<String>(
+              initialValue: _idiomaAtual,
+              onSelected: (value) {
+                // Atualize o estado do idioma
+                setState(() {
+                  _idiomaAtual = value;
+                });
+                print('Idioma selecionado: $value');
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(value: 'Português', child: Text('Português')),
+                PopupMenuItem(value: 'Inglês', child: Text('Inglês')),
+                PopupMenuItem(value: 'Espanhol', child: Text('Espanhol')),
+              ],
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [Text(_idiomaAtual), Icon(Icons.arrow_drop_down)],
+              ),
+            ),
+          ),
+
+          ListTile(
+            onTap: () {},
+            leading: Icon(Icons.people),
+            title: Text(
+              'Clientes',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+
+          Spacer(),
+
+          DefaultTextStyle(
+            style: TextStyle(fontSize: 12, color: Colors.white54),
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Text('Terms of Service | Privacy Policy'),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _endDrawer() {
+    return ListTileTheme(
+      textColor: Colors.white,
+      iconColor: Colors.white,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 128.0,
+            height: 128.0,
+            margin: const EdgeInsets.only(top: 24.0, bottom: 64.0),
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              shape: BoxShape.circle,
+            ),
+            child: Icon(Icons.person),
+          ),
+          Text(
+            'Felipe Hoffmeister', // Nome do usuário
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(height: 4),
+          Text(
+            'ADIMINISTRADOR - APPIX', // Cargo
+            style: TextStyle(fontSize: 14, color: Colors.white70),
+          ),
+          SizedBox(height: 4),
+          Text(
+            'felipe@email.com', // Email
+            style: TextStyle(fontSize: 14, color: Colors.white70),
+          ),
+          SizedBox(height: 4),
+          Text(
+            'Usuário desde: Jan 1, 2016', // Data
+            style: TextStyle(fontSize: 14, color: Colors.white70),
+          ),
+          SizedBox(height: 4),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: ListTile(
+                onTap: () {},
+                leading: Icon(Icons.logout, color: Colors.white),
+                title: Text(
+                  'Sair',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          Spacer(),
+          DefaultTextStyle(
+            style: TextStyle(fontSize: 12, color: Colors.white54),
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Text('Terms of Service | Privacy Policy'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

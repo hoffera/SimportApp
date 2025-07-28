@@ -25,9 +25,11 @@ class IconWidget extends StatelessWidget {
     return Box(
       style: Style(
         $box.color.white(),
-        $box.borderRadius.all(20),
         $box.padding.all(10),
         $box.height(60),
+        $box.shape.circle(
+          side: BorderSide(color: Colors.grey[200]!, width: 0.5),
+        ),
         $box.width(60),
         $box.elevation(2),
       ),

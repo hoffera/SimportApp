@@ -1,4 +1,3 @@
-import 'package:json_app/components/icon/icon_widget.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 import 'package:mix/mix.dart';
 
@@ -34,25 +33,13 @@ class CommomCard extends StatelessWidget {
   }
 
   Widget body() {
-    return SizedBox(
-      height: 80,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            IconWidget(urlIcon: iconURL),
-            SizedBox(width: 10),
-            _texts(),
-          ],
-        ),
-      ),
-    );
+    return SizedBox(child: _texts());
   }
 
   Widget _texts() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         StyledText(
           title,
@@ -63,6 +50,7 @@ class CommomCard extends StatelessWidget {
             $text.strutStyle.fontFamily('Comfortaa'),
           ),
         ),
+
         StyledText(
           subtitle,
           style: Style(
