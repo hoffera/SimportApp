@@ -48,7 +48,7 @@ class _ChartWidgetState extends State<ChartWidget> {
       style: Style(
         $box.elevation(2),
         $box.borderRadius(20),
-        $box.color.white(),
+        $box.color(Theme.of(context).colorScheme.onPrimary),
         $box.padding.all(20),
         $box.alignment.center(),
       ),
@@ -114,12 +114,10 @@ class _ChartWidgetState extends State<ChartWidget> {
     return Box(
       style: Style(
         $box.elevation(2),
-        $box.shape.circle(
-          side: BorderSide(color: Colors.grey[200]!, width: 0.5),
-        ),
+        $box.shape.circle(side: BorderSide(width: 0.5)),
         $box.height(40),
         $box.width(40),
-        $box.color.white(),
+        $box.color(Theme.of(context).colorScheme.onPrimary),
         $box.alignment.center(),
       ),
       child: IconButton(

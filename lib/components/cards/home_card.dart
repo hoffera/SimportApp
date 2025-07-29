@@ -4,8 +4,16 @@ import 'package:mix/mix.dart';
 class HomeCard extends StatefulWidget {
   final String? logo;
   final VoidCallback? onTap;
+  final String title;
+  final String subtitle;
 
-  const HomeCard({super.key, this.logo, this.onTap});
+  const HomeCard({
+    super.key,
+    this.logo,
+    this.onTap,
+    required this.title,
+    required this.subtitle,
+  });
 
   @override
   State<HomeCard> createState() => _HomeCardState();
@@ -41,10 +49,10 @@ class _HomeCardState extends State<HomeCard> {
       onTapCancel: _handleTapCancel,
       child: AnimatedContainer(
         duration: const Duration(microseconds: 1),
-        height: 120,
+        height: 80,
         width: 120,
         decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(12),
 
           boxShadow: isPressed
@@ -66,9 +74,43 @@ class _HomeCardState extends State<HomeCard> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: StyledImage(
-            image: NetworkImage(widget.logo ?? ''),
-            style: Style($image.fit.contain(), $image.alignment.center()),
+          child: Row(
+            children: [
+              StyledImage(
+                image: NetworkImage(widget.logo ?? ''),
+                style: Style($image.fit.contain(), $image.width(150)),
+              ),
+
+              SizedBox(
+                width: 180,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Box(
+                      style: Style(
+                        $text.style.color.black(),
+                        $text.style.fontSize(14),
+                        $text.style.fontWeight(FontWeight.w600),
+
+                        $text.overflow.clip(),
+                      ),
+                      child: StyledText(widget.title),
+                    ),
+                    Box(
+                      style: Style(
+                        $text.style.color.grey(),
+                        $text.style.fontSize(12),
+                        $text.style.fontWeight(FontWeight.normal),
+
+                        $text.overflow.clip(),
+                      ),
+                      child: StyledText(widget.subtitle),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),

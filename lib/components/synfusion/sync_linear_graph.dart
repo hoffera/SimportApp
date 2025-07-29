@@ -80,12 +80,12 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
             xValueMapper: xValueMapper,
             yValueMapper: yValueMapper,
             name: itemMap['name'] ?? '',
-            pointColorMapper: pointColor != null
-                ? (data, _) => pointColor
-                : null,
-            color: itemMap.containsKey('color') && itemMap['color'] is String
-                ? _parseHexColor(itemMap['color'])
-                : null,
+            // pointColorMapper: pointColor != null
+            //     ? (data, _) => pointColor
+            //     : null,
+            // color: itemMap.containsKey('color') && itemMap['color'] is String
+            //     ? _parseHexColor(itemMap['color'])
+            //     : null,
             yAxisName: itemMap['yAxisName'],
             xAxisName: itemMap['xAxisName'],
             animationDuration: 0,
@@ -187,7 +187,7 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
       isVisible: map['isVisible'] ?? true,
       start: (map['start'] as num).toDouble(),
       end: (map['end'] as num).toDouble(),
-      color: _parseHexColor(map['color']) ?? Colors.red,
+      // color: _parseHexColor(map['color']) ?? Colors.red,
       text: map['text'] ?? '',
     );
   }
@@ -281,7 +281,7 @@ class _SyncLinearGraphState extends State<SyncLinearGraph> {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       enableAxisAnimation: false,
       zoomPanBehavior: _zoomPanBehavior,
       legend: Legend(isVisible: true),

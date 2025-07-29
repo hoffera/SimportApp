@@ -3,11 +3,14 @@ import 'dart:convert';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:json_app/app/pages/home_json_screen_page/views/full_widget_page.dart';
 import 'package:json_app/app/pages/home_page/home_page.dart';
 import 'package:json_app/app/pages/nav_page/bindings/nav_page_binding.dart';
 import 'package:json_app/app/routes/app_pages.dart';
+import 'package:json_app/app/theme/app_theme.dart';
+import 'package:json_app/app/theme/theme_controller.dart';
 import 'package:json_app/components/custom_widget_registrar.dart';
 import 'package:json_app/config/api_constants.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
@@ -16,11 +19,6 @@ final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final themeStr = await rootBundle.loadString(
-    'assets/theme/appainter_theme (1).json',
-  );
-  final themeJson = jsonDecode(themeStr);
-  final theme = ThemeDecoder.decodeThemeData(themeJson)!;
 
   registry.navigatorKey = GlobalKey<NavigatorState>();
 
@@ -121,33 +119,35 @@ void main() async {
     }
   });
 
-  runApp(MyApp(theme: theme));
+  final appTheme = AppTheme();
+  await appTheme.loadThemes();
+  await GetStorage.init();
+  Get.put(ThemeController());
+
+  runApp(MyApp(theme: appTheme.light, darkTheme: appTheme.dark));
 }
 
 class MyApp extends StatelessWidget {
   final ThemeData theme;
-  const MyApp({super.key, required this.theme});
+  final ThemeData darkTheme;
 
+  const MyApp({super.key, required this.theme, required this.darkTheme});
   @override
   Widget build(BuildContext context) {
-    final darkTheme = theme.copyWith(brightness: Brightness.dark);
-
     return GetMaterialApp(
-      theme: darkTheme,
-      localizationsDelegates: [
+      theme: theme,
+      darkTheme: darkTheme,
+      themeMode: Get.find<ThemeController>().isDarkMode.value
+          ? ThemeMode.dark
+          : ThemeMode.light,
+      localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: [const Locale('pt', 'BR')],
+      // supportedLocales: const [Locale('pt', 'BR')],
       navigatorKey: registry.navigatorKey,
       debugShowCheckedModeBanner: false,
-
-      // home: JsonPage(),
-      // home: IntroductionPage(),
       home: HomePage(),
-      // home: MarePageView(),
-      // home: NavPageView(),
-      // home: ExportJsonPage(),
       initialBinding: NavPageBinding(),
       getPages: AppPages.routes,
     );

@@ -14,6 +14,7 @@ abstract class Routes {
   static const HOME_JSON = _Paths.HOME_JSON;
   static const HOME_JSON_SCREEN_PAGE = _Paths.HOME_JSON_SCREEN_PAGE;
   static const LOGOUT_PAGE = _Paths.LOGOUT_PAGE;
+  static const DYNAMIC_JSON_PAGE = _Paths.DYNAMIC_JSON_PAGE;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const HOME_JSON = '/home-json';
   static const HOME_JSON_SCREEN_PAGE = '/home-json-screen-page';
   static const LOGOUT_PAGE = '/logout-page';
+  static const DYNAMIC_JSON_PAGE = '/dynamic-json-page';
 }

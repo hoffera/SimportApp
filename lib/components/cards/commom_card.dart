@@ -44,7 +44,6 @@ class CommomCard extends StatelessWidget {
         StyledText(
           title,
           style: Style(
-            $text.style.color.black(),
             $text.style.fontSize(20),
             $text.style.fontWeight(FontWeight.bold),
             $text.strutStyle.fontFamily('Comfortaa'),
@@ -54,7 +53,6 @@ class CommomCard extends StatelessWidget {
         StyledText(
           subtitle,
           style: Style(
-            $text.style.color.black(),
             $text.style.fontSize(14),
             $text.style.fontWeight(FontWeight.normal),
             $text.strutStyle.fontFamily('Comfortaa'),

@@ -7,7 +7,7 @@ class VerticalWidget extends StatefulWidget {
   static void show(BuildContext context, {required Widget child}) {
     showDialog(
       context: context,
-      barrierColor: Colors.black54,
+
       builder: (BuildContext context) => FullScreenVerticalDialog(child: child),
     );
   }
@@ -31,7 +31,7 @@ class _VerticalWidgetState extends State<VerticalWidget>
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: IconButton(
-            icon: Icon(Icons.close, color: Colors.black87, size: 24),
+            icon: Icon(Icons.close, size: 24),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -48,7 +48,7 @@ class FullScreenVerticalDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).colorScheme.onPrimary,
       elevation: 0,
       insetPadding: EdgeInsets.zero,
       child: SizedBox(

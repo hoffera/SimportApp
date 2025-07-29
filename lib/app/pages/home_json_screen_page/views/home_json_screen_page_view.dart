@@ -28,8 +28,9 @@ class _JsonScreenPageState extends State<JsonScreenPage> {
   final _advancedDrawerController = AdvancedDrawerController();
   final ValueNotifier<bool> _drawerNotifier = ValueNotifier(false);
   bool drawer = false;
-  bool _lights = false;
+
   String _idiomaAtual = 'Português';
+  bool _lights = false;
 
   @override
   void initState() {
@@ -103,15 +104,7 @@ class _JsonScreenPageState extends State<JsonScreenPage> {
             appBar: AppBar(
               centerTitle: true,
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              title: Text(
-                'TCP',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                  letterSpacing: 0.53,
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-              ),
+
               leading: Builder(
                 builder: (context) {
                   return IconButton(
@@ -206,10 +199,6 @@ class _JsonScreenPageState extends State<JsonScreenPage> {
     );
   }
 
-  void _handleMenuButtonPressed() {
-    _advancedDrawerController.showDrawer();
-  }
-
   Widget _startDrawer() {
     return ListTileTheme(
       textColor: Colors.white,
@@ -223,19 +212,29 @@ class _JsonScreenPageState extends State<JsonScreenPage> {
             child: Image.asset('assets/images/icon_logo.png'),
           ),
 
-          SwitchListTile(
-            activeColor: Colors.green,
-            title: Text(
-              'Tema escuro',
-              style: TextStyle(fontWeight: FontWeight.bold),
+          Theme(
+            data: ThemeData.light(), // ou ThemeData.fallback()
+            child: SwitchListTile(
+              title: const Text(
+                'Tema escuro',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              secondary: const Icon(Icons.brightness_6),
+              value: _lights,
+              onChanged: (bool value) {
+                setState(() {
+                  _lights = value;
+                });
+
+                // Future.delayed(const Duration(milliseconds: 1000), () {
+                //   final newTheme = _lights ? 'dark' : 'light';
+                //   Provider.of<ThemeController>(
+                //     context,
+                //     listen: false,
+                //   ).changeTheme(newTheme);
+                // });
+              },
             ),
-            secondary: Icon(Icons.brightness_6),
-            value: _lights,
-            onChanged: (bool value) {
-              setState(() {
-                _lights = value;
-              });
-            },
           ),
           ListTile(
             leading: Icon(Icons.language),

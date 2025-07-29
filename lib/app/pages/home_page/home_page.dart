@@ -1,7 +1,9 @@
+import 'package:get/get.dart';
 import 'package:json_app/app/client/client_model.dart';
 import 'package:json_app/app/client/client_service.dart';
 import 'package:json_app/app/enum/enum.dart';
-import 'package:json_app/app/pages/home_json_screen_page/views/home_json_screen_page_view.dart';
+import 'package:json_app/app/pages/dynamic_json_page/controllers/dynamic_json_page_controller.dart';
+import 'package:json_app/app/pages/dynamic_json_page/views/dynamic_json_page_view.dart';
 import 'package:json_app/components/cards/home_card.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 import 'package:transformable_list_view/transformable_list_view.dart';
@@ -52,20 +54,27 @@ class _HomePageState extends State<HomePage> {
     }
 
     final placeholder = JsonWidgetData.fromDynamic(data, registry: registry);
+    Get.put(DynamicJsonPageController(pageID));
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            JsonScreenPage(pageID: pageID, placeholder: placeholder),
-      ),
-    );
+    Get.to(DynamicJsonPageView(pageID: pageID, placeholder: placeholder));
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) =>
+    //         JsonScreenPage(pageID: pageID, placeholder: placeholder),
+    //   ),
+    // );
   }
 
   Widget _homeCard(Client client) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: HomeCard(logo: client.logo, onTap: () => _abrirCliente(client)),
+      padding: const EdgeInsets.all(10.0),
+      child: HomeCard(
+        title: client.nome!,
+        subtitle: client.identificacao!,
+        logo: client.logo,
+        onTap: () => _abrirCliente(client),
+      ),
     );
   }
 
@@ -89,9 +98,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Colors.transparent,
 
         title: Text(
           'Clientes disponíveis',
