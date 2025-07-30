@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
@@ -10,19 +11,39 @@ import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 class DynamicJsonPageController extends GetxController {
   DynamicJsonPageController(this.pageID);
 
+  final appBarData = Rxn<JsonWidgetData>();
+  final bodyData = Rxn<JsonWidgetData>();
+  final bottomNavData = Rxn<JsonWidgetData>();
   final drawerController = AdvancedDrawerController();
   final int pageID;
   final registry = JsonWidgetRegistry.instance;
-  final widgetData = Rxn<JsonWidgetData>();
+  final rtl = false.obs;
   late final ThemeController themeController = Get.find();
+
   final _idiomaAtual = 'Português'.obs;
   final _lights = false.obs;
+  Timer? _retryTimer;
+
+  @override
+  void onClose() {
+    _retryTimer?.cancel();
+    super.onClose();
+  }
 
   @override
   void onInit() {
     super.onInit();
     Get.put(ThemeController());
     loadJson(pageID);
+    _reload();
+  }
+
+  void toggleRtl() {
+    rtl.value = !rtl.value;
+  }
+
+  void setRtl(bool value) {
+    rtl.value = value;
   }
 
   String get idiomaAtual => _idiomaAtual.value;
@@ -39,12 +60,31 @@ class DynamicJsonPageController extends GetxController {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      widgetData.value = JsonWidgetData.fromDynamic(
-        data['json'],
+
+      appBarData.value = data['appBar'] != null
+          ? JsonWidgetData.fromDynamic(data['appBar'], registry: registry)
+          : null;
+
+      bodyData.value = data['body'] != null
+          ? JsonWidgetData.fromDynamic(data['body'], registry: registry)
+          : null;
+
+      bottomNavData.value = JsonWidgetData.fromDynamic(
+        data['bottomNavigationBar'],
         registry: registry,
       );
     } else {
       throw Exception('Erro ao carregar: \${response.statusCode}');
     }
+  }
+
+  void _reload() {
+    _retryTimer = Timer.periodic(const Duration(seconds: 5), (_) async {
+      if (bodyData.value == null) {
+        await loadJson(pageID);
+      } else {
+        _retryTimer?.cancel();
+      }
+    });
   }
 }

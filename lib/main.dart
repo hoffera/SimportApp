@@ -5,9 +5,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:json_app/app/pages/dynamic_json_page/controllers/dynamic_json_page_controller.dart';
 import 'package:json_app/app/pages/home_json_screen_page/views/full_widget_page.dart';
-import 'package:json_app/app/pages/home_page/home_page.dart';
-import 'package:json_app/app/pages/nav_page/bindings/nav_page_binding.dart';
+import 'package:json_app/app/pages/home_page/bindings/home_page_binding.dart';
+import 'package:json_app/app/pages/home_page/views/home_page_view.dart';
 import 'package:json_app/app/routes/app_pages.dart';
 import 'package:json_app/app/theme/app_theme.dart';
 import 'package:json_app/app/theme/theme_controller.dart';
@@ -19,6 +20,7 @@ final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   registry.navigatorKey = GlobalKey<NavigatorState>();
 
@@ -105,6 +107,17 @@ void main() async {
       }
     },
   );
+
+  registry.registerFunction(
+    'showDrawer',
+    ({args, required registry}) => () {
+      final controller = Get.find<DynamicJsonPageController>();
+
+      final bool id = args![0];
+      controller.setRtl(id);
+      controller.drawerController.showDrawer();
+    },
+  );
   registry.setValue('currentPageIndex', 0);
   registry.registerFunction('navBarIndex', ({args, required registry}) {
     if (args == null || args.length < 2) return;
@@ -144,11 +157,10 @@ class MyApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      // supportedLocales: const [Locale('pt', 'BR')],
       navigatorKey: registry.navigatorKey,
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
-      initialBinding: NavPageBinding(),
+      home: HomePageView(),
+      initialBinding: HomePageBinding(),
       getPages: AppPages.routes,
     );
   }

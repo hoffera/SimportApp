@@ -6,7 +6,6 @@ class AppTheme {
   late ThemeData light;
   late ThemeData dark;
 
-  // Função para carregar temas async
   Future<void> loadThemes() async {
     final lightStr = await rootBundle.loadString('assets/theme/light.json');
     final darkStr = await rootBundle.loadString('assets/theme/dark.json');

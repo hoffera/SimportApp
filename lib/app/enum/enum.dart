@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -11,6 +9,7 @@ class AppColors {
 
   /// Fundo roxo escuro
   static const background = Color(0xFF001b48);
+  static const backgroundDark = Color(0xFF212121);
 
   static const backgroundCard = Color(0xFFf0faff);
   static const borderCard = Color(0xFFdbeafe);

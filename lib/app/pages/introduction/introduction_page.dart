@@ -1,6 +1,6 @@
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:json_app/app/enum/enum.dart';
-import 'package:json_app/app/pages/home_page/home_page.dart';
+import 'package:json_app/app/pages/home_page/views/home_page_view.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 
 class IntroductionPage extends StatefulWidget {
@@ -16,7 +16,7 @@ class _IntroductionPageState extends State<IntroductionPage> {
   void _onIntroEnd(context) {
     Navigator.of(
       context,
-    ).pushReplacement(MaterialPageRoute(builder: (_) => const HomePage()));
+    ).pushReplacement(MaterialPageRoute(builder: (_) => const HomePageView()));
   }
 
   Widget _buildImage(String assetName, [double width = 350]) {
