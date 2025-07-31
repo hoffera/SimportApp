@@ -7,13 +7,14 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:json_app/app/pages/dynamic_json_page/controllers/dynamic_json_page_controller.dart';
 import 'package:json_app/app/pages/home_json_screen_page/views/full_widget_page.dart';
-import 'package:json_app/app/pages/home_page/bindings/home_page_binding.dart';
-import 'package:json_app/app/pages/home_page/views/home_page_view.dart';
+import 'package:json_app/app/pages/login_page/bindings/login_page_binding.dart';
+import 'package:json_app/app/pages/login_page/views/login_page_view.dart';
 import 'package:json_app/app/routes/app_pages.dart';
 import 'package:json_app/app/theme/app_theme.dart';
 import 'package:json_app/app/theme/theme_controller.dart';
 import 'package:json_app/components/custom_widget_registrar.dart';
 import 'package:json_app/config/api_constants.dart';
+import 'package:json_app/l10n/app_localizations.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 
 final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
@@ -135,16 +136,31 @@ void main() async {
   final appTheme = AppTheme();
   await appTheme.loadThemes();
   await GetStorage.init();
-  Get.put(ThemeController());
+  final controller = Get.put(ThemeController());
 
-  runApp(MyApp(theme: appTheme.light, darkTheme: appTheme.dark));
+  runApp(
+    Obx(
+      () => MyApp(
+        theme: appTheme.light,
+        darkTheme: appTheme.dark,
+        themeMode: controller.isDarkMode.value
+            ? ThemeMode.dark
+            : ThemeMode.light,
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   final ThemeData theme;
   final ThemeData darkTheme;
-
-  const MyApp({super.key, required this.theme, required this.darkTheme});
+  final ThemeMode themeMode;
+  const MyApp({
+    super.key,
+    required this.theme,
+    required this.darkTheme,
+    required this.themeMode,
+  });
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -154,13 +170,18 @@ class MyApp extends StatelessWidget {
           ? ThemeMode.dark
           : ThemeMode.light,
       localizationsDelegates: const [
+        AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
       ],
+      supportedLocales: const [Locale("en"), Locale("pt", "BR"), Locale("es")],
       navigatorKey: registry.navigatorKey,
       debugShowCheckedModeBanner: false,
-      home: HomePageView(),
-      initialBinding: HomePageBinding(),
+      home: LoginPageView(),
+      initialBinding: LoginPageBinding(),
+      // home: HomePageView(),
+      // initialBinding: HomePageBinding(),
       getPages: AppPages.routes,
     );
   }

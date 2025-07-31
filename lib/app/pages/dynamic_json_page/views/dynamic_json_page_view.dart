@@ -3,10 +3,9 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:get/get.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:json_app/app/enum/enum.dart';
-import 'package:json_app/app/pages/home_page/views/home_page_view.dart';
-import 'package:json_app/app/pages/introduction/introduction_page.dart';
 import 'package:json_app/app/pages/notifications_page/controllers/notifications_page_controller.dart';
 import 'package:json_app/app/pages/notifications_page/views/notifications_page_view.dart';
+import 'package:json_app/l10n/app_localizations.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 import 'package:mix/mix.dart';
 
@@ -22,7 +21,14 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
   final int pageID;
   final JsonWidgetData placeholder;
 
-  Widget _drawer() {
+  Widget _drawer(BuildContext context) {
+    final termsStyle = Style(
+      $text.style.color(AppColors.primary),
+      $text.style.fontSize(8),
+      $text.style.decorationColor(AppColors.primary),
+      $text.style.fontFamily("Comfortaa"),
+      $text.overflow.ellipsis(),
+    );
     final textStyle = Style(
       controller.themeController.isDarkMode.value
           ? $text.color.white()
@@ -152,7 +158,7 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
 
                     leading: HeroIcon(HeroIcons.paintBrush, size: 24),
                     title: Text(
-                      'Tema escuro',
+                      AppLocalizations.of(context)!.darkTheme,
                       style: TextStyle(fontWeight: FontWeight.w400),
                     ),
                     trailing: Obx(
@@ -176,7 +182,7 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                       contentPadding: EdgeInsets.all(0),
                       leading: HeroIcon(HeroIcons.language, size: 24),
                       title: Text(
-                        'Idioma',
+                        AppLocalizations.of(context)!.language,
                         style: TextStyle(fontWeight: FontWeight.w400),
                       ),
                       trailing: PopupMenuButton<String>(
@@ -184,13 +190,18 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                         onSelected: (val) => controller.idiomaAtual = val,
                         itemBuilder: (_) => [
                           PopupMenuItem(
-                            value: 'Português',
-                            child: Text('Português'),
+                            value: AppLocalizations.of(context)!.portuguese,
+                            child: Text(
+                              AppLocalizations.of(context)!.portuguese,
+                            ),
                           ),
-                          PopupMenuItem(value: 'Inglês', child: Text('Inglês')),
                           PopupMenuItem(
-                            value: 'Espanhol',
-                            child: Text('Espanhol'),
+                            value: AppLocalizations.of(context)!.english,
+                            child: Text(AppLocalizations.of(context)!.english),
+                          ),
+                          PopupMenuItem(
+                            value: AppLocalizations.of(context)!.spanish,
+                            child: Text(AppLocalizations.of(context)!.spanish),
                           ),
                         ],
                         child: Row(
@@ -214,11 +225,11 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                     contentPadding: EdgeInsets.all(0),
                     leading: HeroIcon(HeroIcons.users, size: 24),
                     title: Text(
-                      'Clientes',
+                      AppLocalizations.of(context)!.clients,
                       style: TextStyle(fontWeight: FontWeight.w400),
                     ),
                     onTap: () {
-                      Get.to(HomePageView());
+                      Get.toNamed('/home-page');
                     },
                   ),
                   Padding(
@@ -228,24 +239,51 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                   ListTile(
                     contentPadding: EdgeInsets.all(0),
                     onTap: () {
-                      Get.to(IntroductionPage());
+                      Get.toNamed('/login-page');
                     },
                     leading: HeroIcon(
                       HeroIcons.arrowRightStartOnRectangle,
                       size: 24,
                     ),
                     title: Text(
-                      'Sair',
+                      AppLocalizations.of(context)!.logout,
                       style: TextStyle(fontWeight: FontWeight.w400),
                     ),
                   ),
                   Spacer(),
-                  DefaultTextStyle(
-                    style: TextStyle(fontSize: 12, color: AppColors.primary),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Text('Terms of Service | Privacy Policy'),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      PressableBox(
+                        onPress: () => controller.launchInBrowser(
+                          Uri(
+                            scheme: 'https',
+                            host: 'simport.com.br',
+                            path: 'termos-de-uso/',
+                          ),
+                        ),
+                        child: StyledText(
+                          AppLocalizations.of(context)!.termsOfService,
+                          style: termsStyle,
+                        ),
+                      ),
+
+                      StyledText(' | ', style: termsStyle),
+                      PressableBox(
+                        onPress: () => controller.launchInBrowser(
+                          Uri(
+                            scheme: 'https',
+                            host: 'simport.com.br',
+                            path: 'politica-de-privacidade/',
+                          ),
+                        ),
+                        child: StyledText(
+                          AppLocalizations.of(context)!.privacyPolicy,
+                          style: termsStyle,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -362,7 +400,7 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
 
       return AdvancedDrawer(
         controller: controller.drawerController,
-        drawer: _drawer(),
+        drawer: _drawer(context),
         backdrop: Container(
           width: double.infinity,
           height: double.infinity,

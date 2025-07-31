@@ -1,0 +1,22 @@
+{
+    "@@locale": "en",
+    "loginEnterButton": "Sign in",
+    "loginPasswordButton": "Forgot my password",
+    "loginUser": "Username",
+    "loginPassword": "Password",
+    "darkTheme": "Dark theme",
+    "language": "Language",
+    "clients": "Clients",
+    "logout": "Logout",
+    "portuguese": "Portuguese",
+    "english": "English",
+    "spanish": "Spanish",
+    "termsOfService": "Terms of Service",
+    "@termsOfService": {
+        "description": "Label for the Terms of Service agreement"
+    },
+    "privacyPolicy": "Privacy Policy",
+    "@privacyPolicy": {
+        "description": "Label for the Privacy Policy agreement"
+    }
+}

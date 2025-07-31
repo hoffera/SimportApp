@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:json_app/app/client/client_model.dart';
 import 'package:json_app/app/enum/enum.dart';
 import 'package:json_app/components/cards/home_card.dart';
 import 'package:transformable_list_view/transformable_list_view.dart';
+import 'package:wave/config.dart';
+import 'package:wave/wave.dart';
 
 import '../controllers/home_page_controller.dart';
 
@@ -15,8 +18,7 @@ class HomePageView extends GetView<HomePageController> {
     final animationProgress = item.visibleExtent / item.size.height;
     final paintTransform = Matrix4.identity();
 
-    if (item.position != TransformableListItemPosition.middle &&
-        item.position != TransformableListItemPosition.topEdge) {
+    if (item.position != TransformableListItemPosition.middle) {
       final scale = endScaleBound + ((1 - endScaleBound) * animationProgress);
       paintTransform
         ..translate(item.size.width / 2)
@@ -39,26 +41,62 @@ class HomePageView extends GetView<HomePageController> {
     );
   }
 
+  Color lighten(Color color, double amount) {
+    final hsl = HSLColor.fromColor(color);
+    final lightened = hsl.withLightness(
+      (hsl.lightness + amount).clamp(0.0, 1.0),
+    );
+    return lightened.toColor();
+  }
+
+  PreferredSize _appBar() {
+    double height = 200.0;
+    return PreferredSize(
+      preferredSize: Size.fromHeight(height),
+      child: Stack(
+        children: [
+          WaveWidget(
+            config: CustomConfig(
+              colors: [
+                lighten(AppColors.primary, 0.1),
+                lighten(AppColors.primary, 0.2),
+
+                Colors.white,
+              ],
+              durations: [18000, 8000, 12000],
+              heightPercentages: [0.75, 0.76, 0.80],
+            ),
+            backgroundColor: AppColors.primary,
+            size: Size(double.infinity, height),
+            waveAmplitude: 10,
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50.0),
+              child: SvgPicture.asset(
+                "assets/images/simport_logo.svg",
+                width: 100,
+                height: 100,
+                colorFilter: const ColorFilter.mode(
+                  Colors.white,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        title: Text(
-          'Clientes disponíveis',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-            color: AppColors.primary,
-            letterSpacing: 0.53,
-          ),
-        ),
-      ),
+      appBar: _appBar(),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: SizedBox());
         }
 
         if (controller.clients.isEmpty) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:json_app/app/enum/enum.dart';
 import 'package:mix/mix.dart';
 
 class HomeCard extends StatefulWidget {
@@ -54,23 +55,7 @@ class _HomeCardState extends State<HomeCard> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-
-          boxShadow: isPressed
-              ? []
-              : [
-                  BoxShadow(
-                    color: Colors.grey.shade500,
-                    blurRadius: 15,
-                    spreadRadius: 1,
-                    offset: const Offset(6, 6),
-                  ),
-                  const BoxShadow(
-                    color: Colors.white70,
-                    blurRadius: 15,
-                    spreadRadius: 1,
-                    offset: Offset(-6, -6),
-                  ),
-                ],
+          border: Border.all(color: AppColors.primary),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -80,32 +65,32 @@ class _HomeCardState extends State<HomeCard> {
                 image: NetworkImage(widget.logo ?? ''),
                 style: Style($image.fit.contain(), $image.width(150)),
               ),
-
+              SizedBox(width: 5),
               SizedBox(
                 width: 180,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Box(
                       style: Style(
                         $text.style.color.black(),
                         $text.style.fontSize(14),
-                        $text.style.fontWeight(FontWeight.w600),
-
+                        $text.style.fontWeight(FontWeight.w900),
+                        $text.style.fontFamily('Comfortaa'),
                         $text.overflow.clip(),
                       ),
-                      child: StyledText(widget.title),
+                      child: StyledText(widget.subtitle.toUpperCase()),
                     ),
                     Box(
                       style: Style(
                         $text.style.color.grey(),
                         $text.style.fontSize(12),
                         $text.style.fontWeight(FontWeight.normal),
-
-                        $text.overflow.clip(),
+                        $text.style.fontFamily('Comfortaa'),
+                        $text.overflow.ellipsis(),
                       ),
-                      child: StyledText(widget.subtitle),
+                      child: StyledText(widget.title),
                     ),
                   ],
                 ),

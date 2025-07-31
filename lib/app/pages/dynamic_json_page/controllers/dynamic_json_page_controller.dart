@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:json_app/app/theme/theme_controller.dart';
 import 'package:json_app/config/api_constants.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DynamicJsonPageController extends GetxController {
   DynamicJsonPageController(this.pageID);
@@ -20,7 +21,7 @@ class DynamicJsonPageController extends GetxController {
   final rtl = false.obs;
   late final ThemeController themeController = Get.find();
 
-  final _idiomaAtual = 'Português'.obs;
+  final _idiomaAtual = ''.obs;
   final _lights = false.obs;
   Timer? _retryTimer;
 
@@ -75,6 +76,12 @@ class DynamicJsonPageController extends GetxController {
       );
     } else {
       throw Exception('Erro ao carregar: \${response.statusCode}');
+    }
+  }
+
+  Future<void> launchInBrowser(Uri url) async {
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $url');
     }
   }
 

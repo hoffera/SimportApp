@@ -29,7 +29,7 @@ class InfoCard extends StatelessWidget {
             $text.style.color.black(),
             $text.style.fontSize(30),
             $text.style.fontWeight(FontWeight.bold),
-            $text.strutStyle.fontFamily('Comfortaa'),
+            $text.style.fontFamily('Comfortaa'),
           ),
         ),
         unit != null
@@ -39,7 +39,7 @@ class InfoCard extends StatelessWidget {
                   $text.style.color.black(),
                   $text.style.fontSize(14),
                   $text.style.fontWeight(FontWeight.normal),
-                  $text.strutStyle.fontFamily('Comfortaa'),
+                  $text.style.fontFamily('Comfortaa'),
                 ),
               )
             : SizedBox(),
@@ -59,7 +59,7 @@ class InfoCard extends StatelessWidget {
                   $text.style.color.black(),
                   $text.style.fontSize(12),
                   $text.style.fontWeight(FontWeight.bold),
-                  $text.strutStyle.fontFamily('Comfortaa'),
+                  $text.style.fontFamily('Comfortaa'),
                 ),
               )
             : SizedBox(),
