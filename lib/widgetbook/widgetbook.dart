@@ -28,7 +28,6 @@ class WidgetBookApp extends StatelessWidget {
             WidgetbookTheme(name: "Dark", data: ThemeData.dark()),
           ],
         ),
-
         ViewportAddon([IosViewports.iPhone13, IosViewports.iPhone12]),
         InspectorAddon(),
         GridAddon(100),
