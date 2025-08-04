@@ -3,10 +3,6 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  flutter_localization
-  gtk
-  high_chart
-  rive_common
   url_launcher_linux
 )
 

@@ -3,7 +3,7 @@ part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
-  static const LOGIN = _Paths.LOGIN;
+
   static const HOME_PAGE = _Paths.HOME_PAGE;
   static const NAV_PAGE = _Paths.NAV_PAGE;
   static const LOGIN_PAGE = _Paths.LOGIN_PAGE;
@@ -14,11 +14,13 @@ abstract class Routes {
   static const HOME_JSON = _Paths.HOME_JSON;
   static const HOME_JSON_SCREEN_PAGE = _Paths.HOME_JSON_SCREEN_PAGE;
   static const LOGOUT_PAGE = _Paths.LOGOUT_PAGE;
+  static const DYNAMIC_JSON_PAGE = _Paths.DYNAMIC_JSON_PAGE;
+  static const NOTIFICATIONS_PAGE = _Paths.NOTIFICATIONS_PAGE;
 }
 
 abstract class _Paths {
   _Paths._();
-  static const LOGIN = '/login';
+
   static const HOME_PAGE = '/home-page';
   static const NAV_PAGE = '/nav-page';
   static const LOGIN_PAGE = '/login-page';
@@ -29,4 +31,6 @@ abstract class _Paths {
   static const HOME_JSON = '/home-json';
   static const HOME_JSON_SCREEN_PAGE = '/home-json-screen-page';
   static const LOGOUT_PAGE = '/logout-page';
+  static const DYNAMIC_JSON_PAGE = '/dynamic-json-page';
+  static const NOTIFICATIONS_PAGE = '/notifications-page';
 }

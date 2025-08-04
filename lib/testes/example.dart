@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
-import 'package:lucide_icons/lucide_icons.dart' show LucideIcons;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -183,21 +182,21 @@ class _ExportExamplePageState extends State<ExportExamplePage> {
           "3.0 nós",
           "SSW",
           const Color(0xFFecfeff),
-          LucideIcons.wind,
+          Icons.import_contacts,
           const Color(0xFF22bfd9),
         ),
         card(
           "79%",
           "Umidade",
           const Color(0xFFeff6ff),
-          LucideIcons.droplets,
+          Icons.import_contacts,
           const Color(0xFF4387f6),
         ),
         card(
           "1018",
           "Pressão",
           const Color(0xFFfffbeb),
-          LucideIcons.thermometer,
+          Icons.import_contacts,
           const Color(0xFFf6ab2b),
         ),
       ],

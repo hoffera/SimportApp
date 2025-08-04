@@ -1,11 +1,6 @@
-import 'package:json_dynamic_widget/builders.dart';
-import 'package:json_dynamic_widget/json_dynamic_widget.dart';
-
 import 'dart:io';
 
-import 'package:json_dynamic_widget/builders.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
-import 'package:lucide_icons/lucide_icons.dart' show LucideIcons;
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
