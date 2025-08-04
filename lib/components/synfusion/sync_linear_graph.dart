@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:intl/intl.dart';
-import 'package:json_dynamic_widget/json_dynamic_widget.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import "package:intl/intl.dart";
+import "package:json_dynamic_widget/json_dynamic_widget.dart";
+import "package:syncfusion_flutter_charts/charts.dart";
+import "package:widgetbook/widgetbook.dart";
+import "package:widgetbook_annotation/widgetbook_annotation.dart";
 
-part 'sync_linear_graph.g.dart';
+part "sync_linear_graph.g.dart";
 
 @jsonWidget
 abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
@@ -21,10 +23,10 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
     if (input is Map<dynamic, dynamic>) {
       return input.map((key, value) => MapEntry(key.toString(), value));
     }
-    throw Exception('Esperado um Map para conversão');
+    throw Exception("Esperado um Map para conversão");
   }
 
-  @JsonArgDecoder('cartesianSeries')
+  @JsonArgDecoder("cartesianSeries")
   List<CartesianSeries<dynamic, dynamic>> _decodeCartesianSeries({
     required dynamic value,
     required JsonWidgetRegistry registry,
@@ -36,26 +38,26 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
 
       if (item is! Map) {
         throw Exception(
-          'Item da cartesianSeries deve ser Map<String, dynamic> ou CartesianSeries',
+          "Item da cartesianSeries deve ser Map<String, dynamic> ou CartesianSeries",
         );
       }
 
       final Map<String, dynamic> itemMap = mapDynamicToMapStringDynamic(item);
 
-      final type = itemMap['type'] ?? 'line';
+      final type = itemMap["type"] ?? "line";
 
-      final rawData = itemMap['dataSource'] as List? ?? [];
+      final rawData = itemMap["dataSource"] as List? ?? [];
 
       final dataSource = rawData
           .map<Map<String, dynamic>>((e) => mapDynamicToMapStringDynamic(e))
           .toList();
 
-      final xField = itemMap['xField'] ?? 'x';
-      final yField = itemMap['yField'] ?? 'y';
+      final xField = itemMap["xField"] ?? "x";
+      final yField = itemMap["yField"] ?? "y";
 
       dynamic xValueMapper(dynamic data, _) {
         final raw = data[xField];
-        if (type == 'spline' && raw is String) {
+        if (type == "spline" && raw is String) {
           return DateTime.tryParse(raw);
         }
         return raw;
@@ -64,12 +66,12 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
       num yValueMapper(dynamic data, _) {
         final yValue = data[yField];
         if (yValue is num) return yValue;
-        throw Exception('yValue não é numérico: $yValue');
+        throw Exception("yValue não é numérico: $yValue");
       }
 
       switch (type) {
-        case 'spline':
-          final dynamic colorValue = itemMap['pointColorMapper'];
+        case "spline":
+          final dynamic colorValue = itemMap["pointColorMapper"];
           Color? pointColor;
 
           if (colorValue is String && colorValue.isNotEmpty) {
@@ -79,32 +81,32 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
             dataSource: dataSource,
             xValueMapper: xValueMapper,
             yValueMapper: yValueMapper,
-            name: itemMap['name'] ?? '',
+            name: itemMap["name"] ?? "",
             // pointColorMapper: pointColor != null
             //     ? (data, _) => pointColor
             //     : null,
             // color: itemMap.containsKey('color') && itemMap['color'] is String
             //     ? _parseHexColor(itemMap['color'])
             //     : null,
-            yAxisName: itemMap['yAxisName'],
-            xAxisName: itemMap['xAxisName'],
+            yAxisName: itemMap["yAxisName"],
+            xAxisName: itemMap["xAxisName"],
             animationDuration: 0,
             legendIconType: LegendIconType.diamond,
             markerSettings: const MarkerSettings(isVisible: false),
           );
         default:
-          throw Exception('Tipo de série não suportado: $type');
+          throw Exception("Tipo de série não suportado: $type");
       }
     }).toList();
   }
 
-  @JsonArgDecoder('chartAxis')
+  @JsonArgDecoder("chartAxis")
   List<ChartAxis> _decodeChartAxis({
     required dynamic value,
     required JsonWidgetRegistry registry,
   }) {
     if (value is! List) {
-      print('chartAxis não é lista: $value');
+      print("chartAxis não é lista: $value");
       return [];
     }
 
@@ -113,37 +115,37 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
 
       if (axis is! Map) {
         throw Exception(
-          'chartAxis deve ser uma lista de Map<String, dynamic> ou ChartAxis',
+          "chartAxis deve ser uma lista de Map<String, dynamic> ou ChartAxis",
         );
       }
 
       // Cast seguro para Map<String, dynamic>
       final Map<String, dynamic> axisMap = mapDynamicToMapStringDynamic(axis);
 
-      final String type = axisMap['type'] ?? 'numeric';
+      final String type = axisMap["type"] ?? "numeric";
 
       switch (type) {
-        case 'numeric':
+        case "numeric":
           return NumericAxis(
-            minimum: (axisMap['minimum'] as num?)?.toDouble(),
-            maximum: (axisMap['maximum'] as num?)?.toDouble(),
-            title: AxisTitle(text: axisMap['title'] ?? ''),
+            minimum: (axisMap["minimum"] as num?)?.toDouble(),
+            maximum: (axisMap["maximum"] as num?)?.toDouble(),
+            title: AxisTitle(text: axisMap["title"] ?? ""),
 
             plotBands:
-                (axisMap['plotBands'] as List?)
+                (axisMap["plotBands"] as List?)
                     ?.map((e) => _parsePlotBand(Map<String, dynamic>.from(e)))
                     .toList() ??
                 [],
           );
-        case 'category':
-          return CategoryAxis(title: AxisTitle(text: axisMap['title'] ?? ''));
+        case "category":
+          return CategoryAxis(title: AxisTitle(text: axisMap["title"] ?? ""));
         default:
-          throw Exception('Tipo de eixo não suportado: $type');
+          throw Exception("Tipo de eixo não suportado: $type");
       }
     }).toList();
   }
 
-  @JsonArgDecoder('chartAxisX')
+  @JsonArgDecoder("chartAxisX")
   ChartAxis _decodeChartAxisX({
     required dynamic value,
     required JsonWidgetRegistry registry,
@@ -152,51 +154,51 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
 
     if (value is! Map) {
       throw Exception(
-        'chartAxisX deve ser um Map<String, dynamic> ou ChartAxis',
+        "chartAxisX deve ser um Map<String, dynamic> ou ChartAxis",
       );
     }
 
     final Map<String, dynamic> axisMap = mapDynamicToMapStringDynamic(value);
 
-    final String type = axisMap['type'] ?? 'category';
+    final String type = axisMap["type"] ?? "category";
 
     switch (type) {
-      case 'numeric':
+      case "numeric":
         return NumericAxis(
-          title: AxisTitle(text: axisMap['title'] ?? ''),
-          minimum: (axisMap['minimum'] as num?)?.toDouble(),
-          maximum: (axisMap['maximum'] as num?)?.toDouble(),
+          title: AxisTitle(text: axisMap["title"] ?? ""),
+          minimum: (axisMap["minimum"] as num?)?.toDouble(),
+          maximum: (axisMap["maximum"] as num?)?.toDouble(),
         );
-      case 'datetime':
+      case "datetime":
         return DateTimeAxis(
-          isVisible: axisMap['isVisible'] ?? true,
-          interval: axisMap['interval'],
-          intervalType: _parseIntervalType(axisMap['intervalType']),
-          title: AxisTitle(text: axisMap['title'] ?? ''),
-          dateFormat: _parseDateFormat(value['dateFormat']),
+          isVisible: axisMap["isVisible"] ?? true,
+          interval: axisMap["interval"],
+          intervalType: _parseIntervalType(axisMap["intervalType"]),
+          title: AxisTitle(text: axisMap["title"] ?? ""),
+          dateFormat: _parseDateFormat(value["dateFormat"]),
         );
-      case 'category':
+      case "category":
       default:
-        return CategoryAxis(title: AxisTitle(text: axisMap['title'] ?? ''));
+        return CategoryAxis(title: AxisTitle(text: axisMap["title"] ?? ""));
     }
   }
 
   PlotBand _parsePlotBand(Map<String, dynamic> map) {
     return PlotBand(
       shouldRenderAboveSeries: false,
-      isVisible: map['isVisible'] ?? true,
-      start: (map['start'] as num).toDouble(),
-      end: (map['end'] as num).toDouble(),
+      isVisible: map["isVisible"] ?? true,
+      start: (map["start"] as num).toDouble(),
+      end: (map["end"] as num).toDouble(),
       // color: _parseHexColor(map['color']) ?? Colors.red,
-      text: map['text'] ?? '',
+      text: map["text"] ?? "",
     );
   }
 
   Color? _parseHexColor(dynamic hex) {
     if (hex == null || hex is! String) return null;
 
-    hex = hex.replaceAll('#', '');
-    if (hex.length == 6) hex = 'FF$hex';
+    hex = hex.replaceAll("#", "");
+    if (hex.length == 6) hex = "FF$hex";
     if (hex.length != 8) return null;
 
     try {
@@ -210,16 +212,16 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
     if (value is! String) return null;
 
     switch (value.toLowerCase()) {
-      case 'hm':
+      case "hm":
         return DateFormat.Hm();
-      case 'hms':
+      case "hms":
         return DateFormat.Hms();
-      case 'yMd':
+      case "yMd":
         return DateFormat.yMd();
-      case 'yMMMd':
+      case "yMMMd":
         return DateFormat.yMMMd();
-      case 'custom':
-        return DateFormat('dd/MM/yyyy HH:mm');
+      case "custom":
+        return DateFormat("dd/MM/yyyy HH:mm");
       default:
         return null;
     }
@@ -227,18 +229,133 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
 
   DateTimeIntervalType _parseIntervalType(String? type) {
     switch (type?.toLowerCase()) {
-      case 'hours':
+      case "hours":
         return DateTimeIntervalType.hours;
-      case 'days':
+      case "days":
         return DateTimeIntervalType.days;
-      case 'minutes':
+      case "minutes":
         return DateTimeIntervalType.minutes;
-      case 'months':
+      case "months":
         return DateTimeIntervalType.months;
       default:
         return DateTimeIntervalType.auto;
     }
   }
+}
+
+@UseCase(name: "SyncLinearGraph Default", type: SyncLinearGraph)
+SyncLinearGraph defaultSyncLinearGraph(BuildContext context) {
+  return SyncLinearGraph(
+    cartesianSeries: [
+      SplineSeries<ChartData, DateTime>(
+        enableTrackball: true,
+        name: "Velocidade Média",
+        dataSource: [
+          ChartData(
+            y: 10,
+            xDate: DateTime(2025, 12, 1),
+            color: Colors.green,
+            label: "kn",
+          ),
+          ChartData(
+            y: 5,
+            xDate: DateTime(2025, 12, 2),
+            color: Colors.green,
+            label: "kn",
+          ),
+          ChartData(
+            y: 20,
+            xDate: DateTime(2025, 12, 3),
+            color: Colors.green,
+            label: "kn",
+          ),
+        ],
+        xValueMapper: (ChartData data, _) => data.xDate,
+        yValueMapper: (ChartData data, _) => data.y,
+        pointColorMapper: (ChartData data, _) => Colors.black,
+        color: Colors.black,
+        splineType: context.knobs.list(
+          label: "splineType",
+          options: [
+            SplineType.cardinal,
+            SplineType.clamped,
+            SplineType.monotonic,
+            SplineType.natural,
+          ],
+          labelBuilder: (value) => value.name,
+        ),
+        cardinalSplineTension: 0,
+        legendIconType: LegendIconType.diamond,
+        markerSettings: const MarkerSettings(isVisible: false),
+        animationDuration: 3000,
+        yAxisName: "vento",
+        xAxisName: "xAxis",
+      ),
+    ],
+    chartAxis: [
+      NumericAxis(
+        name: "vento",
+        interval: 10,
+        maximum: 100,
+        minimum: 0,
+        title: AxisTitle(
+          text: "Vento (Km/h)",
+          textStyle: TextStyle(color: Colors.black),
+        ),
+        plotBands: <PlotBand>[
+          PlotBand(
+            isVisible: true,
+            start: 0,
+            end: 40,
+            color: Color(0xFFa0f3d5),
+            text: "Nível 0",
+            textAngle: 270,
+            horizontalTextAlignment: TextAnchor.start,
+          ),
+          PlotBand(
+            isVisible: true,
+            start: 40,
+            end: 60,
+            color: Color(0xFFeffaa8),
+            text: "Nível 1",
+            textAngle: 270,
+            horizontalTextAlignment: TextAnchor.start,
+          ),
+          PlotBand(
+            isVisible: true,
+            start: 60,
+            end: 70,
+            color: Color(0xFFf5e131),
+            text: "Nível 2",
+            textAngle: 270,
+            horizontalTextAlignment: TextAnchor.start,
+          ),
+          PlotBand(
+            isVisible: true,
+            start: 70,
+            end: 80,
+            color: Color(0xfff5af58),
+            text: "Nível 3",
+            textAngle: 270,
+            horizontalTextAlignment: TextAnchor.start,
+          ),
+          PlotBand(
+            isVisible: true,
+            start: 80,
+            end: 100,
+            color: Color(0xFFff4c1f),
+            text: "Nível 4",
+            textAngle: 270,
+            horizontalTextAlignment: TextAnchor.start,
+          ),
+        ],
+
+        majorGridLines: const MajorGridLines(color: Colors.grey, width: 1),
+      ),
+    ],
+
+    chartAxisX: DateTimeAxis(name: "xAxis", isVisible: true, interval: 1),
+  );
 }
 
 class SyncLinearGraph extends StatefulWidget {
