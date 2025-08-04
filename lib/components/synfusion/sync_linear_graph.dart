@@ -398,10 +398,9 @@ class _SyncLinearGraphState extends State<SyncLinearGraph> {
   @override
   Widget build(BuildContext context) {
     return SfCartesianChart(
-      // backgroundColor: Colors.white,
       enableAxisAnimation: false,
       zoomPanBehavior: _zoomPanBehavior,
-      legend: Legend(isVisible: true),
+      legend: Legend(isVisible: true, position: LegendPosition.top),
       plotAreaBorderWidth: 0,
       primaryXAxis: widget.chartAxisX,
       primaryYAxis: NumericAxis(isVisible: false),

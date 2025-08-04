@@ -1,7 +1,7 @@
-import 'package:json_dynamic_widget/json_dynamic_widget.dart';
-import 'package:mix/mix.dart';
+import "package:json_dynamic_widget/json_dynamic_widget.dart";
+import "package:mix/mix.dart";
 
-part 'commom_card.g.dart';
+part "commom_card.g.dart";
 
 @jsonWidget
 abstract class _CommomCardBuilder extends JsonWidgetBuilder {
@@ -33,7 +33,7 @@ class CommomCard extends StatelessWidget {
   }
 
   Widget body() {
-    return SizedBox(child: _texts());
+    return SizedBox(width: 180, child: _texts());
   }
 
   Widget _texts() {
@@ -44,9 +44,10 @@ class CommomCard extends StatelessWidget {
         StyledText(
           title,
           style: Style(
-            $text.style.fontSize(20),
+            $text.style.fontSize(15),
             $text.style.fontWeight(FontWeight.bold),
-            $text.style.fontFamily('Comfortaa'),
+            $text.style.fontFamily("Comfortaa"),
+            $text.overflow.ellipsis(),
           ),
         ),
 
@@ -55,7 +56,8 @@ class CommomCard extends StatelessWidget {
           style: Style(
             $text.style.fontSize(14),
             $text.style.fontWeight(FontWeight.normal),
-            $text.style.fontFamily('Comfortaa'),
+            $text.style.fontFamily("Comfortaa"),
+            $text.overflow.clip(),
           ),
         ),
       ],
