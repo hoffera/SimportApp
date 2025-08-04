@@ -20,6 +20,7 @@ class WidgetBookApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Widgetbook.material(
       directories: directories,
+
       addons: [
         MaterialThemeAddon(
           themes: [
@@ -29,10 +30,9 @@ class WidgetBookApp extends StatelessWidget {
         ),
 
         ViewportAddon([IosViewports.iPhone13, IosViewports.iPhone12]),
-
         InspectorAddon(),
         GridAddon(100),
-        AlignmentAddon(),
+
         ZoomAddon(),
       ],
     );
