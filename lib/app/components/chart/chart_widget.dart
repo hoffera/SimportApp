@@ -2,8 +2,8 @@
 import "dart:io";
 import "dart:ui" as ui;
 
-import "package:json_app/components/cards/commom_card.dart";
-import "package:json_app/components/synfusion/vertical_widget.dart";
+import "package:json_app/app/components/cards/commom_card.dart";
+import "package:json_app/app/components/sync/vertical%20widget/vertical_widget.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
 import "package:mix/mix.dart";
 import "package:path_provider/path_provider.dart";

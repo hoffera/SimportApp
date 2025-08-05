@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:json_app/app/models/chart_1919_model.dart';
-import 'package:json_app/components/synfusion/sync_linear_graph.dart';
-import 'package:json_app/services/chart_1919_service.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import "package:flutter/material.dart";
+import "package:intl/intl.dart";
+import "package:json_app/app/components/sync/linear_chart/sync_linear_graph.dart";
+import "package:json_app/app/models/chart_1919_model.dart";
+import "package:json_app/services/chart_1919_service.dart";
+import "package:syncfusion_flutter_charts/charts.dart";
 
 class PageGraphPlots extends StatefulWidget {
   const PageGraphPlots({super.key});
@@ -30,9 +30,9 @@ class _PageGraphPlotsState extends State<PageGraphPlots> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Center(child: Text('Erro: ${snapshot.error}'));
+                    return Center(child: Text("Erro: ${snapshot.error}"));
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('Nenhum dado encontrado.'));
+                    return const Center(child: Text("Nenhum dado encontrado."));
                   }
                   final data = snapshot.data!;
                   final List<ChartData> chartData = data
@@ -98,7 +98,7 @@ class _PageGraphPlotsState extends State<PageGraphPlots> {
                     maximum: 100,
                     minimum: 0,
                     title: AxisTitle(
-                      text: 'Vento (Km/h)',
+                      text: "Vento (Km/h)",
                       textStyle: TextStyle(color: Colors.black),
                     ),
                     plotBands: <PlotBand>[
@@ -172,7 +172,7 @@ class _PageGraphPlotsState extends State<PageGraphPlots> {
                           chartAxis: [numericAxis2],
 
                           chartAxisX: DateTimeAxis(
-                            name: 'xAxis',
+                            name: "xAxis",
                             isVisible: true,
                             interval: 1,
                             intervalType: DateTimeIntervalType.hours,

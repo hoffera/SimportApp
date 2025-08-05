@@ -1,10 +1,10 @@
-import 'dart:math';
+import "dart:math";
 
-import 'package:json_app/components/simport/circular_graph/compass_pointer.dart';
-import 'package:json_dynamic_widget/json_dynamic_widget.dart';
-import 'package:mix/mix.dart';
+import "package:json_app/app/components/simport/circular_graph/compass_pointer.dart";
+import "package:json_dynamic_widget/json_dynamic_widget.dart";
+import "package:mix/mix.dart";
 
-part 'circular_graph.g.dart';
+part "circular_graph.g.dart";
 
 @jsonWidget
 abstract class _CircularGraphBuilder extends JsonWidgetBuilder {
@@ -93,7 +93,7 @@ class _CircularGraphState extends State<CircularGraph> {
             alignment: Alignment.center,
             children: [
               _center(),
-              _textCircle([' E', 'SE', 'S', 'SW', ' W', 'NW', 'N', 'NE']),
+              _textCircle([" E", "SE", "S", "SW", " W", "NW", "N", "NE"]),
               _tickInterno(40, 0, false),
               _ticksCircle(8, 10, true),
             ],
@@ -322,7 +322,7 @@ class _CircularGraphState extends State<CircularGraph> {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: 'Direção média: ',
+                          text: "Direção média: ",
                           style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.normal,
@@ -330,7 +330,7 @@ class _CircularGraphState extends State<CircularGraph> {
                           ),
                         ),
                         TextSpan(
-                          text: '${widget.angleDegrees.toStringAsFixed(1)}°',
+                          text: "${widget.angleDegrees.toStringAsFixed(1)}°",
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,

@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:json_app/app/models/chart_1919_model.dart';
-import 'package:json_app/components/cards/commom_card.dart';
-import 'package:json_app/components/synfusion/sync_linear_graph.dart';
-import 'package:json_app/components/text/title_widget.dart';
-import 'package:json_app/services/chart_1919_service.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import "package:flutter/material.dart";
+import "package:intl/intl.dart";
+import "package:json_app/app/components/cards/commom_card.dart";
+import "package:json_app/app/components/sync/linear_chart/sync_linear_graph.dart";
+import "package:json_app/app/components/text/title_widget.dart";
+import "package:json_app/app/models/chart_1919_model.dart";
+import "package:json_app/services/chart_1919_service.dart";
+import "package:syncfusion_flutter_charts/charts.dart";
 
 class AntoninaPage extends StatefulWidget {
   const AntoninaPage({super.key});
@@ -33,7 +33,7 @@ class _AntoninaPageState extends State<AntoninaPage> {
                 title: "Mare",
                 subtitle: "ha 10 minutos",
                 iconURL:
-                    'https://appa.cs.simport.com.br/gallery/33/image-download',
+                    "https://appa.cs.simport.com.br/gallery/33/image-download",
               ),
               SizedBox(height: 50),
 
@@ -43,9 +43,9 @@ class _AntoninaPageState extends State<AntoninaPage> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
-                    return Center(child: Text('Erro: ${snapshot.error}'));
+                    return Center(child: Text("Erro: ${snapshot.error}"));
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    return const Center(child: Text('Nenhum dado encontrado.'));
+                    return const Center(child: Text("Nenhum dado encontrado."));
                   }
                   final data = snapshot.data!;
                   final List<ChartData> chartData = data
@@ -111,13 +111,13 @@ class _AntoninaPageState extends State<AntoninaPage> {
                     // interval: 1,
                     // maximum: 90,
                     title: AxisTitle(
-                      text: 'Vento (kn)',
+                      text: "Vento (kn)",
                       textStyle: TextStyle(color: Colors.black),
                     ),
                     axisLabelFormatter: (AxisLabelRenderDetails details) {
                       final intValue = double.parse(details.text).round();
                       return ChartAxisLabel(
-                        '$intValue ${chartData.first.label}',
+                        "$intValue ${chartData.first.label}",
                         null,
                       );
                     },
@@ -144,7 +144,7 @@ class _AntoninaPageState extends State<AntoninaPage> {
                           chartAxis: [numericAxis2],
 
                           chartAxisX: DateTimeAxis(
-                            name: 'xAxis',
+                            name: "xAxis",
                             isVisible: true,
                             interval: 1,
                             intervalType: DateTimeIntervalType.hours,

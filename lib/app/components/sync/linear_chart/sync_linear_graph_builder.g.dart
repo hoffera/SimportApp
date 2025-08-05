@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sync_linear_graph.dart';
+part of 'sync_linear_graph_builder.dart';
 
 // **************************************************************************
 // Generator: JsonWidgetLibraryBuilder
@@ -66,11 +66,16 @@ class SyncLinearGraphBuilder extends _SyncLinearGraphBuilder {
       value: model.chartAxisX,
       registry: data.jsonWidgetRegistry,
     );
+    final heightDecoded = _height(
+      value: model.height,
+      registry: data.jsonWidgetRegistry,
+    );
 
     return SyncLinearGraph(
       cartesianSeries: cartesianSeriesDecoded,
       chartAxis: chartAxisDecoded,
       chartAxisX: chartAxisXDecoded,
+      height: heightDecoded,
       key: key,
     );
   }
@@ -83,12 +88,14 @@ class JsonSyncLinearGraph extends JsonWidgetData {
     required this.cartesianSeries,
     required this.chartAxis,
     required this.chartAxisX,
+    required this.height,
   }) : super(
          jsonWidgetArgs: SyncLinearGraphBuilderModel.fromDynamic(
            {
              'cartesianSeries': cartesianSeries,
              'chartAxis': chartAxis,
              'chartAxisX': chartAxisX,
+             'height': height,
 
              ...args,
            },
@@ -101,6 +108,7 @@ class JsonSyncLinearGraph extends JsonWidgetData {
                'cartesianSeries': cartesianSeries,
                'chartAxis': chartAxis,
                'chartAxisX': chartAxisX,
+               'height': height,
 
                ...args,
              },
@@ -116,6 +124,8 @@ class JsonSyncLinearGraph extends JsonWidgetData {
   final dynamic chartAxis;
 
   final dynamic chartAxisX;
+
+  final dynamic height;
 }
 
 class SyncLinearGraphBuilderModel extends JsonWidgetBuilderModel {
@@ -124,6 +134,7 @@ class SyncLinearGraphBuilderModel extends JsonWidgetBuilderModel {
     required this.cartesianSeries,
     required this.chartAxis,
     required this.chartAxisX,
+    required this.height,
   });
 
   final dynamic cartesianSeries;
@@ -131,6 +142,8 @@ class SyncLinearGraphBuilderModel extends JsonWidgetBuilderModel {
   final dynamic chartAxis;
 
   final dynamic chartAxisX;
+
+  final dynamic height;
 
   static SyncLinearGraphBuilderModel fromDynamic(
     dynamic map, {
@@ -170,6 +183,7 @@ class SyncLinearGraphBuilderModel extends JsonWidgetBuilderModel {
           cartesianSeries: map['cartesianSeries'],
           chartAxis: map['chartAxis'],
           chartAxisX: map['chartAxisX'],
+          height: map['height'],
         );
       }
     }
@@ -183,6 +197,7 @@ class SyncLinearGraphBuilderModel extends JsonWidgetBuilderModel {
       'cartesianSeries': cartesianSeries,
       'chartAxis': chartAxis,
       'chartAxisX': chartAxisX,
+      'height': height,
 
       ...args,
     });
@@ -203,6 +218,7 @@ class SyncLinearGraphSchema {
       'cartesianSeries': SchemaHelper.anySchema,
       'chartAxis': SchemaHelper.anySchema,
       'chartAxisX': SchemaHelper.anySchema,
+      'height': SchemaHelper.numberSchema,
     },
     'required': ['cartesianSeries', 'chartAxis', 'chartAxisX'],
   };

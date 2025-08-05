@@ -257,6 +257,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.11"
+  device_frame:
+    dependency: "direct main"
+    description:
+      name: device_frame
+      sha256: "7b2ebb2a09d6cc0f086b51bd1412d7be83e0170056a7290349169be41164c86a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   device_frame_plus:
     dependency: transitive
     description:
@@ -439,7 +447,7 @@ packages:
     source: hosted
     version: "2.5.0"
   flutter_highlight:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_highlight
       sha256: "7b96333867aa07e122e245c033b8ad622e4e3a42a1a2372cbb098a2541d8782c"
@@ -541,6 +549,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.0"
+  freezed_annotation:
+    dependency: transitive
+    description:
+      name: freezed_annotation
+      sha256: "7294967ff0a6d98638e7acb774aac3af2550777accd8149c90af5b014e6d44d8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -718,7 +734,7 @@ packages:
     source: hosted
     version: "0.3.4"
   highlight:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: highlight
       sha256: "5353a83ffe3e3eca7df0abfb72dcf3fa66cc56b953728e7113ad4ad88497cf21"
@@ -845,6 +861,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.0.1"
+  json_dynamic_widget_codegen:
+    dependency: "direct main"
+    description:
+      name: json_dynamic_widget_codegen
+      sha256: "793ffc0810321dc276e774097957a143a074ba50b52149271dd61a53a6ad62ff"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   json_path:
     dependency: transitive
     description:
@@ -1173,6 +1197,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
+  recase:
+    dependency: transitive
+    description:
+      name: recase
+      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.1.0"
   resizable_widget:
     dependency: transitive
     description:

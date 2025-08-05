@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:json_app/app/client/client_model.dart';
-import 'package:json_app/app/enum/enum.dart';
-import 'package:json_app/components/cards/home_card.dart';
-import 'package:transformable_list_view/transformable_list_view.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
+import "package:flutter/material.dart";
+import "package:flutter_svg/svg.dart";
+import "package:get/get.dart";
+import "package:json_app/app/client/client_model.dart";
+import "package:json_app/app/components/cards/home_card.dart";
+import "package:json_app/app/enum/enum.dart";
+import "package:transformable_list_view/transformable_list_view.dart";
+import "package:wave/config.dart";
+import "package:wave/wave.dart";
 
-import '../controllers/home_page_controller.dart';
+import "../controllers/home_page_controller.dart";
 
 class HomePageView extends GetView<HomePageController> {
   const HomePageView({super.key});
@@ -33,8 +33,8 @@ class HomePageView extends GetView<HomePageController> {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: HomeCard(
-        title: client.nome ?? '',
-        subtitle: client.identificacao ?? '',
+        title: client.nome ?? "",
+        subtitle: client.identificacao ?? "",
         logo: client.logo,
         onTap: () => controller.abrirCliente(client),
       ),
@@ -100,7 +100,7 @@ class HomePageView extends GetView<HomePageController> {
         }
 
         if (controller.clients.isEmpty) {
-          return const Center(child: Text('Nenhum cliente disponível'));
+          return const Center(child: Text("Nenhum cliente disponível"));
         }
 
         return TransformableListView.builder(

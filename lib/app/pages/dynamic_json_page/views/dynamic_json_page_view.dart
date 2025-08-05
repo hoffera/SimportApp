@@ -1,15 +1,15 @@
-import 'package:flutter/cupertino.dart' show CupertinoSwitch;
-import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
-import 'package:get/get.dart';
-import 'package:heroicons/heroicons.dart';
-import 'package:json_app/app/enum/enum.dart';
-import 'package:json_app/app/pages/notifications_page/controllers/notifications_page_controller.dart';
-import 'package:json_app/app/pages/notifications_page/views/notifications_page_view.dart';
-import 'package:json_app/l10n/app_localizations.dart';
-import 'package:json_dynamic_widget/json_dynamic_widget.dart';
-import 'package:mix/mix.dart';
+import "package:flutter/cupertino.dart" show CupertinoSwitch;
+import "package:flutter_advanced_drawer/flutter_advanced_drawer.dart";
+import "package:get/get.dart";
+import "package:heroicons/heroicons.dart";
+import "package:json_app/app/enum/enum.dart";
+import "package:json_app/app/pages/notifications_page/controllers/notifications_page_controller.dart";
+import "package:json_app/app/pages/notifications_page/views/notifications_page_view.dart";
+import "package:json_app/l10n/app_localizations.dart";
+import "package:json_dynamic_widget/json_dynamic_widget.dart";
+import "package:mix/mix.dart";
 
-import '../controllers/dynamic_json_page_controller.dart';
+import "../controllers/dynamic_json_page_controller.dart";
 
 class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
   const DynamicJsonPageView({
@@ -71,7 +71,7 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                     decoration: BoxDecoration(shape: BoxShape.circle),
                     child: CircleAvatar(
                       backgroundImage: NetworkImage(
-                        'https://avatars.githubusercontent.com/u/81923101?v=4',
+                        "https://avatars.githubusercontent.com/u/81923101?v=4",
                       ),
                     ),
                   ),
@@ -89,24 +89,24 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                           $text.style.fontWeight(FontWeight.bold),
                           $text.overflow.ellipsis(),
                         ),
-                        child: StyledText('Felipe Hoffmeister'),
+                        child: StyledText("Felipe Hoffmeister"),
                       ),
 
                       SizedBox(height: 10),
                       Box(
                         style: textStyle,
-                        child: StyledText('ADMINISTRADOR - APPIX'),
+                        child: StyledText("ADMINISTRADOR - APPIX"),
                       ),
 
                       SizedBox(height: 6),
                       Box(
                         style: textStyle,
-                        child: StyledText('felipe@email.com'),
+                        child: StyledText("felipe@email.com"),
                       ),
                       SizedBox(height: 6),
                       Box(
                         style: textStyle,
-                        child: StyledText('Usuário desde: Jan 1, 2016'),
+                        child: StyledText("Usuário desde: Jan 1, 2016"),
                       ),
                       SizedBox(height: 8),
                     ],
@@ -123,7 +123,7 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                       ),
                       child: StyledImage(
                         image: NetworkImage(
-                          'https://appix.cs.simport.com.br/gallery/86/image-download',
+                          "https://appix.cs.simport.com.br/gallery/86/image-download",
                         ),
                         style: Style($image.fit.fitWidth()),
                       ),
@@ -229,7 +229,7 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                       style: TextStyle(fontWeight: FontWeight.w400),
                     ),
                     onTap: () {
-                      Get.toNamed('/home-page');
+                      Get.toNamed("/home-page");
                     },
                   ),
                   Padding(
@@ -239,7 +239,7 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                   ListTile(
                     contentPadding: EdgeInsets.all(0),
                     onTap: () {
-                      Get.toNamed('/login-page');
+                      Get.toNamed("/login-page");
                     },
                     leading: HeroIcon(
                       HeroIcons.arrowRightStartOnRectangle,
@@ -258,9 +258,9 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                       PressableBox(
                         onPress: () => controller.launchInBrowser(
                           Uri(
-                            scheme: 'https',
-                            host: 'simport.com.br',
-                            path: 'termos-de-uso/',
+                            scheme: "https",
+                            host: "simport.com.br",
+                            path: "termos-de-uso/",
                           ),
                         ),
                         child: StyledText(
@@ -269,13 +269,13 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                         ),
                       ),
 
-                      StyledText(' | ', style: termsStyle),
+                      StyledText(" | ", style: termsStyle),
                       PressableBox(
                         onPress: () => controller.launchInBrowser(
                           Uri(
-                            scheme: 'https',
-                            host: 'simport.com.br',
-                            path: 'politica-de-privacidade/',
+                            scheme: "https",
+                            host: "simport.com.br",
+                            path: "politica-de-privacidade/",
                           ),
                         ),
                         child: StyledText(
@@ -312,7 +312,7 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                     avatar: CircleAvatar(
                       radius: 30,
                       backgroundImage: NetworkImage(
-                        'https://avatars.githubusercontent.com/u/81923101?v=4',
+                        "https://avatars.githubusercontent.com/u/81923101?v=4",
                       ),
                     ),
                     label: Box(
@@ -322,7 +322,7 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                         $text.overflow.ellipsis(),
                         $text.color(Theme.of(context).colorScheme.primary),
                       ),
-                      child: StyledText('Felipe Hoffmeister'),
+                      child: StyledText("Felipe Hoffmeister"),
                     ),
                     side: BorderSide(
                       color: Theme.of(context).colorScheme.primary,
@@ -348,7 +348,7 @@ class DynamicJsonPageView extends GetView<DynamicJsonPageController> {
                     $text.overflow.clip(),
                     $text.color(Theme.of(context).colorScheme.primary),
                   ),
-                  child: StyledText('Overview'.toUpperCase()),
+                  child: StyledText("Overview".toUpperCase()),
                 ),
                 actions: <Widget>[
                   IconButton(
