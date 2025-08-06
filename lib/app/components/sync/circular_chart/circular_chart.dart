@@ -39,7 +39,7 @@ class _CircularChartState extends State<CircularChart> {
       child: LayoutBuilder(
         builder: (context, constraints) {
           final size = constraints.biggest.shortestSide;
-          final scale = size / 400.0;
+          final scale = size / 250.0;
 
           return Center(
             child: SizedBox(
@@ -97,8 +97,8 @@ class _CircularChartState extends State<CircularChart> {
                     minimum: 0,
                     maximum: 360,
                     radiusFactor: 1,
-                    labelOffset: -10 * scale,
-                    tickOffset: -15 * scale,
+
+                    tickOffset: -18 * scale,
                     showLabels: false,
                     majorTickStyle: MajorTickStyle(
                       length: 10 * scale,
@@ -123,8 +123,8 @@ class _CircularChartState extends State<CircularChart> {
                     minimum: 0,
                     maximum: 360,
                     radiusFactor: 1,
-                    labelOffset: -10 * scale,
-                    tickOffset: -10 * scale,
+
+                    showLabels: false,
                     axisLabelStyle: GaugeTextStyle(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w400,
@@ -148,11 +148,11 @@ class _CircularChartState extends State<CircularChart> {
                     endAngle: 270,
                     minimum: 0,
                     maximum: 360,
-                    radiusFactor: 0.9,
+                    radiusFactor: 0.85,
                     showLabels: false,
                     showTicks: true,
                     minorTicksPerInterval: 0,
-                    tickOffset: -10 * scale,
+                    tickOffset: -12 * scale,
                     majorTickStyle: MajorTickStyle(
                       length: 8 * scale,
                       thickness: 2 * scale,
@@ -171,7 +171,7 @@ class _CircularChartState extends State<CircularChart> {
                     endAngle: 270,
                     minimum: 0,
                     maximum: 360,
-                    radiusFactor: 0.9,
+                    radiusFactor: 0.85,
                     showLabels: false,
                     showTicks: false,
                     axisLineStyle: AxisLineStyle(
@@ -189,7 +189,7 @@ class _CircularChartState extends State<CircularChart> {
                     endAngle: 360,
                     minimum: 0,
                     maximum: 360,
-                    radiusFactor: 0.9,
+                    radiusFactor: 0.85,
                     showLabels: false,
                     showTicks: false,
                     axisLineStyle: AxisLineStyle(
@@ -237,16 +237,16 @@ class _CircularChartState extends State<CircularChart> {
         widget: Transform.rotate(
           angle: angleInRadians,
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 2 * scale),
+            padding: EdgeInsets.symmetric(horizontal: 5 * scale),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(6 * scale),
+              borderRadius: BorderRadius.circular(10 * scale),
             ),
             child: Text(
               entry.value,
               style: TextStyle(
                 color: AppColors.primary,
-                fontSize: 15 * scale,
+                fontSize: 14 * scale,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -285,8 +285,8 @@ class _CircularChartState extends State<CircularChart> {
               entry.value,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 15 * scale,
-                fontWeight: FontWeight.bold,
+                fontSize: 14 * scale,
+                fontWeight: FontWeight.normal,
               ),
             ),
           ),

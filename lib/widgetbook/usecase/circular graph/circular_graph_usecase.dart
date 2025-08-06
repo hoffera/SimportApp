@@ -27,6 +27,8 @@ Widget buildCircularChartUseCase(BuildContext context) {
   return Scaffold(
     backgroundColor: AppColors.primary,
     floatingActionButton: CopyCodeButton(code: ""),
-    body: Container(height: 300, color: Colors.red, child: CircularChart()),
+    body: Center(
+      child: Container(height: 250, color: Colors.red, child: CircularChart()),
+    ),
   );
 }
