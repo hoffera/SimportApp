@@ -123,25 +123,25 @@ Widget buildSyncLinearGraphUseCase(BuildContext context) {
 )
 Widget buildSyncLinearGraphMultiUseCase(BuildContext context) {
   final seriesName = context.knobs.string(
-    label: "Data Name",
+    label: "Data 1 Name",
     initialValue: "Velocidade Média",
   );
 
   final yAxisInterval = context.knobs.double.input(
-    label: "yAxisInterval",
+    label: "Data 1, intervalo eixo Y",
     initialValue: 10.0,
   );
   final yAxisMaximum = context.knobs.double.input(
-    label: "yAxisMaximum",
+    label: "Data 1, máximo Y",
     initialValue: 100.0,
   );
   final yAxisMinimum = context.knobs.double.input(
-    label: "yAxisMinimum",
+    label: "Data 1, minimo Y",
     initialValue: 0.0,
   );
   final yAxisTitle = AxisTitle(
     text: context.knobs.string(
-      label: "yAxisTitle",
+      label: "Data 1, titulo Y",
       initialValue: "Vento (Km/h)",
     ),
   );
@@ -152,31 +152,31 @@ Widget buildSyncLinearGraphMultiUseCase(BuildContext context) {
   );
 
   final yAxisInterval2 = context.knobs.double.input(
-    label: "yAxisInterval",
-    initialValue: 5.0,
+    label: "Data 2, intervalo eixo Y",
+    initialValue: 10.0,
   );
   final yAxisMaximum2 = context.knobs.double.input(
-    label: "yAxisMaximum",
+    label: "Data 2, máximo Y",
     initialValue: 50.0,
   );
   final yAxisMinimum2 = context.knobs.double.input(
-    label: "yAxisMinimum",
-    initialValue: 1.0,
+    label: "Data 2, minimo Y",
+    initialValue: 0.0,
   );
   final yAxisTitle2 = AxisTitle(
     text: context.knobs.string(
-      label: "yAxisTitle",
-      initialValue: "Vento (Km/h)",
+      label: "Data 2, titulo Y",
+      initialValue: "Temperatura (Celsius)",
     ),
   );
 
   final showXAxis = context.knobs.boolean(
-    label: "showXAxis",
+    label: "Mostrar eixo X",
     initialValue: true,
   );
 
   final xAxisInterval = context.knobs.double.input(
-    label: "xAxisInterval",
+    label: "Intervalo eixo X",
     initialValue: 10.0,
   );
   final height = context.knobs.double.input(
@@ -185,7 +185,7 @@ Widget buildSyncLinearGraphMultiUseCase(BuildContext context) {
   );
   return Scaffold(
     floatingActionButton: CopyCodeButton(
-      code: getDefaultGraphJson(
+      code: getMultipleGraphJson(
         seriesName,
         yAxisInterval.toString(),
         yAxisMaximum.toString(),
@@ -194,6 +194,12 @@ Widget buildSyncLinearGraphMultiUseCase(BuildContext context) {
         showXAxis.toString(),
         xAxisInterval.toString(),
         height.toString(),
+        seriesName2,
+
+        yAxisInterval2.toString(),
+        yAxisMaximum2.toString(),
+        yAxisMinimum2.toString(),
+        yAxisTitle2.text!,
       ),
     ),
     body: SyncLinearGraph(
@@ -227,7 +233,7 @@ Widget buildSyncLinearGraphMultiUseCase(BuildContext context) {
           legendIconType: LegendIconType.diamond,
           markerSettings: MarkerSettings(
             isVisible: context.knobs.boolean(
-              label: "showMarkers",
+              label: "Mostrar marcador",
               initialValue: false,
             ),
           ),

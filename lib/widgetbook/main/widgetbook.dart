@@ -170,7 +170,6 @@ class _WidgetBookAppState extends State<WidgetBookApp> {
 
   List<JsonWidgetData>? _parseWidgets(String text) {
     try {
-      // Envolvemos com colchetes se não for uma lista JSON válida
       final wrappedText = "[${text.trim()}]";
 
       final List<dynamic> jsonList = jsonDecode(wrappedText);
@@ -185,7 +184,6 @@ class _WidgetBookAppState extends State<WidgetBookApp> {
     }
   }
 
-  /// Quando o botão for pressionado, faz o parse e atualiza o estado
   void _onParsePressed() {
     final widgets = _parseWidgets(codeController.text);
     setState(() {

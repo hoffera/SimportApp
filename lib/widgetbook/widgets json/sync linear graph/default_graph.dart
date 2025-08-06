@@ -49,6 +49,83 @@ String getDefaultGraphJson(
   return const JsonEncoder.withIndent("  ").convert(data);
 }
 
+String getMultipleGraphJson(
+  String seriesName,
+  String yAxisInterval,
+  String yAxisMaximum,
+  String yAxisMinimum,
+  String yAxisTitle,
+  String showXAxis,
+  String xAxisInterval,
+  String height,
+
+  String seriesName2,
+  String yAxisInterval2,
+  String yAxisMaximum2,
+  String yAxisMinimum2,
+  String yAxisTitle2,
+) {
+  final data = {
+    "type": "sync_linear_graph",
+    "args": {
+      "height": height,
+      "cartesianSeries": [
+        {
+          "type": "spline",
+          "name": seriesName,
+          "xField": "x",
+          "yField": "y",
+          "dataSource": [
+            {"x": "2024-01-01", "y": 10},
+            {"x": "2024-01-02", "y": 5},
+            {"x": "2024-01-03", "y": 20},
+          ],
+        },
+
+        {
+          "type": "spline",
+          "name": seriesName2,
+          "xField": "x",
+          "yField": "y",
+          "dataSource": [
+            {"x": "2024-01-01", "y": 20},
+            {"x": "2024-01-02", "y": 10},
+            {"x": "2024-01-03", "y": 40},
+          ],
+        },
+      ],
+      "chartAxis": [
+        {
+          "type": "numeric",
+          "name": seriesName,
+          "title": yAxisTitle,
+          "minimum": yAxisMinimum,
+          "maximum": yAxisMaximum,
+          "interval": yAxisInterval,
+          "opposedPosition": "false",
+        },
+        {
+          "type": "numeric",
+          "name": seriesName2,
+          "title": yAxisTitle2,
+          "minimum": yAxisMinimum2,
+          "maximum": yAxisMaximum2,
+          "interval": yAxisInterval2,
+          "opposedPosition": "true",
+        },
+      ],
+      "chartAxisX": {
+        "type": "datetime",
+
+        "intervalType": "hours",
+        "dateFormat": "Hm",
+      },
+    },
+  };
+
+  return const JsonEncoder.withIndent("  ").convert(data);
+}
+
 String colorToHex(Color color) {
   return "#${color.toARGB32().toRadixString(16).padLeft(8, "0").toUpperCase()}";
 }

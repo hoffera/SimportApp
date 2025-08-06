@@ -143,10 +143,14 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
       switch (type) {
         case "numeric":
           return NumericAxis(
+            name: axisMap["name"].toString(),
             minimum: double.tryParse(axisMap["minimum"].toString()),
             maximum: double.tryParse(axisMap["maximum"].toString()),
             interval: double.tryParse(axisMap["interval"].toString()),
             title: AxisTitle(text: axisMap["title"] ?? ""),
+            opposedPosition:
+                axisMap["opposedPosition"] == true ||
+                axisMap["opposedPosition"]?.toString().toLowerCase() == "true",
 
             plotBands:
                 (axisMap["plotBands"] as List?)
