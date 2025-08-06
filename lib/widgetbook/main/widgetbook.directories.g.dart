@@ -51,7 +51,7 @@ final directories = <_widgetbook.WidgetbookNode>[
                   _widgetbook.WidgetbookLeafComponent(
                     name: 'CircularChart',
                     useCase: _widgetbook.WidgetbookUseCase(
-                      name: 'Gráfico default',
+                      name: 'Gráfico padrao',
                       builder:
                           _json_app_widgetbook_usecase_circular_20graph_circular_graph_usecase
                               .buildCircularChartUseCase,

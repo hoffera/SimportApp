@@ -6,6 +6,7 @@ import "package:json_app/app/components/chart/chart_widget.dart";
 import "package:json_app/app/components/icon/icon_widget.dart";
 import "package:json_app/app/components/simport/circular_graph/circular_graph.dart";
 import "package:json_app/app/components/simport/circular_graph/compass_pointer.dart";
+import "package:json_app/app/components/sync/circular_chart/circular_chart_builder.dart";
 import "package:json_app/app/components/sync/linear_chart/sync_linear_graph_builder.dart";
 import "package:json_app/app/components/text/title_widget.dart";
 import "package:json_app/app/json%20builders/curved_navigation_builder.dart";
