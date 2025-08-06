@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:json_app/components/text/title_widget.dart';
-import 'package:skeletonizer/skeletonizer.dart';
+import "package:flutter/material.dart";
+import "package:json_app/app/components/text/title_widget.dart";
+import "package:skeletonizer/skeletonizer.dart";
 
 class MarePageView extends StatefulWidget {
   const MarePageView({super.key});

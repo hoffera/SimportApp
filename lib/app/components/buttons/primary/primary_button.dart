@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:json_app/components/buttons/core/core_button.dart';
+import "package:flutter/material.dart";
+import "package:json_app/app/components/buttons/core/core_button.dart";
 
 class PrimaryButton extends StatefulWidget {
   final void Function() onPressed;

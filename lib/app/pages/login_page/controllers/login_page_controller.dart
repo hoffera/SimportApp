@@ -1,8 +1,8 @@
-import 'package:get/get.dart';
-import 'package:json_app/app/pages/dynamic_json_page/controllers/dynamic_json_page_controller.dart';
-import 'package:json_app/app/pages/dynamic_json_page/views/dynamic_json_page_view.dart';
-import 'package:json_app/components/snackbar/snackbar_widget.dart';
-import 'package:json_dynamic_widget/json_dynamic_widget.dart';
+import "package:get/get.dart";
+import "package:json_app/app/components/snackbar/snackbar_widget.dart";
+import "package:json_app/app/pages/dynamic_json_page/controllers/dynamic_json_page_controller.dart";
+import "package:json_app/app/pages/dynamic_json_page/views/dynamic_json_page_view.dart";
+import "package:json_dynamic_widget/json_dynamic_widget.dart";
 
 class LoginPageController extends GetxController {
   final userController = TextEditingController();
@@ -32,12 +32,12 @@ class LoginPageController extends GetxController {
     if (formKey.currentState!.validate()) {
       print(user);
       print(password);
-      showTopSnackBar(context, 'Logado com sucesso!', false);
-      userController.text != '' ? abrirCliente() : Get.toNamed('/home-page');
-      userController.text = '';
-      passwordController.text = '';
+      showTopSnackBar(context, "Logado com sucesso!", false);
+      userController.text != "" ? abrirCliente() : Get.toNamed("/home-page");
+      userController.text = "";
+      passwordController.text = "";
     } else {
-      showTopSnackBar(context, 'Erro ao entrar!', true);
+      showTopSnackBar(context, "Erro ao entrar!", true);
     }
   }
 

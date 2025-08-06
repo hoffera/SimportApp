@@ -1,15 +1,15 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:heroicons/heroicons.dart';
-import 'package:json_app/app/enum/enum.dart';
-import 'package:json_app/components/animated_svg/animated_svg_widget.dart';
-import 'package:json_app/components/commom_modal/common_modal.dart';
-import 'package:json_app/l10n/app_localizations.dart';
-import 'package:mix/mix.dart';
-import 'package:wave/config.dart';
-import 'package:wave/wave.dart';
+import "package:flutter/material.dart";
+import "package:get/get.dart";
+import "package:heroicons/heroicons.dart";
+import "package:json_app/app/components/animated_svg/animated_svg_widget.dart";
+import "package:json_app/app/components/commom_modal/common_modal.dart";
+import "package:json_app/app/enum/enum.dart";
+import "package:json_app/l10n/app_localizations.dart";
+import "package:mix/mix.dart";
+import "package:wave/config.dart";
+import "package:wave/wave.dart";
 
-import '../controllers/login_page_controller.dart';
+import "../controllers/login_page_controller.dart";
 
 class LoginPageView extends GetView<LoginPageController> {
   const LoginPageView({super.key});

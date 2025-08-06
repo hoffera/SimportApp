@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:json_app/components/cards/commom_card.dart';
-import 'package:json_app/components/text/title_widget.dart';
+import "package:flutter/material.dart";
+import "package:json_app/app/components/cards/commom_card.dart";
+import "package:json_app/app/components/text/title_widget.dart";
 
 class TempoPageView extends StatefulWidget {
   const TempoPageView({super.key});
@@ -31,14 +31,14 @@ class _TempoPageViewState extends State<TempoPageView> {
               title: "Mare",
               subtitle: "ha 10 minutos",
               iconURL:
-                  'https://appa.cs.simport.com.br/gallery/33/image-download',
+                  "https://appa.cs.simport.com.br/gallery/33/image-download",
             ),
 
             CommomCard(
               title: "Direção média",
               subtitle: "ha 10 minutos",
               iconURL:
-                  'https://appa.cs.simport.com.br/gallery/36/image-download',
+                  "https://appa.cs.simport.com.br/gallery/36/image-download",
             ),
           ],
         ),

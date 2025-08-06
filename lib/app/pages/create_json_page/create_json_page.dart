@@ -1,8 +1,8 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:http/http.dart' as http;
-import 'package:json_app/components/cards/commom_card.dart';
-import 'package:json_dynamic_widget/json_dynamic_widget.dart';
+import "package:http/http.dart" as http;
+import "package:json_app/app/components/cards/commom_card.dart";
+import "package:json_dynamic_widget/json_dynamic_widget.dart";
 
 class CreateJsonPage extends StatefulWidget {
   const CreateJsonPage({super.key});
@@ -21,9 +21,9 @@ class _CreateJsonPageState extends State<CreateJsonPage> {
   Widget build(BuildContext context) {
     final registry = JsonWidgetRegistry();
 
-    registry.setValue('count', _count);
+    registry.setValue("count", _count);
     registry.setValue(
-      'increment',
+      "increment",
       () =>
           () => setState(() => _count++),
     );
@@ -35,7 +35,7 @@ class _CreateJsonPageState extends State<CreateJsonPage> {
             icon: const Icon(Icons.copy, color: Colors.white),
             onPressed: () async {
               final data = _exportKey.currentState!.export(
-                indent: '  ',
+                indent: "  ",
                 mode: ReverseEncodingMode.json,
               );
               await Clipboard.setData(ClipboardData(text: data));
@@ -43,13 +43,13 @@ class _CreateJsonPageState extends State<CreateJsonPage> {
               await enviarTextoParaAPI(data);
 
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Copied to clipboard')),
+                const SnackBar(content: Text("Copied to clipboard")),
               );
             },
           ),
         ],
         backgroundColor: Colors.black,
-        title: const Text('Exporter', style: TextStyle(color: Colors.white)),
+        title: const Text("Exporter", style: TextStyle(color: Colors.white)),
       ),
       body: JsonWidgetExporter(
         key: _exportKey,
@@ -69,7 +69,7 @@ class _CreateJsonPageState extends State<CreateJsonPage> {
                       title: "Mare",
                       subtitle: "ha 10 minutos",
                       iconURL:
-                          'https://appa.cs.simport.com.br/gallery/33/image-download',
+                          "https://appa.cs.simport.com.br/gallery/33/image-download",
                     ),
                     // JsonCircularGraph(angleDegrees: 130, title: "title"),
                   ],
@@ -84,19 +84,19 @@ class _CreateJsonPageState extends State<CreateJsonPage> {
 
   Future<void> enviarTextoParaAPI(String texto) async {
     final url = Uri.parse(
-      'http://10.0.2.2:5000/salvar',
+      "http://10.0.2.2:5000/salvar",
     ); // Android emulador usa 10.0.2.2 para localhost
 
     final response = await http.post(
       url,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode({'texto': texto}),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"texto": texto}),
     );
 
     if (response.statusCode == 200) {
-      print('Texto enviado com sucesso!');
+      print("Texto enviado com sucesso!");
     } else {
-      print('Erro ao enviar: ${response.statusCode}');
+      print("Erro ao enviar: ${response.statusCode}");
     }
   }
 }

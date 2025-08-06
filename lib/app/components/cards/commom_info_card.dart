@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:json_app/components/cards/commom_card.dart';
-import 'package:json_app/components/cards/info_card.dart';
-import 'package:mix/mix.dart';
+import "package:flutter/material.dart";
+import "package:json_app/app/components/cards/commom_card.dart";
+import "package:json_app/app/components/cards/info_card.dart";
+import "package:mix/mix.dart";
 
 class CommomInfoCard extends StatelessWidget {
   const CommomInfoCard({
