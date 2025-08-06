@@ -3,6 +3,7 @@ import "dart:convert";
 import "package:device_frame/device_frame.dart";
 import "package:flutter_code_editor/flutter_code_editor.dart";
 import "package:flutter_highlight/themes/an-old-hope.dart";
+import "package:flutter_localizations/flutter_localizations.dart";
 import "package:get/get.dart";
 import "package:heroicons/heroicons.dart";
 import "package:highlight/languages/json.dart" as mode;
@@ -20,6 +21,7 @@ import "package:widgetbook/widgetbook.dart" hide Devices;
 import "package:widgetbook_annotation/widgetbook_annotation.dart" as widgetbook;
 
 final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
+
 void main() async {
   registry.navigatorKey = GlobalKey<NavigatorState>();
 
@@ -153,12 +155,7 @@ class WidgetBookApp extends StatefulWidget {
 }
 
 class _WidgetBookAppState extends State<WidgetBookApp> {
-  final codeController = CodeController(
-    text: "",
-    language: mode.json,
-    analyzer: const DefaultLocalAnalyzer(),
-    modifiers: [const IndentModifier()],
-  );
+  final codeController = CodeController(text: "", language: mode.json);
 
   late List<JsonWidgetData>? parsedWidgets;
   final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
@@ -195,7 +192,14 @@ class _WidgetBookAppState extends State<WidgetBookApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: const Locale("pt", "BR"), // Já está certo aqui!
       debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale("pt", "BR")],
       home: Scaffold(
         backgroundColor: Color.fromRGBO(26, 28, 30, 1),
         body: Row(

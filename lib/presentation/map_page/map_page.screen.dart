@@ -3,10 +3,12 @@ import "package:get/get_rx/src/rx_types/rx_types.dart";
 import "package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart";
 import "package:heroicons/heroicons.dart";
 import "package:json_app/app/components/map_modal/map_modal.dart";
+import "package:json_app/app/components/sync/linear_chart/sync_linear_graph.dart";
 import "package:json_app/app/enum/enum.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
 import "package:mapbox_maps_flutter/mapbox_maps_flutter.dart";
 import "package:mix/mix.dart";
+import "package:syncfusion_flutter_charts/charts.dart";
 
 class MapLayer {
   final String id;
@@ -350,17 +352,59 @@ class MapPageScreenState extends State<MapPageScreen> {
             ),
           ],
         ),
-        body: MapWidget(
-          key: const ValueKey("mapWidget"),
-          styleUri: MapboxStyles.STANDARD,
-          cameraOptions: CameraOptions(
-            center: Point(
-              coordinates: Position(-44.36719859816095, -2.5763753959497686),
+        body: Column(
+          children: [
+            SyncLinearGraph(
+              height: 500,
+              cartesianSeries: [
+                SplineRangeAreaSeries<RangeData, DateTime>(
+                  name: "seriesName",
+
+                  dataSource: [
+                    RangeData(DateTime(2025, 8, 6, 0), 8, 12),
+                    RangeData(DateTime(2025, 8, 6, 1), 9, 13),
+                    RangeData(DateTime(2025, 8, 6, 2), 18, 20),
+                    RangeData(DateTime(2025, 8, 6, 3), 9, 15),
+                    RangeData(DateTime(2025, 8, 6, 4), 20, 30),
+                    RangeData(DateTime(2025, 8, 6, 5), 9, 13),
+                  ],
+                  borderColor: Colors.red,
+                  color: Colors.red.shade100,
+
+                  xValueMapper: (RangeData data, _) => data.xValue,
+                  lowValueMapper: (RangeData data, _) => data.lowValue,
+                  highValueMapper: (RangeData data, _) => data.highValue,
+                  enableTrackball: true,
+                  legendIconType: LegendIconType.diamond,
+                  markerSettings: MarkerSettings(isVisible: false),
+
+                  xAxisName: "xAxis",
+                ),
+              ],
+              chartAxis: [],
+              chartAxisX: DateTimeAxis(
+                name: "xAxis",
+                isVisible: true,
+                interval: 10,
+              ),
             ),
-            zoom: 14.0,
-          ),
-          onMapCreated: _onMapCreated,
-          onStyleLoadedListener: _onStyleLoadedCallback,
+
+            // MapWidget(
+            //   key: const ValueKey("mapWidget"),
+            //   styleUri: MapboxStyles.STANDARD,
+            //   cameraOptions: CameraOptions(
+            //     center: Point(
+            //       coordinates: Position(
+            //         -44.36719859816095,
+            //         -2.5763753959497686,
+            //       ),
+            //     ),
+            //     zoom: 14.0,
+            //   ),
+            //   onMapCreated: _onMapCreated,
+            //   onStyleLoadedListener: _onStyleLoadedCallback,
+            // ),
+          ],
         ),
       ),
     );

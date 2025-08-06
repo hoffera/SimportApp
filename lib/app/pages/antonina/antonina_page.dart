@@ -63,7 +63,6 @@ class _AntoninaPageState extends State<AntoninaPage> {
                           y: windSpeed,
                           x: formattedTime,
                           xDate: dateTime,
-                          color: Colors.green,
                           label: "kn",
                         );
                       })

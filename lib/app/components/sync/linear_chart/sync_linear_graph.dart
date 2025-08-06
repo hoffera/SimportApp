@@ -36,7 +36,6 @@ class _SyncLinearGraphState extends State<SyncLinearGraph> {
       enable: true,
       activationMode: ActivationMode.singleTap,
       tooltipDisplayMode: TrackballDisplayMode.groupAllPoints,
-      tooltipSettings: InteractiveTooltip(enable: true),
     );
   }
 
@@ -48,12 +47,12 @@ class _SyncLinearGraphState extends State<SyncLinearGraph> {
       child: SfCartesianChart(
         enableAxisAnimation: false,
         zoomPanBehavior: _zoomPanBehavior,
+        trackballBehavior: _trackballBehavior,
         legend: Legend(isVisible: true, position: LegendPosition.top),
         plotAreaBorderWidth: 0,
         primaryXAxis: widget.chartAxisX,
         primaryYAxis: NumericAxis(isVisible: false),
         axes: widget.chartAxis,
-        trackballBehavior: _trackballBehavior,
         series: widget.cartesianSeries,
       ),
     );
@@ -61,17 +60,17 @@ class _SyncLinearGraphState extends State<SyncLinearGraph> {
 }
 
 class ChartData {
-  ChartData({
-    this.xDate,
-    this.x,
-    required this.y,
-    required this.color,
-    required this.label,
-  });
+  ChartData({this.xDate, this.x, required this.y, required this.label});
 
-  final Color color;
   final String label;
   final String? x;
   final DateTime? xDate;
   final double y;
+}
+
+class RangeData {
+  RangeData(this.xValue, this.lowValue, this.highValue);
+  final DateTime xValue;
+  final int lowValue;
+  final int highValue;
 }

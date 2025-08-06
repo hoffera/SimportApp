@@ -50,7 +50,6 @@ class _PageGraphPlotsState extends State<PageGraphPlots> {
                           y: windSpeed,
                           x: formattedTime,
                           xDate: dateTime,
-                          color: Colors.green,
                           label: "kn",
                         );
                       })

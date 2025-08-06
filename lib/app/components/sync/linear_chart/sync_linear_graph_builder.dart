@@ -74,15 +74,24 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
           .map<Map<String, dynamic>>((e) => mapDynamicToMapStringDynamic(e))
           .toList();
 
-      final xField = itemMap["xField"] ?? "x";
-      final yField = itemMap["yField"] ?? "y";
+      final rawXField = itemMap["xField"];
+      final xField = (rawXField == "x" || rawXField == "xDate")
+          ? rawXField
+          : "x";
+      final yField = "y";
 
       dynamic xValueMapper(dynamic data, _) {
         final raw = data[xField];
-        if (type == "spline" && raw is String) {
-          return DateTime.tryParse(raw);
+        if (raw is num) {
+          final parsed = int.tryParse(raw.toString());
+          if (parsed != null) {
+            return DateTime.fromMillisecondsSinceEpoch(parsed * 1000);
+          }
+          return DateTime.tryParse(raw.toString());
         }
-        return raw;
+        if (raw is int) {
+          return DateTime.fromMillisecondsSinceEpoch(raw * 1000);
+        }
       }
 
       num yValueMapper(dynamic data, _) {
@@ -91,6 +100,30 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
           return yValue;
         }
         throw Exception("yValue não é numérico: $yValue");
+      }
+
+      num lowValueMapper(dynamic data, _) {
+        final lowValue = data["lowValue"];
+        if (lowValue is num) {
+          return lowValue;
+        }
+        throw Exception("lowValue não é numérico: $lowValue");
+      }
+
+      num highValueMapper(dynamic data, _) {
+        final highValue = data["highValue"];
+        if (highValue is num) {
+          return highValue;
+        }
+        throw Exception("highValue não é numérico: $highValue");
+      }
+
+      List<double>? getDashArray() {
+        final dashArray = itemMap["dashArray"];
+        if (dashArray is List) {
+          return dashArray.cast<double>();
+        }
+        return null;
       }
 
       switch (type) {
@@ -103,6 +136,42 @@ abstract class _SyncLinearGraphBuilder extends JsonWidgetBuilder {
             xValueMapper: xValueMapper,
             yValueMapper: yValueMapper,
             name: itemMap["name"] ?? "",
+            yAxisName: itemMap["  "],
+            xAxisName: itemMap["xAxisName"],
+            animationDuration: 0,
+            dashArray: getDashArray(),
+            legendIconType: LegendIconType.diamond,
+            markerSettings: const MarkerSettings(isVisible: false),
+          );
+
+        case "scatter":
+          final dynamic colorValue = itemMap["pointColorMapper"];
+
+          if (colorValue is String && colorValue.isNotEmpty) {}
+          return ScatterSeries<dynamic, dynamic>(
+            dataSource: dataSource,
+            xValueMapper: xValueMapper,
+            yValueMapper: yValueMapper,
+            name: itemMap["name"] ?? "",
+            yAxisName: itemMap["yAxisName"],
+            xAxisName: itemMap["xAxisName"],
+            animationDuration: 0,
+            legendIconType: LegendIconType.diamond,
+            markerSettings: const MarkerSettings(isVisible: false),
+          );
+
+        case "rangeArea":
+          final dynamic colorValue = itemMap["pointColorMapper"];
+
+          if (colorValue is String && colorValue.isNotEmpty) {}
+          return SplineRangeAreaSeries<dynamic, dynamic>(
+            name: itemMap["name"] ?? "",
+            dataSource: dataSource,
+            color: _parseHexColor(itemMap["color"]) ?? Colors.red,
+            borderColor: _parseHexColor(itemMap["borderColor"]) ?? Colors.red,
+            xValueMapper: xValueMapper,
+            lowValueMapper: lowValueMapper,
+            highValueMapper: highValueMapper,
             yAxisName: itemMap["yAxisName"],
             xAxisName: itemMap["xAxisName"],
             animationDuration: 0,
