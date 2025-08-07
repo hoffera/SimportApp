@@ -10,6 +10,8 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:json_app/widgetbook/usecase/card_widget/card_widget_usecase.dart'
+    as _json_app_widgetbook_usecase_card_widget_card_widget_usecase;
 import 'package:json_app/widgetbook/usecase/circular%20graph/circular_graph_usecase.dart'
     as _json_app_widgetbook_usecase_circular_20graph_circular_graph_usecase;
 import 'package:json_app/widgetbook/usecase/linear%20graph/sync_linear_graph_usecase.dart'
@@ -25,6 +27,45 @@ final directories = <_widgetbook.WidgetbookNode>[
       _widgetbook.WidgetbookFolder(
         name: 'components',
         children: [
+          _widgetbook.WidgetbookFolder(
+            name: 'cards',
+            children: [
+              _widgetbook.WidgetbookFolder(
+                name: 'card_widget',
+                children: [
+                  _widgetbook.WidgetbookComponent(
+                    name: 'CardWidget',
+                    useCases: [
+                      _widgetbook.WidgetbookUseCase(
+                        name: 'complex_content',
+                        builder:
+                            _json_app_widgetbook_usecase_card_widget_card_widget_usecase
+                                .buildCardWidgetComplexContentUseCase,
+                      ),
+                      _widgetbook.WidgetbookUseCase(
+                        name: 'default',
+                        builder:
+                            _json_app_widgetbook_usecase_card_widget_card_widget_usecase
+                                .buildCardWidgetUseCase,
+                      ),
+                      _widgetbook.WidgetbookUseCase(
+                        name: 'minimal',
+                        builder:
+                            _json_app_widgetbook_usecase_card_widget_card_widget_usecase
+                                .buildCardWidgetMinimalUseCase,
+                      ),
+                      _widgetbook.WidgetbookUseCase(
+                        name: 'with_actions',
+                        builder:
+                            _json_app_widgetbook_usecase_card_widget_card_widget_usecase
+                                .buildCardWidgetWithActionsUseCase,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
           _widgetbook.WidgetbookFolder(
             name: 'simport',
             children: [
