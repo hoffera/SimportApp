@@ -60,6 +60,12 @@ final directories = <_widgetbook.WidgetbookNode>[
                             _json_app_widgetbook_usecase_card_widget_card_widget_usecase
                                 .buildCardWidgetWithActionsUseCase,
                       ),
+                      _widgetbook.WidgetbookUseCase(
+                        name: 'with_chart',
+                        builder:
+                            _json_app_widgetbook_usecase_card_widget_card_widget_usecase
+                                .buildCardWidgetWithChartUseCase,
+                      ),
                     ],
                   ),
                 ],
