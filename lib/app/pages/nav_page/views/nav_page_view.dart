@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:json_app/app/json%20builders/curved_navigation_builder.dart';
+import 'package:json_app/app/json%20dynamic%20widget/curved_navigation_builder.dart';
 import 'package:json_app/app/pages/nav_page/controllers/nav_page_controller.dart';
 
 class NavPageView extends GetView<NavPageController> {

@@ -36,20 +36,14 @@ class CommonModal extends StatefulWidget {
 
 class _CommonModalState extends State<CommonModal> {
   late FocusNode _emailFocusNode;
-  late double _currentHeight;
 
   @override
   void initState() {
     super.initState();
     _emailFocusNode = FocusNode();
-    _currentHeight = widget.modalHeight;
 
     _emailFocusNode.addListener(() {
-      setState(() {
-        _currentHeight = _emailFocusNode.hasFocus
-            ? widget.modalHeight + 300
-            : widget.modalHeight;
-      });
+      setState(() {});
     });
   }
 

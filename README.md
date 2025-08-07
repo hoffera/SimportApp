@@ -14,7 +14,7 @@ O SimportApp é uma ferramenta de desenvolvimento que combina:
 
 ### 🎨 Widgetbook Integrado
 - Documentação interativa de componentes
-- Visualização em diferentes dispositivos (iPhone 13, iPhone 12)
+- Visualização em diferentes dispositivos 
 - Temas light e dark
 - Inspector e ferramentas de desenvolvimento
 

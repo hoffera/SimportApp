@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:json_app/app/json%20builders/curved_navigation_builder.dart';
-import 'package:json_app/app/json%20builders/page_index.dart';
+import 'package:json_app/app/json%20dynamic%20widget/curved_navigation_builder.dart';
+import 'package:json_app/app/json%20dynamic%20widget/page_index.dart';
 import 'package:json_dynamic_widget/json_dynamic_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';

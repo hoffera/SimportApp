@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:json_app/app/components/simport/circular_graph/circular_graph.dart";
 import "package:json_app/app/components/sync/circular_chart/circular_chart.dart";
-import "package:json_app/app/enum/enum.dart";
 import "package:json_app/widgetbook/addon/json_export_addon.dart";
 import "package:json_app/widgetbook/widgets%20json/circular_chart/circular_chart_json.dart";
 import "package:widgetbook/widgetbook.dart";
@@ -27,7 +26,10 @@ Widget buildCircularGraphUseCase(BuildContext context) {
 @UseCase(name: "Gráfico padrao", type: CircularChart)
 Widget buildCircularChartUseCase(BuildContext context) {
   final title = context.knobs.string(label: "Título", initialValue: "Se");
-  final subtitle = context.knobs.string(label: "Subtítulo", initialValue: "De");
+  final subtitle = context.knobs.stringOrNull(
+    label: "Subtítulo",
+    initialValue: null,
+  );
   final angleDegrees = context.knobs.double.input(
     label: "Ângulo",
     initialValue: 10,

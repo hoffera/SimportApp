@@ -14,6 +14,8 @@ import 'package:json_app/widgetbook/usecase/circular%20graph/circular_graph_usec
     as _json_app_widgetbook_usecase_circular_20graph_circular_graph_usecase;
 import 'package:json_app/widgetbook/usecase/linear%20graph/sync_linear_graph_usecase.dart'
     as _json_app_widgetbook_usecase_linear_20graph_sync_linear_graph_usecase;
+import 'package:json_app/widgetbook/usecase/radial%20chart/radial_chart_usecase.dart'
+    as _json_app_widgetbook_usecase_radial_20chart_radial_chart_usecase;
 import 'package:widgetbook/widgetbook.dart' as _widgetbook;
 
 final directories = <_widgetbook.WidgetbookNode>[
@@ -108,6 +110,20 @@ final directories = <_widgetbook.WidgetbookNode>[
                                 .buildSyncLinearGraphWithPlotBandsUseCase,
                       ),
                     ],
+                  ),
+                ],
+              ),
+              _widgetbook.WidgetbookFolder(
+                name: 'radial_chart',
+                children: [
+                  _widgetbook.WidgetbookLeafComponent(
+                    name: 'RadialChart',
+                    useCase: _widgetbook.WidgetbookUseCase(
+                      name: 'Gráfico: Radial',
+                      builder:
+                          _json_app_widgetbook_usecase_radial_20chart_radial_chart_usecase
+                              .buildRadialChartUseCase,
+                    ),
                   ),
                 ],
               ),
