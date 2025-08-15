@@ -1,3 +1,4 @@
+import "package:get/get.dart";
 import "package:json_app/app/components/maps/map_box_widget/map_box_widget.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
 import "package:mapbox_maps_flutter/mapbox_maps_flutter.dart";
@@ -10,13 +11,32 @@ class MapPageScreen extends StatefulWidget {
 }
 
 class MapPageScreenState extends State<MapPageScreen> {
-  // MapboxMap? mapboxMap;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: MapBoxWidget(
         initialPosition: Position(-44.36719859816095, -2.5763753959497686),
+        pins: [
+          MapPin(
+            urlImage:
+                "https://acquaplan.cs.simport.com.br/gallery/55/image-download",
+            onTap: () {
+              Get.to(() => const MapPageScreen());
+            },
+            title: "Itaqui",
+            position: Position(-44.36719859816095, -2.5763753959497686),
+          ),
+
+          MapPin(
+            urlImage:
+                "https://acquaplan.cs.simport.com.br/gallery/55/image-download",
+            onTap: () {
+              Get.to(() => const MapPageScreen());
+            },
+            title: "ItaLA",
+            position: Position(-44.36719859816095, -2.5663753959497686),
+          ),
+        ],
         data: [
           MapWidgetLayer(
             source: RasterSource(
