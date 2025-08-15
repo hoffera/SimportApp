@@ -4,6 +4,7 @@ import "package:json_app/app/components/buttons/primary/primary_button.dart";
 import "package:json_app/app/components/cards/commom_card.dart";
 import "package:json_app/app/components/chart/chart_widget.dart";
 import "package:json_app/app/components/icon/icon_widget.dart";
+import "package:json_app/app/components/maps/map_box_widget_builder/map_box_widget_builder.dart";
 import "package:json_app/app/components/simport/circular_graph/circular_graph.dart";
 import "package:json_app/app/components/simport/circular_graph/compass_pointer.dart";
 import "package:json_app/app/components/sync/circular_chart/circular_chart_builder.dart";

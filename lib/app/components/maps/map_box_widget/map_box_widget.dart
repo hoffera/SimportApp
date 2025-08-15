@@ -10,8 +10,8 @@ class MapWidgetLayer {
 
 class MapBoxWidget extends StatefulWidget {
   final List<MapWidgetLayer> data;
-
-  const MapBoxWidget({super.key, required this.data});
+  final Position? initialPosition;
+  const MapBoxWidget({super.key, required this.data, this.initialPosition});
 
   @override
   State<MapBoxWidget> createState() => _MapBoxWidgetState();
@@ -25,7 +25,10 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
   }
 
   Future<void> _onStyleLoadedCallback(StyleLoadedEventData data) async {
-    if (mapboxMap == null) return;
+    if (mapboxMap == null) {
+      debugPrint("MapboxMap is null");
+      return;
+    }
 
     try {
       for (final item in widget.data) {
@@ -47,7 +50,9 @@ class _MapBoxWidgetState extends State<MapBoxWidget> {
       styleUri: MapboxStyles.STANDARD,
       cameraOptions: CameraOptions(
         center: Point(
-          coordinates: Position(-44.36719859816095, -2.5763753959497686),
+          coordinates:
+              widget.initialPosition ??
+              Position(-44.36719859816095, -2.5763753959497686),
         ),
         zoom: 14.0,
       ),
