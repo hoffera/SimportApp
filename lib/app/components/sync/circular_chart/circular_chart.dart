@@ -1,7 +1,4 @@
-import "dart:async";
-
 import "package:flutter/material.dart";
-import "package:json_app/app/enum/enum.dart";
 import "package:syncfusion_flutter_gauges/gauges.dart";
 
 class CircularChart extends StatefulWidget {
@@ -278,7 +275,7 @@ class _CircularChartState extends State<CircularChart> {
       135: "SE",
       180: "S",
       225: "SW",
-      270: "W",
+      270: "N",
       315: "NW",
     };
 

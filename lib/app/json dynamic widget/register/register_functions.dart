@@ -7,7 +7,6 @@ import "package:json_app/app/pages/home_json_screen_page/views/full_widget_page.
 import "package:json_app/config/api_constants.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
 
-/// Classe responsável por registrar todas as funções customizadas do JSON Dynamic
 class RegisterFunctions {
   static void registerAllFunctions(JsonWidgetRegistry registry) {
     registry.registerFunctions({
@@ -18,11 +17,9 @@ class RegisterFunctions {
       "navBarIndex": _createNavBarIndexFunction(),
     });
 
-    // Valores iniciais
     registry.setValue("currentPageIndex", 0);
   }
 
-  /// Função para navegação de páginas via API
   static JsonWidgetFunction _createNavigatePageFunction() {
     return ({args, required registry}) => () async {
       final pageId = args?[0];
@@ -50,7 +47,6 @@ class RegisterFunctions {
     };
   }
 
-  /// Função para seleção de índice de página
   static JsonWidgetFunction _createSelectedIndexFunction() {
     return ({args, required registry}) => () async {
       final pageId = args?[0];
@@ -78,7 +74,6 @@ class RegisterFunctions {
     };
   }
 
-  /// Função para navegação externa (MockAPI)
   static JsonWidgetFunction _createNavigateFunction() {
     return ({args, required registry}) => () async {
       final String id = args![0];
@@ -100,7 +95,6 @@ class RegisterFunctions {
     };
   }
 
-  /// Função para mostrar drawer
   static JsonWidgetFunction _createShowDrawerFunction() {
     return ({args, required registry}) => () {
       final controller = Get.find<DynamicJsonPageController>();
@@ -110,7 +104,6 @@ class RegisterFunctions {
     };
   }
 
-  /// Função para gerenciar índice da barra de navegação
   static JsonWidgetFunction _createNavBarIndexFunction() {
     return ({args, required registry}) {
       if (args == null || args.length < 2) {

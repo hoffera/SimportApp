@@ -53,20 +53,103 @@ class _WidgetBookAppState extends State<WidgetBookApp> {
   @override
   void initState() {
     super.initState();
+
+    // Adiciona um exemplo de JSON válido
+    codeController.text = '''[
+  {
+    "type": "scaffold",
+    "args": {
+      "backgroundColor": "#fff0faff",
+      "body": {
+        "type": "center",
+        "args": {
+          "child": {
+            "type": "text",
+            "args": {
+              "text": "Exemplo de JSON válido"
+            }
+          }
+        }
+      }
+    }
+  }
+]''';
   }
 
   List<JsonWidgetData>? _parseWidgets(String text) {
     try {
-      final wrappedText = "[${text.trim()}]";
+      // Remove espaços em branco e verifica se o texto está vazio
+      final trimmedText = text.trim();
+      if (trimmedText.isEmpty) {
+        debugPrint("Texto JSON está vazio");
+        return null;
+      }
 
-      final List<dynamic> jsonList = jsonDecode(wrappedText);
+      // Tenta diferentes formatos de JSON
+      List<dynamic> jsonList;
 
-      return jsonList
-          .map((e) => JsonWidgetData.fromDynamic(e))
-          .whereType<JsonWidgetData>()
-          .toList();
+      try {
+        // Primeiro tenta como array JSON direto
+        jsonList = jsonDecode(trimmedText) as List<dynamic>;
+      } catch (e) {
+        try {
+          // Se falhar, tenta envolver em colchetes
+          final wrappedText = "[$trimmedText]";
+          jsonList = jsonDecode(wrappedText) as List<dynamic>;
+        } catch (e2) {
+          try {
+            // Se ainda falhar, tenta como objeto único
+            final singleObject =
+                jsonDecode(trimmedText) as Map<String, dynamic>;
+            jsonList = [singleObject];
+          } catch (e3) {
+            debugPrint("Erro ao parsear JSON: $e3");
+            debugPrint(
+              "Formato esperado: array de objetos JSON ou objeto único",
+            );
+            return null;
+          }
+        }
+      }
+
+      // Processa cada item do JSON
+      final List<JsonWidgetData> widgets = [];
+
+      for (int i = 0; i < jsonList.length; i++) {
+        try {
+          final item = jsonList[i];
+
+          // Se o item tem uma propriedade 'json', usa ela
+          Map<String, dynamic> widgetData;
+          if (item is Map<String, dynamic> && item.containsKey("json")) {
+            widgetData = item["json"] as Map<String, dynamic>;
+          } else if (item is Map<String, dynamic>) {
+            widgetData = item;
+          } else {
+            debugPrint("Item $i não é um objeto válido: $item");
+            continue;
+          }
+
+          final widget = JsonWidgetData.fromDynamic(
+            widgetData,
+            registry: registry,
+          );
+          widgets.add(widget);
+        } catch (e) {
+          debugPrint("Erro ao processar widget $i: $e");
+          // Continua processando outros widgets mesmo se um falhar
+        }
+      }
+
+      if (widgets.isEmpty) {
+        debugPrint("Nenhum widget válido encontrado no JSON");
+        return null;
+      }
+
+      return widgets;
     } catch (e, stack) {
-      debugPrint("Erro ao parsear/renderizar JSON: $e\n$stack");
+      debugPrint("Erro geral ao parsear/renderizar JSON: $e");
+      debugPrint("Stack trace: $stack");
       return null;
     }
   }
@@ -114,15 +197,44 @@ class _WidgetBookAppState extends State<WidgetBookApp> {
                       IconButton.outlined(
                         style: ButtonStyle(
                           backgroundColor: WidgetStateProperty.all<Color>(
+                            parsedWidgets != null && parsedWidgets!.isNotEmpty
+                                ? Colors.green.withOpacity(0.2)
+                                : Colors.transparent,
+                          ),
+                          foregroundColor: WidgetStateProperty.all<Color>(
+                            parsedWidgets != null && parsedWidgets!.isNotEmpty
+                                ? Colors.green
+                                : AppColors.contentColorWhite,
+                          ),
+                        ),
+                        onPressed: _onParsePressed,
+                        icon: HeroIcon(
+                          parsedWidgets != null && parsedWidgets!.isNotEmpty
+                              ? HeroIcons.check
+                              : HeroIcons.play,
+                          style: HeroIconStyle.solid,
+                        ),
+                      ),
+                    if (showPreview) const SizedBox(width: 8),
+
+                    if (showPreview)
+                      IconButton.outlined(
+                        style: ButtonStyle(
+                          backgroundColor: WidgetStateProperty.all<Color>(
                             Colors.transparent,
                           ),
                           foregroundColor: WidgetStateProperty.all<Color>(
                             AppColors.contentColorWhite,
                           ),
                         ),
-                        onPressed: _onParsePressed,
+                        onPressed: () {
+                          codeController.clear();
+                          setState(() {
+                            parsedWidgets = null;
+                          });
+                        },
                         icon: HeroIcon(
-                          HeroIcons.play,
+                          HeroIcons.trash,
                           style: HeroIconStyle.solid,
                         ),
                       ),
@@ -274,16 +386,66 @@ class _WidgetBookAppState extends State<WidgetBookApp> {
                                       ),
                                     )
                                   : const Center(
-                                      child: Text("Cole os widgets JSON"),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.code,
+                                            size: 64,
+                                            color: Colors.grey,
+                                          ),
+                                          SizedBox(height: 16),
+                                          Text(
+                                            "Cole os widgets JSON no editor",
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            "Use o botão ▶️ para renderizar",
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                             );
                           } catch (e, stack) {
                             debugPrint("Erro na renderização: $e\n$stack");
-                            return const Scaffold(
+                            return Scaffold(
                               body: Center(
-                                child: Text(
-                                  "Erro ao renderizar widget",
-                                  style: TextStyle(color: Colors.red),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.error_outline,
+                                      size: 64,
+                                      color: Colors.red,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    const Text(
+                                      "Erro ao renderizar widget",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      "Detalhes: $e",
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
                               ),
                             );
