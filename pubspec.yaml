@@ -71,6 +71,8 @@ dependencies:
   highlight: ^0.7.0
   json_dynamic_widget_codegen: ^3.0.0
   syncfusion_flutter_gauges: ^30.1.42
+  cristalyse: ^1.2.0
+  graphic: ^2.6.0
 
 
 

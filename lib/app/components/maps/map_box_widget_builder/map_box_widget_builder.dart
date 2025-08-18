@@ -38,6 +38,25 @@ abstract class _MapBoxWidgetBuilder extends JsonWidgetBuilder {
     return Position(lat as num, lng as num);
   }
 
+  @JsonArgDecoder("pins")
+  List<MapPin> _decodePins({
+    required dynamic value,
+    required JsonWidgetRegistry registry,
+  }) {
+    if (value is! List) {
+      return [];
+    }
+
+    return value.map<MapPin>((item) {
+      return MapPin(
+        title: item["title"],
+        position: Position(item["latitude"], item["longitude"]),
+        urlImage: item["urlImage"],
+        onTap: () {},
+      );
+    }).toList();
+  }
+
   @JsonArgDecoder("data")
   List<MapWidgetLayer> _decodeMapWidgetLayer({
     required dynamic value,

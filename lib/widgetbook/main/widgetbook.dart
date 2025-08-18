@@ -47,58 +47,40 @@ class WidgetBookApp extends StatefulWidget {
 class _WidgetBookAppState extends State<WidgetBookApp> {
   final codeController = CodeController(text: "", language: mode.json);
 
-  late List<JsonWidgetData>? parsedWidgets;
+  List<JsonWidgetData>? parsedWidgets;
   final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
 
   @override
   void initState() {
     super.initState();
 
-    // Adiciona um exemplo de JSON válido
     codeController.text = '''[
-  {
-    "type": "scaffold",
-    "args": {
-      "backgroundColor": "#fff0faff",
-      "body": {
-        "type": "center",
-        "args": {
-          "child": {
+{
             "type": "text",
             "args": {
-              "text": "Exemplo de JSON válido"
-            }
-          }
-        }
-      }
-    }
-  }
+              "text": "Teste"
+            }}
 ]''';
   }
 
   List<JsonWidgetData>? _parseWidgets(String text) {
     try {
-      // Remove espaços em branco e verifica se o texto está vazio
       final trimmedText = text.trim();
       if (trimmedText.isEmpty) {
         debugPrint("Texto JSON está vazio");
         return null;
       }
 
-      // Tenta diferentes formatos de JSON
       List<dynamic> jsonList;
 
       try {
-        // Primeiro tenta como array JSON direto
         jsonList = jsonDecode(trimmedText) as List<dynamic>;
       } catch (e) {
         try {
-          // Se falhar, tenta envolver em colchetes
           final wrappedText = "[$trimmedText]";
           jsonList = jsonDecode(wrappedText) as List<dynamic>;
         } catch (e2) {
           try {
-            // Se ainda falhar, tenta como objeto único
             final singleObject =
                 jsonDecode(trimmedText) as Map<String, dynamic>;
             jsonList = [singleObject];
@@ -112,34 +94,28 @@ class _WidgetBookAppState extends State<WidgetBookApp> {
         }
       }
 
-      // Processa cada item do JSON
-      final List<JsonWidgetData> widgets = [];
+      final widgets = jsonList
+          .map<JsonWidgetData?>((item) {
+            try {
+              Map<String, dynamic> widgetData;
+              if (item is Map<String, dynamic> && item.containsKey("json")) {
+                widgetData = item["json"] as Map<String, dynamic>;
+              } else if (item is Map<String, dynamic>) {
+                widgetData = item;
+              } else {
+                debugPrint("Item não é um objeto válido: $item");
+                return null;
+              }
 
-      for (int i = 0; i < jsonList.length; i++) {
-        try {
-          final item = jsonList[i];
-
-          // Se o item tem uma propriedade 'json', usa ela
-          Map<String, dynamic> widgetData;
-          if (item is Map<String, dynamic> && item.containsKey("json")) {
-            widgetData = item["json"] as Map<String, dynamic>;
-          } else if (item is Map<String, dynamic>) {
-            widgetData = item;
-          } else {
-            debugPrint("Item $i não é um objeto válido: $item");
-            continue;
-          }
-
-          final widget = JsonWidgetData.fromDynamic(
-            widgetData,
-            registry: registry,
-          );
-          widgets.add(widget);
-        } catch (e) {
-          debugPrint("Erro ao processar widget $i: $e");
-          // Continua processando outros widgets mesmo se um falhar
-        }
-      }
+              return JsonWidgetData.fromDynamic(widgetData, registry: registry);
+            } catch (e) {
+              debugPrint("Erro ao processar widget: $e");
+              return null;
+            }
+          })
+          .where((widget) => widget != null)
+          .cast<JsonWidgetData>()
+          .toList();
 
       if (widgets.isEmpty) {
         debugPrint("Nenhum widget válido encontrado no JSON");
@@ -263,7 +239,6 @@ class _WidgetBookAppState extends State<WidgetBookApp> {
                 ),
               ),
 
-              /// Conteúdo principal
               Expanded(
                 child: showPreview
                     ? _buildJsonViewerLayout()

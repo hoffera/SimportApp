@@ -45,8 +45,6 @@ class _ChartWidgetState extends State<ChartWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 500,
-
       child: Box(
         style: Style(
           $box.elevation(2),
@@ -67,7 +65,7 @@ class _ChartWidgetState extends State<ChartWidget> {
 
   Widget _title() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(4.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

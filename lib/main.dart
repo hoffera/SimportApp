@@ -8,7 +8,7 @@ import "package:json_app/app/routes/app_pages.dart";
 import "package:json_app/app/theme/app_theme.dart";
 import "package:json_app/app/theme/theme_controller.dart";
 import "package:json_app/l10n/app_localizations.dart";
-import "package:json_app/presentation/map_page/map_page.screen.dart";
+import "package:json_app/presentation/crystalize/cristalyze_page.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
 import "package:mapbox_maps_flutter/mapbox_maps_flutter.dart";
 
@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [Locale("en"), Locale("pt", "BR"), Locale("es")],
       navigatorKey: registry.navigatorKey,
       debugShowCheckedModeBanner: false,
-      home: MapPageScreen(),
+      home: CristalyzePageScreen(),
       initialBinding: LoginPageBinding(),
       getPages: AppPages.routes,
     );
