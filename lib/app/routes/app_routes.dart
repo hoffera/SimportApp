@@ -1,4 +1,4 @@
-part of 'app_pages.dart';
+part of "app_pages.dart";
 // DO NOT EDIT. This is code generated via package:get_cli/get_cli.dart
 
 abstract class Routes {
@@ -21,16 +21,17 @@ abstract class Routes {
 abstract class _Paths {
   _Paths._();
 
-  static const HOME_PAGE = '/home-page';
-  static const NAV_PAGE = '/nav-page';
-  static const LOGIN_PAGE = '/login-page';
-  static const HOME_HOME = '/home-home';
-  static const REGISTER_PAGE = '/register-page';
-  static const TEST_PAGE = '/test-page';
-  static const WEATHER_PAGE = '/weather-page';
-  static const HOME_JSON = '/home-json';
-  static const HOME_JSON_SCREEN_PAGE = '/home-json-screen-page';
-  static const LOGOUT_PAGE = '/logout-page';
-  static const DYNAMIC_JSON_PAGE = '/dynamic-json-page';
-  static const NOTIFICATIONS_PAGE = '/notifications-page';
+  static const HOME_PAGE = "/home-page";
+  static const NAV_PAGE = "/nav-page";
+  static const LOGIN_PAGE = "/login-page";
+  static const HOME_HOME = "/home-home";
+  static const REGISTER_PAGE = "/register-page";
+  static const TEST_PAGE = "/test-page";
+  static const WEATHER_PAGE = "/weather-page";
+  static const HOME_JSON = "/home-json";
+  static const HOME_JSON_SCREEN_PAGE = "/home-json-screen-page";
+  static const LOGOUT_PAGE = "/logout-page";
+  static const DYNAMIC_JSON_PAGE = "/dynamic-json-page";
+  static const NOTIFICATIONS_PAGE = "/notifications-page";
+  static const EDITOR_CLIENT_PAGE = "/editor-client-page";
 }

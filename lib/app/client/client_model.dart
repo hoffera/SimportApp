@@ -52,7 +52,7 @@ class Client {
       return result;
     }
 
-    final theme = json['theme'] as Map<String, dynamic>?;
+    final theme = json["theme"] as Map<String, dynamic>?;
 
     return Client(
       identificacao: json["identificacao"],
@@ -60,11 +60,11 @@ class Client {
       logo: json["logo"],
       views: parseViews(json["views"]),
       id: json["id"],
-      themeLight: theme != null && theme.containsKey('light')
-          ? Map<String, dynamic>.from(theme['light'])
+      themeLight: theme != null && theme.containsKey("light")
+          ? Map<String, dynamic>.from(theme["light"])
           : null,
-      themeDark: theme != null && theme.containsKey('dark')
-          ? Map<String, dynamic>.from(theme['dark'])
+      themeDark: theme != null && theme.containsKey("dark")
+          ? Map<String, dynamic>.from(theme["dark"])
           : null,
     );
   }

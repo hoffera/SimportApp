@@ -4,11 +4,11 @@ import "package:get_storage/get_storage.dart";
 import "package:json_app/app/components/custom_widget_registrar.dart";
 import "package:json_app/app/json dynamic widget/register/register_functions.dart";
 import "package:json_app/app/pages/login_page/bindings/login_page_binding.dart";
+import "package:json_app/app/pages/login_page/views/login_page_view.dart";
 import "package:json_app/app/routes/app_pages.dart";
 import "package:json_app/app/theme/app_theme.dart";
 import "package:json_app/app/theme/theme_controller.dart";
 import "package:json_app/l10n/app_localizations.dart";
-import "package:json_app/presentation/crystalize/cristalyze_page.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
 import "package:mapbox_maps_flutter/mapbox_maps_flutter.dart";
 
@@ -38,7 +38,17 @@ Future<void> _setupServices() async {
   await GetStorage.init();
   final controller = Get.put(ThemeController());
 
-  String accessToken = const String.fromEnvironment("ACCESS_TOKEN");
+  // Obtém o token de acesso do ambiente ou usa um valor padrão
+  String accessToken = const String.fromEnvironment(
+    "ACCESS_TOKEN",
+    defaultValue: "",
+  );
+
+  // Verifica se o token foi fornecido
+  if (accessToken.isEmpty) {
+    print("[main] Aviso: ACCESS_TOKEN não foi fornecido via --dart-define");
+  }
+
   MapboxOptions.setAccessToken(accessToken);
 }
 
@@ -89,7 +99,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [Locale("en"), Locale("pt", "BR"), Locale("es")],
       navigatorKey: registry.navigatorKey,
       debugShowCheckedModeBanner: false,
-      home: CristalyzePageScreen(),
+      home: LoginPageView(),
       initialBinding: LoginPageBinding(),
       getPages: AppPages.routes,
     );

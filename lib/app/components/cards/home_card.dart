@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:json_app/app/enum/enum.dart';
-import 'package:mix/mix.dart';
+import "package:flutter/material.dart";
+import "package:json_app/app/enum/enum.dart";
+import "package:mix/mix.dart";
 
 class HomeCard extends StatefulWidget {
   final String? logo;
   final VoidCallback? onTap;
   final String title;
   final String subtitle;
+  final bool radius;
 
   const HomeCard({
     super.key,
@@ -14,6 +15,7 @@ class HomeCard extends StatefulWidget {
     this.onTap,
     required this.title,
     required this.subtitle,
+    this.radius = true,
   });
 
   @override
@@ -54,7 +56,12 @@ class _HomeCardState extends State<HomeCard> {
         width: 120,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: widget.radius
+              ? BorderRadius.circular(12)
+              : BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  bottomLeft: Radius.circular(12),
+                ),
           border: Border.all(color: AppColors.primary),
         ),
         child: Padding(
@@ -62,7 +69,7 @@ class _HomeCardState extends State<HomeCard> {
           child: Row(
             children: [
               StyledImage(
-                image: NetworkImage(widget.logo ?? ''),
+                image: NetworkImage(widget.logo ?? ""),
                 style: Style($image.fit.contain(), $image.width(150)),
               ),
               SizedBox(width: 5),
@@ -77,7 +84,7 @@ class _HomeCardState extends State<HomeCard> {
                         $text.style.color.black(),
                         $text.style.fontSize(14),
                         $text.style.fontWeight(FontWeight.w900),
-                        $text.style.fontFamily('Comfortaa'),
+                        $text.style.fontFamily("Comfortaa"),
                         $text.overflow.clip(),
                       ),
                       child: StyledText(widget.subtitle.toUpperCase()),
@@ -87,7 +94,7 @@ class _HomeCardState extends State<HomeCard> {
                         $text.style.color.grey(),
                         $text.style.fontSize(12),
                         $text.style.fontWeight(FontWeight.normal),
-                        $text.style.fontFamily('Comfortaa'),
+                        $text.style.fontFamily("Comfortaa"),
                         $text.overflow.ellipsis(),
                       ),
                       child: StyledText(widget.title),

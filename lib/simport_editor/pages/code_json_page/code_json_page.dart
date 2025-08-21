@@ -1,0 +1,342 @@
+import "dart:convert";
+
+import "package:device_frame/device_frame.dart" show DeviceFrame, Devices;
+import "package:device_frame/device_frame.dart";
+import "package:flutter_code_editor/flutter_code_editor.dart";
+import "package:flutter_highlight/themes/an-old-hope.dart";
+import "package:go_router/go_router.dart";
+import "package:highlight/languages/json.dart" as mode;
+import "package:json_dynamic_widget/json_dynamic_widget.dart";
+
+final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
+
+class CodeJsonPage extends StatefulWidget {
+  final String json;
+  final String clientId;
+  const CodeJsonPage({super.key, required this.json, required this.clientId});
+
+  @override
+  State<CodeJsonPage> createState() => _CodeJsonPageState();
+}
+
+class _CodeJsonPageState extends State<CodeJsonPage> {
+  final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
+  final codeController = CodeController(text: "", language: mode.json);
+  List<JsonWidgetData>? parsedWidgets;
+  ThemeData? appTheme;
+
+  @override
+  void initState() {
+    super.initState();
+
+    final formattedJson = _formatJson(widget.json);
+    codeController.text = formattedJson;
+    final widgets = _parseWidgets(codeController.text);
+    setState(() {
+      parsedWidgets = widgets;
+    });
+  }
+
+  String _formatJson(String jsonString) {
+    try {
+      final trimmedJson = jsonString.trim();
+
+      final jsonData = jsonDecode(trimmedJson);
+
+      const encoder = JsonEncoder.withIndent("  ");
+
+      return encoder.convert(jsonData);
+    } catch (e) {
+      debugPrint("Erro ao formatar JSON: $e");
+      return jsonString;
+    }
+  }
+
+  List<JsonWidgetData>? _parseWidgets(String text) {
+    try {
+      final trimmedText = text.trim();
+      if (trimmedText.isEmpty) {
+        debugPrint("Texto JSON está vazio");
+        return null;
+      }
+
+      List<dynamic> jsonList;
+
+      try {
+        jsonList = jsonDecode(trimmedText) as List<dynamic>;
+      } catch (e) {
+        try {
+          final wrappedText = "[$trimmedText]";
+          jsonList = jsonDecode(wrappedText) as List<dynamic>;
+        } catch (e2) {
+          try {
+            final singleObject =
+                jsonDecode(trimmedText) as Map<String, dynamic>;
+            jsonList = [singleObject];
+          } catch (e3) {
+            debugPrint("Erro ao parsear JSON: $e3");
+            debugPrint(
+              "Formato esperado: array de objetos JSON ou objeto único",
+            );
+            return null;
+          }
+        }
+      }
+
+      final widgets = jsonList
+          .map<JsonWidgetData?>((item) {
+            try {
+              Map<String, dynamic> widgetData;
+              if (item is Map<String, dynamic> && item.containsKey("json")) {
+                widgetData = item["json"] as Map<String, dynamic>;
+              } else if (item is Map<String, dynamic>) {
+                widgetData = item;
+              } else {
+                debugPrint("Item não é um objeto válido: $item");
+                return null;
+              }
+
+              return JsonWidgetData.fromDynamic(widgetData, registry: registry);
+            } catch (e) {
+              debugPrint("Erro ao processar widget: $e");
+              return null;
+            }
+          })
+          .where((widget) => widget != null)
+          .cast<JsonWidgetData>()
+          .toList();
+
+      if (widgets.isEmpty) {
+        debugPrint("Nenhum widget válido encontrado no JSON");
+        return null;
+      }
+
+      return widgets;
+    } catch (e, stack) {
+      debugPrint("Erro geral ao parsear/renderizar JSON: $e");
+      debugPrint("Stack trace: $stack");
+      return null;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 1,
+        title: IconButton(
+          icon: const Icon(Icons.arrow_back, size: 40),
+          tooltip: "Voltar",
+          onPressed: () {
+            context.go("/editor-client/${widget.clientId}");
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.format_indent_increase, size: 40),
+            tooltip: "Reformatar JSON",
+            onPressed: () {
+              final formattedJson = _formatJson(codeController.text);
+              codeController.text = formattedJson;
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("JSON reformatado com sucesso!"),
+                  duration: Duration(seconds: 2),
+                ),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.play_arrow, size: 40),
+            tooltip: "Renderizar JSON",
+            onPressed: () {
+              final widgets = _parseWidgets(codeController.text);
+              setState(() {
+                parsedWidgets = widgets;
+              });
+
+              if (widgets != null && widgets.isNotEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("JSON renderizado com sucesso!"),
+                    backgroundColor: Colors.green,
+                    duration: Duration(seconds: 2),
+                  ),
+                );
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      "Erro ao renderizar JSON. Verifique o formato.",
+                    ),
+                    backgroundColor: Colors.red,
+                    duration: Duration(seconds: 3),
+                  ),
+                );
+              }
+            },
+          ),
+        ],
+      ),
+      body: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Editor JSON",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: CodeTheme(
+                      data: CodeThemeData(styles: anOldHopeTheme),
+                      child: SingleChildScrollView(
+                        child: CodeField(
+                          controller: codeController,
+                          minLines: 40,
+                          textStyle: const TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Preview",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: DeviceFrame(
+                      device: Devices.ios.iPhone13,
+                      screen: Builder(
+                        builder: (context) {
+                          try {
+                            return Scaffold(
+                              body: parsedWidgets != null
+                                  ? SafeArea(
+                                      child: SingleChildScrollView(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: parsedWidgets!
+                                              .map(
+                                                (widgetData) => Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        vertical: 8,
+                                                      ),
+                                                  child: widgetData.build(
+                                                    context: context,
+                                                    registry: registry,
+                                                  ),
+                                                ),
+                                              )
+                                              .toList(),
+                                        ),
+                                      ),
+                                    )
+                                  : const Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.code,
+                                            size: 64,
+                                            color: Colors.grey,
+                                          ),
+                                          SizedBox(height: 16),
+                                          Text(
+                                            "Cole os widgets JSON no editor",
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            "Use o botão ▶️ para renderizar",
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                            );
+                          } catch (e, stack) {
+                            debugPrint("Erro na renderização: $e\n$stack");
+                            return Scaffold(
+                              body: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.error_outline,
+                                      size: 64,
+                                      color: Colors.red,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    const Text(
+                                      "Erro ao renderizar widget",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      "Detalhes: $e",
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

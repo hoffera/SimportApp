@@ -3,6 +3,7 @@ import "dart:convert";
 import "package:get/get.dart";
 import "package:http/http.dart" as http;
 import "package:json_app/app/pages/dynamic_json_page/controllers/dynamic_json_page_controller.dart";
+import "package:json_app/app/pages/dynamic_json_page/views/dynamic_json_page_view.dart";
 import "package:json_app/app/pages/home_json_screen_page/views/full_widget_page.dart";
 import "package:json_app/config/api_constants.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
@@ -12,7 +13,7 @@ class RegisterFunctions {
     registry.registerFunctions({
       "navigatePage": _createNavigatePageFunction(),
       "selectedIndex": _createSelectedIndexFunction(),
-      "navigate": _createNavigateFunction(),
+
       "showDrawer": _createShowDrawerFunction(),
       "navBarIndex": _createNavBarIndexFunction(),
     });
@@ -22,27 +23,54 @@ class RegisterFunctions {
 
   static JsonWidgetFunction _createNavigatePageFunction() {
     return ({args, required registry}) => () async {
-      final pageId = args?[0];
+      final dynamic pageId = args != null && args.isNotEmpty ? args[0] : null;
       if (pageId == null) {
+        print("[navigatePage] ID da página não fornecido.");
         throw Exception("ID da página não fornecido.");
       }
 
-      final url = Uri.parse(ApiConstants.getView(pageId));
-      final response = await http.get(url);
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final jsonData = data["json"] as Map<String, dynamic>;
-
-        registry.navigatorKey!.currentState!.push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => FullWidgetPage(
-              data: JsonWidgetData.fromDynamic(jsonData, registry: registry),
-            ),
-          ),
-        );
+      int pageIdInt;
+      if (pageId is String) {
+        pageIdInt = int.tryParse(pageId) ?? 0;
+      } else if (pageId is int) {
+        pageIdInt = pageId;
       } else {
-        throw Exception("Erro ao carregar: ${response.statusCode}");
+        print("[navigatePage] Tipo de pageId inválido: ${pageId.runtimeType}");
+        throw Exception("Tipo de pageId inválido: ${pageId.runtimeType}");
+      }
+
+      if (Get.isRegistered<DynamicJsonPageController>()) {
+        final controller = Get.find<DynamicJsonPageController>();
+
+        if (controller.pageID != pageIdInt) {
+          controller.appBarData.value = null;
+          controller.bodyData.value = null;
+          controller.bottomNavData.value = null;
+
+          Get.delete<DynamicJsonPageController>();
+
+          final newController = DynamicJsonPageController(pageIdInt);
+          Get.put(newController);
+
+          try {
+            await newController.loadJson(pageIdInt);
+          } catch (e) {
+            throw Exception("Erro durante a navegação: $e");
+          }
+        }
+      } else {
+        Get.put(DynamicJsonPageController(pageIdInt));
+
+        try {
+          await Get.to(
+            () => DynamicJsonPageView(
+              pageID: pageIdInt,
+              placeholder: JsonCenter(child: JsonText("Carregando...")),
+            ),
+          );
+        } catch (e) {
+          throw Exception("Erro durante a navegação: $e");
+        }
       }
     };
   }
@@ -70,27 +98,6 @@ class RegisterFunctions {
         );
       } else {
         throw Exception("Erro ao carregar: ${response.statusCode}");
-      }
-    };
-  }
-
-  static JsonWidgetFunction _createNavigateFunction() {
-    return ({args, required registry}) => () async {
-      final String id = args![0];
-      final url = Uri.parse("https://687fa87cefe65e52008a8cfe.mockapi.io/$id");
-      final response = await http.get(Uri.parse("$url"));
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        await registry.navigatorKey!.currentState!.push(
-          MaterialPageRoute(
-            builder: (BuildContext context) => FullWidgetPage(
-              data: JsonWidgetData.fromDynamic(data.first, registry: registry),
-            ),
-          ),
-        );
-      } else {
-        print("Erro ao buscar o bin: ${response.statusCode}");
       }
     };
   }
