@@ -142,7 +142,7 @@ class EditorClientPageController extends GetxController {
     }
   }
 
-  Future<JsonWidgetData> loadBody(
+  Future<JsonWidgetData?> loadBody(
     int pageID,
     JsonWidgetRegistry registry,
   ) async {
@@ -161,14 +161,14 @@ class EditorClientPageController extends GetxController {
 
         return data["body"];
       } else {
-        return JsonCenter(child: JsonText("Não há dados"));
+        return null;
       }
     } catch (e) {
-      return JsonCenter(child: JsonText("Não há dados"));
+      return null;
     }
   }
 
-  Future<JsonWidgetData> loadAppBar(
+  Future<JsonWidgetData?> loadAppBar(
     int pageID,
     JsonWidgetRegistry registry,
   ) async {
@@ -187,14 +187,14 @@ class EditorClientPageController extends GetxController {
 
         return data["appBar"];
       } else {
-        return JsonCenter(child: JsonText(""));
+        return null;
       }
     } catch (e) {
-      return JsonCenter(child: JsonText(""));
+      return null;
     }
   }
 
-  Future<JsonWidgetData> loadBottomNavigationBar(
+  Future<JsonWidgetData?> loadBottomNavigationBar(
     int pageID,
     JsonWidgetRegistry registry,
   ) async {
@@ -213,10 +213,10 @@ class EditorClientPageController extends GetxController {
 
         return data["bottomNavigationBar"];
       } else {
-        return JsonCenter(child: JsonText("Não há dados"));
+        return null;
       }
     } catch (e) {
-      return JsonCenter(child: JsonText("Não há dados"));
+      return null;
     }
   }
 

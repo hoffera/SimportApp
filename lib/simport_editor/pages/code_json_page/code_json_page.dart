@@ -22,7 +22,9 @@ class CodeJsonPage extends StatefulWidget {
 class _CodeJsonPageState extends State<CodeJsonPage> {
   final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
   final codeController = CodeController(text: "", language: mode.json);
+  final debugController = CodeController(text: "", language: mode.json);
   List<JsonWidgetData>? parsedWidgets;
+  List<Widget>? individualComponents;
   ThemeData? appTheme;
 
   @override
@@ -119,6 +121,213 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
     }
   }
 
+  List<Widget> _addRedBordersToChildWidgets(List<JsonWidgetData> widgets) {
+    return widgets.map((widgetData) {
+      return _buildWidgetWithDeepChildBorders(widgetData);
+    }).toList();
+  }
+
+  String _generateDebugJson(List<JsonWidgetData> widgets) {
+    try {
+      List<Map<String, dynamic>> debugData = [];
+
+      for (int i = 0; i < widgets.length; i++) {
+        final widget = widgets[i];
+        final widgetJson = widget.toJson();
+
+        debugData.add({
+          "widget_index": i,
+          "widget_type": widgetJson["type"] ?? "unknown",
+          "has_children":
+              widgetJson.containsKey("args") &&
+              widgetJson["args"] is Map<String, dynamic> &&
+              (widgetJson["args"]["children"] != null ||
+                  widgetJson["args"]["child"] != null),
+          "children_count":
+              widgetJson.containsKey("args") &&
+                  widgetJson["args"] is Map<String, dynamic> &&
+                  widgetJson["args"]["children"] is List
+              ? (widgetJson["args"]["children"] as List).length
+              : 0,
+          "original_json": widgetJson,
+        });
+      }
+
+      const encoder = JsonEncoder.withIndent("  ");
+      return encoder.convert(debugData);
+    } catch (e) {
+      return "Erro ao gerar JSON de debug: $e";
+    }
+  }
+
+  Widget _buildWidgetWithSpecificChildBorders(JsonWidgetData widgetData) {
+    try {
+      final widget = widgetData.build(context: context, registry: registry);
+
+      if (widget is Column) {
+        return Column(
+          children: (widget).children.map((child) {
+            return Container(
+              margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.red, width: 1.0),
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: child,
+            );
+          }).toList(),
+        );
+      } else if (widget is SingleChildScrollView) {
+        final scrollView = widget;
+        if (scrollView.child is Column) {
+          final column = scrollView.child as Column;
+          return SingleChildScrollView(
+            child: Column(
+              children: column.children.map((child) {
+                return Container(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 1,
+                    horizontal: 1,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.red, width: 1.0),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: child,
+                );
+              }).toList(),
+            ),
+          );
+        } else {
+          return SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.red, width: 1.0),
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: scrollView.child,
+            ),
+          );
+        }
+      }
+
+      return widget;
+    } catch (e) {
+      debugPrint("Erro ao adicionar bordas aos child widgets: $e");
+      return widgetData.build(context: context, registry: registry);
+    }
+  }
+
+  Widget _buildWidgetWithDeepChildBorders(JsonWidgetData widgetData) {
+    try {
+      final widget = widgetData.build(context: context, registry: registry);
+
+      if (widget is Column) {
+        return Column(
+          children: (widget).children.map((child) {
+            return Container(
+              margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.red, width: 1.0),
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: child,
+            );
+          }).toList(),
+        );
+      } else if (widget is SingleChildScrollView) {
+        final scrollView = widget;
+        if (scrollView.child is Column) {
+          final column = scrollView.child as Column;
+          return SingleChildScrollView(
+            child: Column(
+              children: column.children.map((child) {
+                if (child is Column) {
+                  return Column(
+                    children: child.children.map((grandChild) {
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 1,
+                          horizontal: 1,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.red, width: 1.0),
+                          borderRadius: BorderRadius.circular(2),
+                        ),
+                        child: grandChild,
+                      );
+                    }).toList(),
+                  );
+                } else {
+                  return Container(
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 1,
+                      horizontal: 1,
+                    ),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.red, width: 1.0),
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                    child: child,
+                  );
+                }
+              }).toList(),
+            ),
+          );
+        } else {
+          return SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.red, width: 1.0),
+                borderRadius: BorderRadius.circular(2),
+              ),
+              child: scrollView.child,
+            ),
+          );
+        }
+      } else {
+        // Para outros tipos de widgets (como page_index), vamos tentar navegar nos children
+        return _buildWidgetWithChildrenBorders(widgetData);
+      }
+    } catch (e) {
+      debugPrint("Erro ao adicionar bordas aos child widgets: $e");
+      return widgetData.build(context: context, registry: registry);
+    }
+  }
+
+  Widget _buildWidgetWithChildrenBorders(JsonWidgetData widgetData) {
+    try {
+      final widgetJson = widgetData.toJson();
+
+      if (widgetJson.containsKey("args") &&
+          widgetJson["args"] is Map<String, dynamic> &&
+          widgetJson["args"]["children"] is List) {
+        final children = widgetJson["args"]["children"] as List;
+        final childrenWidgets = children.map((childJson) {
+          try {
+            final childWidgetData = JsonWidgetData.fromDynamic(
+              childJson,
+              registry: registry,
+            );
+            return _buildWidgetWithDeepChildBorders(childWidgetData);
+          } catch (e) {
+            debugPrint("Erro ao processar child widget: $e");
+            return Container();
+          }
+        }).toList();
+
+        return Column(children: childrenWidgets);
+      }
+
+      return widgetData.build(context: context, registry: registry);
+    } catch (e) {
+      debugPrint("Erro ao processar widget com children: $e");
+      return widgetData.build(context: context, registry: registry);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,7 +363,15 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
               final widgets = _parseWidgets(codeController.text);
               setState(() {
                 parsedWidgets = widgets;
+                individualComponents = widgets != null
+                    ? _addRedBordersToChildWidgets(widgets)
+                    : null;
               });
+
+              if (widgets != null) {
+                final debugJson = _generateDebugJson(widgets);
+                debugController.text = debugJson;
+              }
 
               if (widgets != null && widgets.isNotEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -198,6 +415,7 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
                       ),
                     ),
                   ),
+
                   Expanded(
                     child: CodeTheme(
                       data: CodeThemeData(styles: anOldHopeTheme),
@@ -225,7 +443,7 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
                     child: Text(
                       "Preview",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -259,6 +477,151 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
                                                 ),
                                               )
                                               .toList(),
+                                        ),
+                                      ),
+                                    )
+                                  : const Center(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.code,
+                                            size: 64,
+                                            color: Colors.grey,
+                                          ),
+                                          SizedBox(height: 16),
+                                          Text(
+                                            "Cole os widgets JSON no editor",
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          SizedBox(height: 8),
+                                          Text(
+                                            "Use o botão ▶️ para renderizar",
+                                            style: TextStyle(
+                                              color: Colors.grey,
+                                              fontSize: 14,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                            );
+                          } catch (e, stack) {
+                            debugPrint("Erro na renderização: $e\n$stack");
+                            return Scaffold(
+                              body: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Icon(
+                                      Icons.error_outline,
+                                      size: 64,
+                                      color: Colors.red,
+                                    ),
+                                    const SizedBox(height: 16),
+                                    const Text(
+                                      "Erro ao renderizar widget",
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      "Detalhes: $e",
+                                      style: const TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 12,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Expanded(
+          //   flex: 1,
+          //   child: Padding(
+          //     padding: const EdgeInsets.all(8.0),
+          //     child: Column(
+          //       children: [
+          //         Padding(
+          //           padding: const EdgeInsets.all(8.0),
+          //           child: Text(
+          //             "Debug JSON",
+          //             style: TextStyle(
+          //               color: Colors.white,
+          //               fontSize: 16,
+          //               fontWeight: FontWeight.bold,
+          //             ),
+          //           ),
+          //         ),
+
+          //         Expanded(
+          //           child: CodeTheme(
+          //             data: CodeThemeData(styles: anOldHopeTheme),
+          //             child: SingleChildScrollView(
+          //               child: CodeField(
+          //                 controller: debugController,
+          //                 minLines: 40,
+          //                 textStyle: const TextStyle(fontSize: 14),
+          //               ),
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Preview com Componentes Individuais",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: DeviceFrame(
+                      device: Devices.ios.iPhone13,
+                      screen: Builder(
+                        builder: (context) {
+                          try {
+                            return Scaffold(
+                              body:
+                                  individualComponents != null &&
+                                      individualComponents!.isNotEmpty
+                                  ? SafeArea(
+                                      child: SingleChildScrollView(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: individualComponents!,
                                         ),
                                       ),
                                     )

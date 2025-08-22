@@ -77,6 +77,8 @@ dependencies:
   graphite: ^1.2.1
   go_router: ^16.2.0
   tab_container: ^3.5.3
+  json_editor_flutter: ^1.4.2
+  json_explorer: ^0.1.2
 
 
 

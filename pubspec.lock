@@ -933,6 +933,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  json_editor_flutter:
+    dependency: "direct main"
+    description:
+      name: json_editor_flutter
+      sha256: "851a6adbfb6ee794809a941d82dde0c9f8b6c2fcadabcbde386f1cb6bf27466a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.2"
+  json_explorer:
+    dependency: "direct main"
+    description:
+      name: json_explorer
+      sha256: e11269c4945f37e4d960671b44a0579e5aba12e62bc6f12950cccca92bcd1286
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   json_path:
     dependency: transitive
     description:

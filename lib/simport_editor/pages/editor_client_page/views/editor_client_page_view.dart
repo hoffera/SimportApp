@@ -414,7 +414,12 @@ class EditorClientPageView extends GetView<EditorClientPageController> {
                           nodeBuilder: (BuildContext context, NodeInput node) {
                             final pageId = int.tryParse(node.id);
 
-                            return _scaffoldJson(context, pageId, 6);
+                            return FutureBuilder<Widget>(
+                              future: _scaffoldJson(context, pageId, 6),
+                              builder: (context, snapshot) {
+                                return snapshot.data ?? _deviceFrame(context);
+                              },
+                            );
                           },
                         ),
                       ),
@@ -464,7 +469,12 @@ class EditorClientPageView extends GetView<EditorClientPageController> {
                             child: SizedBox(
                               height: 500,
                               width: 500,
-                              child: _scaffoldJson(context, page.id, 6),
+                              child: FutureBuilder<Widget>(
+                                future: _scaffoldJson(context, page.id, 6),
+                                builder: (context, snapshot) {
+                                  return snapshot.data ?? _deviceFrame(context);
+                                },
+                              ),
                             ),
                           ),
                         )
@@ -480,10 +490,20 @@ class EditorClientPageView extends GetView<EditorClientPageController> {
     );
   }
 
-  Widget _scaffoldJson(BuildContext context, int? pageID, int principal) {
+  Future<Widget> _scaffoldJson(
+    BuildContext context,
+    int? pageID,
+    int principal,
+  ) async {
     if (pageID == null) {
       return const SizedBox.shrink();
     }
+    final appbar = await controller.loadAppBar(pageID, controller.registry);
+    final body = await controller.loadBody(pageID, controller.registry);
+    final bottomNav = await controller.loadBottomNavigationBar(
+      pageID,
+      controller.registry,
+    );
 
     return RepaintBoundary(
       child: Column(
@@ -528,67 +548,18 @@ class EditorClientPageView extends GetView<EditorClientPageController> {
                 child: DeviceFrame(
                   device: Devices.android.samsungGalaxyS25,
                   screen: Scaffold(
-                    appBar: PreferredSize(
-                      preferredSize: Size.fromHeight(kToolbarHeight),
-                      child: FutureBuilder<JsonWidgetData>(
-                        future: controller.loadAppBar(
-                          pageID,
-                          controller.registry,
-                        ),
-                        builder: (context, appBarSnapshot) {
-                          if (appBarSnapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                          if (appBarSnapshot.hasData &&
-                              appBarSnapshot.data != null) {
-                            return PreferredSize(
-                              preferredSize: Size.fromHeight(kToolbarHeight),
-                              child: appBarSnapshot.data!.build(
-                                context: context,
-                              ),
-                            );
-                          }
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                    ),
-                    body: FutureBuilder<JsonWidgetData>(
-                      future: controller.loadBody(pageID, controller.registry),
-                      builder: (context, bodySnapshot) {
-                        if (bodySnapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                        if (bodySnapshot.hasData && bodySnapshot.data != null) {
-                          return bodySnapshot.data!.build(context: context);
-                        }
-                        return const Center(child: Text("Sem dados"));
-                      },
-                    ),
-                    bottomNavigationBar: FutureBuilder<JsonWidgetData>(
-                      future: controller.loadBottomNavigationBar(
-                        pageID,
-                        controller.registry,
-                      ),
-                      builder: (context, bottomNavSnapshot) {
-                        if (bottomNavSnapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const SizedBox.shrink();
-                        }
-                        if (bottomNavSnapshot.hasData &&
-                            bottomNavSnapshot.data != null) {
-                          return bottomNavSnapshot.data!.build(
-                            context: context,
-                          );
-                        }
-                        return const SizedBox.shrink();
-                      },
-                    ),
+                    appBar: appbar != null
+                        ? PreferredSize(
+                            preferredSize: Size.fromHeight(kToolbarHeight),
+                            child: appbar.build(context: context),
+                          )
+                        : null,
+
+                    body: body != null
+                        ? body.build(context: context)
+                        : const SizedBox.shrink(),
+
+                    bottomNavigationBar: bottomNav?.build(context: context),
                   ),
                 ),
               ),
@@ -596,6 +567,13 @@ class EditorClientPageView extends GetView<EditorClientPageController> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _deviceFrame(BuildContext context) {
+    return DeviceFrame(
+      device: Devices.android.samsungGalaxyS25,
+      screen: Scaffold(body: Center(child: CircularProgressIndicator())),
     );
   }
 
