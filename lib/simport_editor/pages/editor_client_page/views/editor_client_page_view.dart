@@ -536,9 +536,8 @@ class EditorClientPageView extends GetView<EditorClientPageController> {
                 try {
                   final json = await controller.loadJson(pageID);
                   if (context.mounted) {
-                    context.go(
-                      "/code-json?json=${Uri.encodeComponent(json)}&clientId=$clientId",
-                    );
+                    final encodedJson = Uri.encodeComponent(json);
+                    context.go("/code-json/$encodedJson/$clientId");
                   }
                 } catch (e) {
                   print("DEBUG: Error loading JSON: $e");

@@ -18,6 +18,7 @@ class CustomWidgetRegistrar extends _CustomWidgetRegistrar {
   }) {
     registry ??= JsonWidgetRegistry.instance;
     return CustomWidgetRegistrar()
+      ..withButtonJsonWidget()
       ..withChartWidget()
       ..withCircularChart()
       ..withCircularGraph()
@@ -46,6 +47,14 @@ class CustomWidgetRegistrar extends _CustomWidgetRegistrar {
     for (var s in _schemas.entries) {
       schemaCache.addSchema(s.key, s.value);
     }
+  }
+
+  void withButtonJsonWidget() {
+    _builders[ButtonJsonWidgetBuilder.kType] = const JsonWidgetBuilderContainer(
+      builder: ButtonJsonWidgetBuilder.fromDynamic,
+      schemaId: ButtonJsonWidgetSchema.id,
+    );
+    _schemas[ButtonJsonWidgetSchema.id] = ButtonJsonWidgetSchema.schema;
   }
 
   void withChartWidget() {

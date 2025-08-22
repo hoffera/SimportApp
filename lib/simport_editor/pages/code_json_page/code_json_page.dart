@@ -6,6 +6,7 @@ import "package:flutter_code_editor/flutter_code_editor.dart";
 import "package:flutter_highlight/themes/an-old-hope.dart";
 import "package:go_router/go_router.dart";
 import "package:highlight/languages/json.dart" as mode;
+import "package:json_app/simport_editor/widgets/button_json_widget.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
 
 final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
@@ -26,6 +27,7 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
   List<JsonWidgetData>? parsedWidgets;
   List<Widget>? individualComponents;
   ThemeData? appTheme;
+  bool showIndividualComponents = false;
 
   @override
   void initState() {
@@ -179,7 +181,7 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
           widgetJson.containsKey("args") &&
           widgetJson["args"]["child"] != null) {
         final child = widgetJson["args"]["child"];
-        final childWithBorders = _addBordersToColumnJson(child);
+        final childWithBorders = _addButtonJsonModal(child);
 
         return {
           "type": "single_child_scroll_view",
@@ -193,53 +195,39 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
     }
   }
 
-  Map<String, dynamic> _addBordersToColumnJson(
-    Map<String, dynamic> widgetJson,
-  ) {
+  Map<String, dynamic> _addSkeletonLoading(Map<String, dynamic> widgetJson) {
+    try {
+      if (widgetJson["type"] == "single_child_scroll_view" &&
+          widgetJson.containsKey("args") &&
+          widgetJson["args"]["child"] != null) {
+        final child = widgetJson["args"]["child"];
+        final childWithBorders = _skeletonJson(child);
+
+        return {
+          "type": "single_child_scroll_view",
+          "args": {"child": childWithBorders},
+        };
+      }
+
+      return widgetJson;
+    } catch (e) {
+      return widgetJson;
+    }
+  }
+
+  Map<String, dynamic> _addButtonJsonModal(Map<String, dynamic> widgetJson) {
     try {
       if (widgetJson["type"] == "column" &&
           widgetJson.containsKey("args") &&
           widgetJson["args"]["children"] is List) {
         final children = widgetJson["args"]["children"] as List;
         final childrenWithBorders = children.map((child) {
-          return {
-            "type": "container",
-            "args": {
-              "child": child,
-              "margin": {"vertical": 1, "horizontal": 1},
-              "padding": {"vertical": 2, "horizontal": 2},
-              "decoration": {
-                "border": {"color": "#FF0000", "width": 1.0},
-                "borderRadius": 2.0,
-              },
-            },
-          };
-        }).toList();
-
-        return {
-          "type": "column",
-          "args": {"children": childrenWithBorders},
-        };
-      } else if (widgetJson["type"] == "column" &&
-          widgetJson.containsKey("args") &&
-          widgetJson["args"]["children"] is List) {
-        // Para columns aninhadas, também aplicar bordas
-        final children = widgetJson["args"]["children"] as List;
-        final childrenWithBorders = children.map((child) {
           if (child["type"] == "column") {
-            return _addBordersToColumnJson(child);
+            return _addButtonJsonModal(child);
           } else {
             return {
-              "type": "container",
-              "args": {
-                "margin": {"vertical": 1, "horizontal": 1},
-                "padding": {"vertical": 2, "horizontal": 2},
-                "decoration": {
-                  "border": {"color": "#FF0000", "width": 1.0},
-                  "borderRadius": 2.0,
-                },
-              },
-              "child": child,
+              "type": "button_json_widget",
+              "args": {"child": child, "widgetJson": jsonEncode(child)},
             };
           }
         }).toList();
@@ -256,51 +244,19 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
     }
   }
 
-  Map<String, dynamic> _addSkeleton(Map<String, dynamic> widgetJson) {
+  Map<String, dynamic> _skeletonJson(Map<String, dynamic> widgetJson) {
     try {
       if (widgetJson["type"] == "column" &&
           widgetJson.containsKey("args") &&
           widgetJson["args"]["children"] is List) {
         final children = widgetJson["args"]["children"] as List;
         final childrenWithBorders = children.map((child) {
-          return {
-            "type": "container",
-            "args": {
-              "child": child,
-              "margin": {"vertical": 1, "horizontal": 1},
-              "padding": {"vertical": 2, "horizontal": 2},
-              "decoration": {
-                "border": {"color": "#FF0000", "width": 1.0},
-                "borderRadius": 2.0,
-              },
-            },
-          };
-        }).toList();
-
-        return {
-          "type": "column",
-          "args": {"children": childrenWithBorders},
-        };
-      } else if (widgetJson["type"] == "column" &&
-          widgetJson.containsKey("args") &&
-          widgetJson["args"]["children"] is List) {
-        // Para columns aninhadas, também aplicar bordas
-        final children = widgetJson["args"]["children"] as List;
-        final childrenWithBorders = children.map((child) {
           if (child["type"] == "column") {
-            return _addBordersToColumnJson(child);
+            return _skeletonJson(child);
           } else {
             return {
-              "type": "container",
-              "args": {
-                "margin": {"vertical": 1, "horizontal": 1},
-                "padding": {"vertical": 2, "horizontal": 2},
-                "decoration": {
-                  "border": {"color": "#FF0000", "width": 1.0},
-                  "borderRadius": 2.0,
-                },
-              },
-              "child": child,
+              "type": "skeleton_loading",
+              "args": {"child": child},
             };
           }
         }).toList();
@@ -315,6 +271,10 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
     } catch (e) {
       return widgetJson;
     }
+  }
+
+  Widget _widgetButton(Widget child, String widgetJson) {
+    return ButtonJsonWidget(widgetJson: widgetJson, child: child);
   }
 
   Widget _buildWidgetWithDeepChildBorders(JsonWidgetData widgetData) {
@@ -322,16 +282,15 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
       final widget = widgetData.build(context: context, registry: registry);
 
       if (widget is Column) {
+        final widgetJson = widgetData.toJson();
+        final children = widgetJson["args"]["children"] as List;
+
         return Column(
-          children: (widget).children.map((child) {
-            return Container(
-              margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.red, width: 1.0),
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: child,
-            );
+          children: (widget).children.asMap().entries.map((entry) {
+            final index = entry.key;
+            final child = entry.value;
+            final childJson = children[index];
+            return _widgetButton(child, jsonEncode(childJson));
           }).toList(),
         );
       } else if (widget is SingleChildScrollView) {
@@ -344,44 +303,23 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
                 if (child is Column) {
                   return Column(
                     children: child.children.map((grandChild) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 1,
-                          horizontal: 1,
-                        ),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.red, width: 1.0),
-                          borderRadius: BorderRadius.circular(2),
-                        ),
-                        child: grandChild,
+                      return _widgetButton(
+                        grandChild,
+                        widgetData.toJson().toString(),
                       );
                     }).toList(),
                   );
                 } else {
-                  return Container(
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 1,
-                      horizontal: 1,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red, width: 1.0),
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                    child: child,
-                  );
+                  return _widgetButton(child, widgetData.toJson().toString());
                 }
               }).toList(),
             ),
           );
         } else {
           return SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.red, width: 1.0),
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: scrollView.child,
+            child: _widgetButton(
+              scrollView.child!,
+              widgetData.toJson().toString(),
             ),
           );
         }
@@ -439,6 +377,21 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
           },
         ),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.visibility, size: 40),
+            tooltip: "Vizualizar componentes individuais",
+            onPressed: () {
+              final widgets = _parseWidgets(codeController.text);
+              setState(() {
+                parsedWidgets = widgets;
+                individualComponents = widgets != null
+                    ? _addRedBordersToChildWidgets(widgets)
+                    : null;
+              });
+
+              showIndividualComponents = !showIndividualComponents;
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.format_indent_increase, size: 40),
             tooltip: "Reformatar JSON",
@@ -554,7 +507,7 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
                         builder: (context) {
                           try {
                             return Scaffold(
-                              body: parsedWidgets != null
+                              body: showIndividualComponents == false
                                   ? SafeArea(
                                       child: SingleChildScrollView(
                                         padding: const EdgeInsets.all(16),
@@ -578,33 +531,14 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
                                         ),
                                       ),
                                     )
-                                  : const Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.code,
-                                            size: 64,
-                                            color: Colors.grey,
-                                          ),
-                                          SizedBox(height: 16),
-                                          Text(
-                                            "Cole os widgets JSON no editor",
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          SizedBox(height: 8),
-                                          Text(
-                                            "Use o botão ▶️ para renderizar",
-                                            style: TextStyle(
-                                              color: Colors.grey,
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                        ],
+                                  : SafeArea(
+                                      child: SingleChildScrollView(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: individualComponents!,
+                                        ),
                                       ),
                                     ),
                             );
@@ -695,7 +629,7 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Preview com Componentes Individuais",
+                      "Skeleton Loading",
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -709,17 +643,35 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
                       screen: Builder(
                         builder: (context) {
                           try {
+                            // Parse the debug JSON to render skeleton loading
+                            final skeletonWidgets = _parseWidgets(
+                              debugController.text,
+                            );
+
                             return Scaffold(
                               body:
-                                  individualComponents != null &&
-                                      individualComponents!.isNotEmpty
+                                  skeletonWidgets != null &&
+                                      skeletonWidgets.isNotEmpty
                                   ? SafeArea(
                                       child: SingleChildScrollView(
                                         padding: const EdgeInsets.all(16),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
-                                          children: individualComponents!,
+                                          children: skeletonWidgets
+                                              .map(
+                                                (widgetData) => Padding(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        vertical: 8,
+                                                      ),
+                                                  child: widgetData.build(
+                                                    context: context,
+                                                    registry: registry,
+                                                  ),
+                                                ),
+                                              )
+                                              .toList(),
                                         ),
                                       ),
                                     )

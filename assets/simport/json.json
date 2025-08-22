@@ -8,7 +8,21 @@
                     {
                         "type": "container",
                         "args": {
-                            "color": "#000000"
+                            "margin": {
+                                "vertical": 1,
+                                "horizontal": 1
+                            },
+                            "padding": {
+                                "vertical": 2,
+                                "horizontal": 2
+                            },
+                            "decoration": {
+                                "border": {
+                                    "color": "#FF0000",
+                                    "width": 1
+                                },
+                                "borderRadius": 2
+                            }
                         },
                         "child": {
                             "type": "sized_box",
@@ -20,19 +34,21 @@
                     {
                         "type": "container",
                         "args": {
-                            "color": "#000000"
-                        },
-                        "child": {
-                            "type": "title_widget",
-                            "args": {
-                                "title": "TELA 6"
+                            "margin": {
+                                "vertical": 1,
+                                "horizontal": 1
+                            },
+                            "padding": {
+                                "vertical": 2,
+                                "horizontal": 2
+                            },
+                            "decoration": {
+                                "border": {
+                                    "color": "#FF0000",
+                                    "width": 1
+                                },
+                                "borderRadius": 2
                             }
-                        }
-                    },
-                    {
-                        "type": "container",
-                        "args": {
-                            "color": "#000000"
                         },
                         "child": {
                             "type": "column",

@@ -1,7 +1,8 @@
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:go_router/go_router.dart";
-import "package:json_app/simport_editor/pages/code_json_page/code_json_page.dart";
+import "package:json_app/simport_editor/pages/code_json_page/controllers/code_json_controller.dart";
+import "package:json_app/simport_editor/pages/code_json_page/view/code_json_view.dart";
 import "package:json_app/simport_editor/pages/editor_client_page/controllers/editor_client_page_controller.dart";
 import "package:json_app/simport_editor/pages/editor_client_page/views/editor_client_page_view.dart";
 import "package:json_app/simport_editor/pages/editor_home_page/controllers/editor_home_page_controller.dart";
@@ -40,15 +41,19 @@ class SimportEditorGoRouter {
         },
       ),
       GoRoute(
-        path: "/code-json",
+        path: "/code-json/:json/:clientId",
         name: "code-json",
         builder: (context, state) {
-          final json = state.uri.queryParameters["json"] ?? "{}";
-          final clientId = state.uri.queryParameters["clientId"] ?? "";
-          print(
-            "Navegando para code-json com JSON: ${json.substring(0, json.length > 50 ? 50 : json.length)}...",
+          final json = state.pathParameters["json"] ?? "{}";
+          final clientId = state.pathParameters["clientId"] ?? "";
+
+          final newcontroller = CodeJsonController(
+            json: Uri.decodeComponent(json),
+            clientId: clientId,
           );
-          return CodeJsonPage(json: json, clientId: clientId);
+          Get.put(newcontroller);
+
+          return CodeJsonPageView();
         },
       ),
     ],

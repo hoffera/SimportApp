@@ -13,6 +13,7 @@ import "package:json_app/app/components/text/title_widget.dart";
 import "package:json_app/app/json%20dynamic%20widget/curved_navigation_builder.dart";
 import "package:json_app/app/json%20dynamic%20widget/page_index.dart";
 import "package:json_app/app/json%20dynamic%20widget/skeletonizer_builder.dart";
+import "package:json_app/simport_editor/widgets/button_json_widget.dart";
 import "package:json_app/testes/svgbuilder.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
 

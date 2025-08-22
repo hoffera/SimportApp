@@ -62,11 +62,16 @@ class MapBoxWidgetBuilder extends _MapBoxWidgetBuilder {
       value: model.initialPosition,
       registry: data.jsonWidgetRegistry,
     );
+    final pinsDecoded = _decodePins(
+      value: model.pins,
+      registry: data.jsonWidgetRegistry,
+    );
 
     return MapBoxWidget(
       data: dataDecoded,
       initialPosition: initialPositionDecoded,
       key: key,
+      pins: pinsDecoded,
     );
   }
 }
@@ -77,15 +82,28 @@ class JsonMapBoxWidget extends JsonWidgetData {
     JsonWidgetRegistry? registry,
     required this.data,
     required this.initialPosition,
+    required this.pins,
   }) : super(
          jsonWidgetArgs: MapBoxWidgetBuilderModel.fromDynamic(
-           {'data': data, 'initialPosition': initialPosition, ...args},
+           {
+             'data': data,
+             'initialPosition': initialPosition,
+             'pins': pins,
+
+             ...args,
+           },
            args: args,
            registry: registry,
          ),
          jsonWidgetBuilder: () => MapBoxWidgetBuilder(
            args: MapBoxWidgetBuilderModel.fromDynamic(
-             {'data': data, 'initialPosition': initialPosition, ...args},
+             {
+               'data': data,
+               'initialPosition': initialPosition,
+               'pins': pins,
+
+               ...args,
+             },
              args: args,
              registry: registry,
            ),
@@ -96,6 +114,8 @@ class JsonMapBoxWidget extends JsonWidgetData {
   final dynamic data;
 
   final dynamic initialPosition;
+
+  final dynamic pins;
 }
 
 class MapBoxWidgetBuilderModel extends JsonWidgetBuilderModel {
@@ -103,11 +123,14 @@ class MapBoxWidgetBuilderModel extends JsonWidgetBuilderModel {
     super.args, {
     required this.data,
     required this.initialPosition,
+    required this.pins,
   });
 
   final dynamic data;
 
   final dynamic initialPosition;
+
+  final dynamic pins;
 
   static MapBoxWidgetBuilderModel fromDynamic(
     dynamic map, {
@@ -146,6 +169,7 @@ class MapBoxWidgetBuilderModel extends JsonWidgetBuilderModel {
           args,
           data: map['data'],
           initialPosition: map['initialPosition'],
+          pins: map['pins'],
         );
       }
     }
@@ -158,6 +182,7 @@ class MapBoxWidgetBuilderModel extends JsonWidgetBuilderModel {
     return JsonClass.removeNull({
       'data': data,
       'initialPosition': initialPosition,
+      'pins': pins,
 
       ...args,
     });
@@ -177,6 +202,7 @@ class MapBoxWidgetSchema {
     'properties': {
       'data': SchemaHelper.anySchema,
       'initialPosition': SchemaHelper.anySchema,
+      'pins': SchemaHelper.anySchema,
     },
     'required': ['data'],
   };
