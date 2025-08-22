@@ -129,93 +129,191 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
 
   String _generateDebugJson(List<JsonWidgetData> widgets) {
     try {
-      List<Map<String, dynamic>> debugData = [];
-
-      for (int i = 0; i < widgets.length; i++) {
-        final widget = widgets[i];
-        final widgetJson = widget.toJson();
-
-        debugData.add({
-          "widget_index": i,
-          "widget_type": widgetJson["type"] ?? "unknown",
-          "has_children":
-              widgetJson.containsKey("args") &&
-              widgetJson["args"] is Map<String, dynamic> &&
-              (widgetJson["args"]["children"] != null ||
-                  widgetJson["args"]["child"] != null),
-          "children_count":
-              widgetJson.containsKey("args") &&
-                  widgetJson["args"] is Map<String, dynamic> &&
-                  widgetJson["args"]["children"] is List
-              ? (widgetJson["args"]["children"] as List).length
-              : 0,
-          "original_json": widgetJson,
-        });
+      if (widgets.isEmpty) {
+        return "Nenhum widget encontrado";
       }
 
+      final widget = widgets.first;
+      final widgetJson = widget.toJson();
+      final bordersJson = _generateBordersJson(widgetJson);
+
       const encoder = JsonEncoder.withIndent("  ");
-      return encoder.convert(debugData);
+      return encoder.convert(bordersJson);
     } catch (e) {
       return "Erro ao gerar JSON de debug: $e";
     }
   }
 
-  Widget _buildWidgetWithSpecificChildBorders(JsonWidgetData widgetData) {
+  Map<String, dynamic> _generateBordersJson(Map<String, dynamic> widgetJson) {
     try {
-      final widget = widgetData.build(context: context, registry: registry);
+      if (widgetJson["type"] == "page_index" &&
+          widgetJson.containsKey("args") &&
+          widgetJson["args"]["children"] is List) {
+        final children = widgetJson["args"]["children"] as List;
+        final childrenWithBorders = children.map((child) {
+          return _addBordersToWidgetJson(child);
+        }).toList();
 
-      if (widget is Column) {
-        return Column(
-          children: (widget).children.map((child) {
-            return Container(
-              margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.red, width: 1.0),
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: child,
-            );
-          }).toList(),
-        );
-      } else if (widget is SingleChildScrollView) {
-        final scrollView = widget;
-        if (scrollView.child is Column) {
-          final column = scrollView.child as Column;
-          return SingleChildScrollView(
-            child: Column(
-              children: column.children.map((child) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 1,
-                    horizontal: 1,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.red, width: 1.0),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                  child: child,
-                );
-              }).toList(),
-            ),
-          );
-        } else {
-          return SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 1, horizontal: 1),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.red, width: 1.0),
-                borderRadius: BorderRadius.circular(2),
-              ),
-              child: scrollView.child,
-            ),
-          );
-        }
+        return {
+          "type": "page_index",
+          "args": {
+            "index": widgetJson["args"]["index"],
+            "children": childrenWithBorders,
+          },
+        };
+      } else if (widgetJson["type"] == "single_child_scroll_view") {
+        return _addBordersToWidgetJson(widgetJson);
       }
 
-      return widget;
+      return widgetJson;
     } catch (e) {
-      debugPrint("Erro ao adicionar bordas aos child widgets: $e");
-      return widgetData.build(context: context, registry: registry);
+      return widgetJson;
+    }
+  }
+
+  Map<String, dynamic> _addBordersToWidgetJson(
+    Map<String, dynamic> widgetJson,
+  ) {
+    try {
+      if (widgetJson["type"] == "single_child_scroll_view" &&
+          widgetJson.containsKey("args") &&
+          widgetJson["args"]["child"] != null) {
+        final child = widgetJson["args"]["child"];
+        final childWithBorders = _addBordersToColumnJson(child);
+
+        return {
+          "type": "single_child_scroll_view",
+          "args": {"child": childWithBorders},
+        };
+      }
+
+      return widgetJson;
+    } catch (e) {
+      return widgetJson;
+    }
+  }
+
+  Map<String, dynamic> _addBordersToColumnJson(
+    Map<String, dynamic> widgetJson,
+  ) {
+    try {
+      if (widgetJson["type"] == "column" &&
+          widgetJson.containsKey("args") &&
+          widgetJson["args"]["children"] is List) {
+        final children = widgetJson["args"]["children"] as List;
+        final childrenWithBorders = children.map((child) {
+          return {
+            "type": "container",
+            "args": {
+              "child": child,
+              "margin": {"vertical": 1, "horizontal": 1},
+              "padding": {"vertical": 2, "horizontal": 2},
+              "decoration": {
+                "border": {"color": "#FF0000", "width": 1.0},
+                "borderRadius": 2.0,
+              },
+            },
+          };
+        }).toList();
+
+        return {
+          "type": "column",
+          "args": {"children": childrenWithBorders},
+        };
+      } else if (widgetJson["type"] == "column" &&
+          widgetJson.containsKey("args") &&
+          widgetJson["args"]["children"] is List) {
+        // Para columns aninhadas, também aplicar bordas
+        final children = widgetJson["args"]["children"] as List;
+        final childrenWithBorders = children.map((child) {
+          if (child["type"] == "column") {
+            return _addBordersToColumnJson(child);
+          } else {
+            return {
+              "type": "container",
+              "args": {
+                "margin": {"vertical": 1, "horizontal": 1},
+                "padding": {"vertical": 2, "horizontal": 2},
+                "decoration": {
+                  "border": {"color": "#FF0000", "width": 1.0},
+                  "borderRadius": 2.0,
+                },
+              },
+              "child": child,
+            };
+          }
+        }).toList();
+
+        return {
+          "type": "column",
+          "args": {"children": childrenWithBorders},
+        };
+      }
+
+      return widgetJson;
+    } catch (e) {
+      return widgetJson;
+    }
+  }
+
+  Map<String, dynamic> _addSkeleton(Map<String, dynamic> widgetJson) {
+    try {
+      if (widgetJson["type"] == "column" &&
+          widgetJson.containsKey("args") &&
+          widgetJson["args"]["children"] is List) {
+        final children = widgetJson["args"]["children"] as List;
+        final childrenWithBorders = children.map((child) {
+          return {
+            "type": "container",
+            "args": {
+              "child": child,
+              "margin": {"vertical": 1, "horizontal": 1},
+              "padding": {"vertical": 2, "horizontal": 2},
+              "decoration": {
+                "border": {"color": "#FF0000", "width": 1.0},
+                "borderRadius": 2.0,
+              },
+            },
+          };
+        }).toList();
+
+        return {
+          "type": "column",
+          "args": {"children": childrenWithBorders},
+        };
+      } else if (widgetJson["type"] == "column" &&
+          widgetJson.containsKey("args") &&
+          widgetJson["args"]["children"] is List) {
+        // Para columns aninhadas, também aplicar bordas
+        final children = widgetJson["args"]["children"] as List;
+        final childrenWithBorders = children.map((child) {
+          if (child["type"] == "column") {
+            return _addBordersToColumnJson(child);
+          } else {
+            return {
+              "type": "container",
+              "args": {
+                "margin": {"vertical": 1, "horizontal": 1},
+                "padding": {"vertical": 2, "horizontal": 2},
+                "decoration": {
+                  "border": {"color": "#FF0000", "width": 1.0},
+                  "borderRadius": 2.0,
+                },
+              },
+              "child": child,
+            };
+          }
+        }).toList();
+
+        return {
+          "type": "column",
+          "args": {"children": childrenWithBorders},
+        };
+      }
+
+      return widgetJson;
+    } catch (e) {
+      return widgetJson;
     }
   }
 
@@ -554,40 +652,40 @@ class _CodeJsonPageState extends State<CodeJsonPage> {
             ),
           ),
 
-          // Expanded(
-          //   flex: 1,
-          //   child: Padding(
-          //     padding: const EdgeInsets.all(8.0),
-          //     child: Column(
-          //       children: [
-          //         Padding(
-          //           padding: const EdgeInsets.all(8.0),
-          //           child: Text(
-          //             "Debug JSON",
-          //             style: TextStyle(
-          //               color: Colors.white,
-          //               fontSize: 16,
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           ),
-          //         ),
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Debug JSON",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
 
-          //         Expanded(
-          //           child: CodeTheme(
-          //             data: CodeThemeData(styles: anOldHopeTheme),
-          //             child: SingleChildScrollView(
-          //               child: CodeField(
-          //                 controller: debugController,
-          //                 minLines: 40,
-          //                 textStyle: const TextStyle(fontSize: 14),
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ),
+                  Expanded(
+                    child: CodeTheme(
+                      data: CodeThemeData(styles: anOldHopeTheme),
+                      child: SingleChildScrollView(
+                        child: CodeField(
+                          controller: debugController,
+                          minLines: 40,
+                          textStyle: const TextStyle(fontSize: 14),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Expanded(
             flex: 2,
             child: Padding(
