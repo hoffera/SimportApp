@@ -1,0 +1,16 @@
+{
+    "@@locale": "pt",
+    "loginEnterButton": "Entrar",
+    "loginPasswordButton": "Esqueci minha senha",
+    "loginUser": "Usuário",
+    "loginPassword": "Senha",
+    "darkTheme": "Tema escuro",
+    "language": "Idioma",
+    "clients": "Clientes",
+    "logout": "Sair",
+    "portuguese": "Português",
+    "english": "Inglês",
+    "spanish": "Espanhol",
+    "termsOfService": "Termos de Serviço",
+    "privacyPolicy": "Política de Privacidade"
+}

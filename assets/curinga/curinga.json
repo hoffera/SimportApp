@@ -1,0 +1,32 @@
+[
+
+{
+    "type": "#text",
+    "args": "Texto do coringa"
+},
+{
+    "type": "#chartData",
+    "args":   {
+        "type": "spline",
+        "name": "Maré 1",
+        "xField": "x",
+        "yField": "y",
+        "animationDuration": 300,
+        "color": "#051654",
+        "dataSource": [
+          {
+            "x": "2024-01-01",
+            "y": 12
+          },
+          {
+            "x": "2024-01-02",
+            "y": 15
+          },
+          {
+            "x": "2024-01-03",
+            "y": 14
+          }
+        ]
+      }
+}
+]

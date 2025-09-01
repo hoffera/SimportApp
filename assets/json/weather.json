@@ -1,0 +1,100 @@
+{
+    "type": "scaffold",
+    "args": {
+        "backgroundColor": "#ffffffff",
+        "body": {
+            "type": "single_child_scroll_view",
+            "args": {
+                "child": {
+                    "type": "column",
+                    "args": {
+                        "children": [
+                            {
+                                "type": "sized_box",
+                                "args": {
+                                    "height": 50
+                                }
+                            },
+                            {
+                                "type": "title_widget",
+                                "args": {
+                                    "title": "Maré"
+                                }
+                            },
+                            {
+                                "type": "column",
+                                "args": {
+                                    "children": [
+                                        {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 8,
+                                                    "left": 8,
+                                                    "right": 8,
+                                                    "top": 8
+                                                },
+                                                "child": {
+                                                    "type": "chart_widget",
+                                                    "args": {
+                                                        "chart": {
+                                                            "type": "sync_linear_graph",
+                                                            "args": {
+                                                                "cartesianSeries": [
+                                                                    {
+                                                                        "type": "spline",
+                                                                        "name": "Maré",
+                                                                        "xField": "x",
+                                                                        "yField": "y",
+                                                                        "dataSource": [
+                                                                            {
+                                                                                "x": "2024-01-01",
+                                                                                "y": 12
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-02",
+                                                                                "y": 15
+                                                                            },
+                                                                            {
+                                                                                "x": "2024-01-03",
+                                                                                "y": 14
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ],
+                                                                "chartAxis": [
+                                                                    {
+                                                                        "type": "numeric",
+                                                                        "title": "Altura (m)",
+                                                                        "minimum": 0,
+                                                                        "maximum": 20
+                                                                    }
+                                                                ],
+                                                                "chartAxisX": {
+                                                                    "type": "category",
+                                                                    "title": "Dias"
+                                                                }
+                                                            }
+                                                        },
+                                                        "subtitle": "há 10 minutos",
+                                                        "title": "Maré Antonina"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "sized_box",
+                                            "args": {
+                                                "height": 100
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

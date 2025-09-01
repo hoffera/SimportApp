@@ -1,0 +1,373 @@
+{
+    "id": 1919,
+    "minScale": null,
+    "maxScale": null,
+    "active": true,
+    "dataGroup": {
+        "type": "Vento",
+        "fullDescription": null,
+        "active": true,
+        "data": [
+            {
+                "route": {
+                    "id": 2753,
+                    "dataGroupId": "AP10",
+                    "equipmentId": "FL",
+                    "stationId": 13,
+                    "regionId": 56,
+                    "stationDesc": "APPA - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2753,
+                "unitType": "Speed",
+                "defaultUnit": "KNOT",
+                "operationalValues": [],
+                "name": "windSpeed",
+                "iconURL": "https://appa.cs.simport.com.br/gallery/33/image-download"
+            },
+            {
+                "route": {
+                    "id": 2754,
+                    "dataGroupId": "AP10",
+                    "equipmentId": "FL",
+                    "stationId": 13,
+                    "regionId": 56,
+                    "stationDesc": "APPA - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2754,
+                "unitType": "Speed",
+                "defaultUnit": "KNOT",
+                "operationalValues": [],
+                "name": "windSpeedAverage",
+                "iconURL": "https://appa.cs.simport.com.br/gallery/33/image-download"
+            },
+            {
+                "route": {
+                    "id": 2755,
+                    "dataGroupId": "AP10",
+                    "equipmentId": "FL",
+                    "stationId": 13,
+                    "regionId": 56,
+                    "stationDesc": "APPA - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2755,
+                "unitType": "Speed",
+                "defaultUnit": "KNOT",
+                "operationalValues": [],
+                "name": "maxWindSpeedInXMinutes",
+                "iconURL": "https://appa.cs.simport.com.br/gallery/33/image-download"
+            },
+            {
+                "route": {
+                    "id": 2756,
+                    "dataGroupId": "AP10",
+                    "equipmentId": "FL",
+                    "stationId": 13,
+                    "regionId": 56,
+                    "stationDesc": "APPA - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2756,
+                "unitType": "Direction",
+                "defaultUnit": "DEGREES",
+                "operationalValues": [],
+                "name": "windDirection",
+                "iconURL": "https://appa.cs.simport.com.br/gallery/36/image-download"
+            },
+            {
+                "route": {
+                    "id": 2757,
+                    "dataGroupId": "AP10",
+                    "equipmentId": "FL",
+                    "stationId": 13,
+                    "regionId": 56,
+                    "stationDesc": "APPA - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2757,
+                "unitType": "Direction",
+                "defaultUnit": "DEGREES",
+                "operationalValues": [],
+                "name": "windDirectionAverage",
+                "iconURL": "https://appa.cs.simport.com.br/gallery/36/image-download"
+            },
+            {
+                "route": {
+                    "id": 2758,
+                    "dataGroupId": "AP10",
+                    "equipmentId": "FL",
+                    "stationId": 13,
+                    "regionId": 56,
+                    "stationDesc": "APPA - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2758,
+                "unitType": "Speed",
+                "defaultUnit": "KNOT",
+                "operationalValues": [],
+                "name": "windGust",
+                "iconURL": "https://appa.cs.simport.com.br/gallery/41/image-download"
+            },
+            {
+                "route": {
+                    "id": 2759,
+                    "dataGroupId": "AP10",
+                    "equipmentId": "FL",
+                    "stationId": 13,
+                    "regionId": 56,
+                    "stationDesc": "APPA - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2759,
+                "unitType": "Speed",
+                "defaultUnit": "KNOT",
+                "operationalValues": [],
+                "name": "windSpeedMin",
+                "iconURL": "https://appa.cs.simport.com.br/gallery/33/image-download"
+            },
+            {
+                "route": {
+                    "id": 2760,
+                    "dataGroupId": "AP10",
+                    "equipmentId": "FL",
+                    "stationId": 13,
+                    "regionId": 56,
+                    "stationDesc": "APPA - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2760,
+                "unitType": "Speed",
+                "defaultUnit": "KNOT",
+                "operationalValues": [],
+                "name": "windSpeedMax",
+                "iconURL": "https://appa.cs.simport.com.br/gallery/33/image-download"
+            },
+            {
+                "route": {
+                    "id": 2761,
+                    "dataGroupId": "AP10",
+                    "equipmentId": "FL",
+                    "stationId": 13,
+                    "regionId": 56,
+                    "stationDesc": "APPA - Antonina",
+                    "regionDesc": "Antonina"
+                },
+                "id": 2761,
+                "unitType": null,
+                "defaultUnit": null,
+                "operationalValues": [],
+                "name": "windDirectionAverageDescAbv",
+                "iconURL": "https://appa.cs.simport.com.br/gallery/36/image-download"
+            }
+        ],
+        "dataType": {
+            "id": 6,
+            "i18n": {
+                "en": {
+                    "name": "Wind"
+                },
+                "es": {
+                    "name": "Viento"
+                }
+            },
+            "iconURL": "https://appix.cs.simport.com.br/gallery/16/image-download",
+            "name": "Vento",
+            "": "Vento"
+        },
+        "dataGroupId": "AP10",
+        "description": "Vento",
+        "refreshInterval": 300,
+        "periodInterval": 21600,
+        "": "name"
+    },
+    "data": {
+        "route": {
+            "id": 2757,
+            "dataGroupId": "AP10",
+            "equipmentId": "FL",
+            "stationId": 13,
+            "regionId": 56,
+            "stationDesc": "APPA - Antonina",
+            "regionDesc": "Antonina"
+        },
+        "id": 2757,
+        "unitType": "Direction",
+        "defaultUnit": "DEGREES",
+        "dataGroup": {
+            "type": "Vento",
+            "fullDescription": null,
+            "active": true,
+            "data": [
+                {
+                    "route": {
+                        "id": 2753,
+                        "dataGroupId": "AP10",
+                        "equipmentId": "FL",
+                        "stationId": 13,
+                        "regionId": 56,
+                        "stationDesc": "APPA - Antonina",
+                        "regionDesc": "Antonina"
+                    },
+                    "id": 2753,
+                    "unitType": "Speed",
+                    "defaultUnit": "KNOT",
+                    "operationalValues": [],
+                    "name": "windSpeed",
+                    "iconURL": "https://appa.cs.simport.com.br/gallery/33/image-download"
+                },
+                {
+                    "route": {
+                        "id": 2754,
+                        "dataGroupId": "AP10",
+                        "equipmentId": "FL",
+                        "stationId": 13,
+                        "regionId": 56,
+                        "stationDesc": "APPA - Antonina",
+                        "regionDesc": "Antonina"
+                    },
+                    "id": 2754,
+                    "unitType": "Speed",
+                    "defaultUnit": "KNOT",
+                    "operationalValues": [],
+                    "name": "windSpeedAverage",
+                    "iconURL": "https://appa.cs.simport.com.br/gallery/33/image-download"
+                },
+                {
+                    "route": {
+                        "id": 2755,
+                        "dataGroupId": "AP10",
+                        "equipmentId": "FL",
+                        "stationId": 13,
+                        "regionId": 56,
+                        "stationDesc": "APPA - Antonina",
+                        "regionDesc": "Antonina"
+                    },
+                    "id": 2755,
+                    "unitType": "Speed",
+                    "defaultUnit": "KNOT",
+                    "operationalValues": [],
+                    "name": "maxWindSpeedInXMinutes",
+                    "iconURL": "https://appa.cs.simport.com.br/gallery/33/image-download"
+                },
+                {
+                    "route": {
+                        "id": 2756,
+                        "dataGroupId": "AP10",
+                        "equipmentId": "FL",
+                        "stationId": 13,
+                        "regionId": 56,
+                        "stationDesc": "APPA - Antonina",
+                        "regionDesc": "Antonina"
+                    },
+                    "id": 2756,
+                    "unitType": "Direction",
+                    "defaultUnit": "DEGREES",
+                    "operationalValues": [],
+                    "name": "windDirection",
+                    "iconURL": "https://appa.cs.simport.com.br/gallery/36/image-download"
+                },
+                {
+                    "route": {
+                        "id": 2758,
+                        "dataGroupId": "AP10",
+                        "equipmentId": "FL",
+                        "stationId": 13,
+                        "regionId": 56,
+                        "stationDesc": "APPA - Antonina",
+                        "regionDesc": "Antonina"
+                    },
+                    "id": 2758,
+                    "unitType": "Speed",
+                    "defaultUnit": "KNOT",
+                    "operationalValues": [],
+                    "name": "windGust",
+                    "iconURL": "https://appa.cs.simport.com.br/gallery/41/image-download"
+                },
+                {
+                    "route": {
+                        "id": 2759,
+                        "dataGroupId": "AP10",
+                        "equipmentId": "FL",
+                        "stationId": 13,
+                        "regionId": 56,
+                        "stationDesc": "APPA - Antonina",
+                        "regionDesc": "Antonina"
+                    },
+                    "id": 2759,
+                    "unitType": "Speed",
+                    "defaultUnit": "KNOT",
+                    "operationalValues": [],
+                    "name": "windSpeedMin",
+                    "iconURL": "https://appa.cs.simport.com.br/gallery/33/image-download"
+                },
+                {
+                    "route": {
+                        "id": 2760,
+                        "dataGroupId": "AP10",
+                        "equipmentId": "FL",
+                        "stationId": 13,
+                        "regionId": 56,
+                        "stationDesc": "APPA - Antonina",
+                        "regionDesc": "Antonina"
+                    },
+                    "id": 2760,
+                    "unitType": "Speed",
+                    "defaultUnit": "KNOT",
+                    "operationalValues": [],
+                    "name": "windSpeedMax",
+                    "iconURL": "https://appa.cs.simport.com.br/gallery/33/image-download"
+                },
+                {
+                    "route": {
+                        "id": 2761,
+                        "dataGroupId": "AP10",
+                        "equipmentId": "FL",
+                        "stationId": 13,
+                        "regionId": 56,
+                        "stationDesc": "APPA - Antonina",
+                        "regionDesc": "Antonina"
+                    },
+                    "id": 2761,
+                    "unitType": null,
+                    "defaultUnit": null,
+                    "operationalValues": [],
+                    "name": "windDirectionAverageDescAbv",
+                    "iconURL": "https://appa.cs.simport.com.br/gallery/36/image-download"
+                }
+            ],
+            "dataType": {
+                "id": 6,
+                "i18n": {
+                    "en": {
+                        "name": "Wind"
+                    },
+                    "es": {
+                        "name": "Viento"
+                    }
+                },
+                "iconURL": "https://appix.cs.simport.com.br/gallery/16/image-download",
+                "name": "Vento",
+                "": "Vento"
+            },
+            "dataGroupId": "AP10",
+            "description": "Vento",
+            "refreshInterval": 300,
+            "periodInterval": 21600,
+            "": "name"
+        },
+        "operationalValues": [],
+        "name": "windDirectionAverage",
+        "iconURL": "https://appa.cs.simport.com.br/gallery/36/image-download"
+    },
+    "showmap": false,
+    "directionsGroup": [
+        "N",
+        "S"
+    ],
+    "arrowDirection": 0,
+    "arrowColor": "#000000",
+    "zoomMap": 0,
+    "type": 8
+}

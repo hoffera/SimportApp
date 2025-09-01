@@ -1,0 +1,760 @@
+[
+    {
+        "identificacao": "tcp",
+        "nome": "Terminal de containeres de Paranaguá",
+        "logo": "https://appix.cs.simport.com.br/gallery/86/image-download",
+        "views": [
+            {
+                "id": 6,
+                "titulo": "Nome da tela",
+                "placeholder": {
+                    "type": "curved_nav",
+                    "args": {
+                        "icons": [
+                            "https://appa.cs.simport.com.br/gallery/33/image-download",
+                            "https://appa.cs.simport.com.br/gallery/32/image-download"
+                        ],
+                        "pages": [
+                            {
+                                "type": "single_child_scroll_view",
+                                "args": {
+                                    "child": {
+                                        "type": "column",
+                                        "args": {
+                                            "children": [
+                                                {
+                                                    "type": "sized_box",
+                                                    "args": {
+                                                        "height": 50
+                                                    }
+                                                },
+                                                {
+                                                    "type": "skeleton_loading",
+                                                    "args": {
+                                                        "child": {
+                                                            "type": "title_widget",
+                                                            "args": {
+                                                                "title": "Maré"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "type": "column",
+                                                    "args": {
+                                                        "children": [
+                                                            {
+                                                                "type": "skeleton_loading",
+                                                                "args": {
+                                                                    "child": {
+                                                                        "type": "padding",
+                                                                        "args": {
+                                                                            "padding": {
+                                                                                "bottom": 8,
+                                                                                "left": 8,
+                                                                                "right": 8,
+                                                                                "top": 8
+                                                                            },
+                                                                            "child": {
+                                                                                "type": "chart_widget",
+                                                                                "args": {
+                                                                                    "chart": {
+                                                                                        "type": "sync_linear_graph",
+                                                                                        "args": {
+                                                                                            "cartesianSeries": [],
+                                                                                            "chartAxis": [
+                                                                                                {
+                                                                                                    "type": "numeric",
+                                                                                                    "title": "Altura (m)"
+                                                                                                }
+                                                                                            ],
+                                                                                            "chartAxisX": {
+                                                                                                "type": "datetime",
+                                                                                                "title": "Horas do dia",
+                                                                                                "intervalType": "hours",
+                                                                                                "dateFormat": "Hm"
+                                                                                            }
+                                                                                        }
+                                                                                    },
+                                                                                    "subtitle": "há 10 minutos",
+                                                                                    "title": "Maré Antonina"
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            },
+                                                            {
+                                                                "type": "skeleton_loading",
+                                                                "args": {
+                                                                    "child": {
+                                                                        "type": "padding",
+                                                                        "args": {
+                                                                            "padding": {
+                                                                                "bottom": 8,
+                                                                                "left": 8,
+                                                                                "right": 8,
+                                                                                "top": 8
+                                                                            },
+                                                                            "child": {
+                                                                                "type": "chart_widget",
+                                                                                "args": {
+                                                                                    "chart": {
+                                                                                        "type": "sync_linear_graph",
+                                                                                        "args": {
+                                                                                            "cartesianSeries": [],
+                                                                                            "chartAxis": [
+                                                                                                {
+                                                                                                    "type": "numeric",
+                                                                                                    "title": "Altura (m)"
+                                                                                                }
+                                                                                            ],
+                                                                                            "chartAxisX": {
+                                                                                                "type": "datetime",
+                                                                                                "title": "Horas do dia",
+                                                                                                "intervalType": "hours",
+                                                                                                "dateFormat": "Hm"
+                                                                                            }
+                                                                                        }
+                                                                                    },
+                                                                                    "subtitle": "há 10 minutos",
+                                                                                    "title": "Maré Antonina"
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "type": "container",
+                                "args": {
+                                    "color": "#ff2196f3",
+                                    "height": 50,
+                                    "width": 50
+                                }
+                            }
+                        ]
+                    }
+                },
+                "principal": true
+            },
+            {
+                "id": 2,
+                "titulo": "Tela 2",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": false
+            },
+            {
+                "id": 3,
+                "titulo": "Tela 3",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": false
+            }
+        ],
+        "id": "1"
+    },
+    {
+        "identificacao": "appa",
+        "nome": "Portos Paraná",
+        "logo": "https://appix.cs.simport.com.br/gallery/95/image-download?t=1731939517",
+        "views": [
+            {
+                "id": 4,
+                "titulo": "Nome da tela",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": true
+            },
+            {
+                "id": 5,
+                "titulo": "Tela 2",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": false
+            }
+        ],
+        "id": "2"
+    },
+    {
+        "identificacao": "appa",
+        "nome": "Portos Paraná",
+        "logo": "https://appix.cs.simport.com.br/gallery/95/image-download?t=1731939517",
+        "views": [
+            {
+                "id": 4,
+                "titulo": "Nome da tela",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": true
+            },
+            {
+                "id": 5,
+                "titulo": "Tela 2",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": false
+            }
+        ],
+        "id": "3"
+    },
+    {
+        "identificacao": "appa",
+        "nome": "Portos Paraná",
+        "logo": "https://appix.cs.simport.com.br/gallery/95/image-download?t=1731939517",
+        "views": [
+            {
+                "id": 4,
+                "titulo": "Nome da tela",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": true
+            },
+            {
+                "id": 5,
+                "titulo": "Tela 2",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": false
+            }
+        ],
+        "id": "4"
+    },
+    {
+        "identificacao": "appa",
+        "nome": "Portos Paraná",
+        "logo": "https://appix.cs.simport.com.br/gallery/95/image-download?t=1731939517",
+        "views": [
+            {
+                "id": 4,
+                "titulo": "Nome da tela",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": true
+            },
+            {
+                "id": 5,
+                "titulo": "Tela 2",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": false
+            }
+        ],
+        "id": "5"
+    },
+    {
+        "identificacao": "appa",
+        "nome": "Portos Paraná",
+        "logo": "https://appix.cs.simport.com.br/gallery/95/image-download?t=1731939517",
+        "views": [
+            {
+                "id": 4,
+                "titulo": "Nome da tela",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": true
+            },
+            {
+                "id": 5,
+                "titulo": "Tela 2",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": false
+            }
+        ],
+        "id": "6"
+    },
+    {
+        "identificacao": "appa",
+        "nome": "Portos Paraná",
+        "logo": "https://appix.cs.simport.com.br/gallery/95/image-download?t=1731939517",
+        "views": [
+            {
+                "id": 4,
+                "titulo": "Nome da tela",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": true
+            },
+            {
+                "id": 5,
+                "titulo": "Tela 2",
+                "placeholder": {
+                    "type": "scaffold",
+                    "args": {
+                        "backgroundColor": "#fff0faff",
+                        "body": {
+                            "type": "center",
+                            "args": {
+                                "child": {
+                                    "type": "single_child_scroll_view",
+                                    "args": {
+                                        "child": {
+                                            "type": "padding",
+                                            "args": {
+                                                "padding": {
+                                                    "bottom": 20,
+                                                    "left": 20,
+                                                    "right": 20,
+                                                    "top": 20
+                                                },
+                                                "child": {
+                                                    "type": "container",
+                                                    "args": {
+                                                        "height": 180,
+                                                        "width": 100,
+                                                        "color": "#fff44336"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "principal": false
+            }
+        ],
+        "id": "7"
+    }
+]
