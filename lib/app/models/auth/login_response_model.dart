@@ -1,16 +1,16 @@
 class LoginResponseModel {
   final String accessToken;
-  final bool hasAccess;
+  final String refreshToken;
   final String username;
   final String name;
-  final int photoId;
+  final int? photoId; // photo_id pode ser null
 
   LoginResponseModel({
     required this.accessToken,
-    required this.hasAccess,
+    required this.refreshToken,
     required this.username,
     required this.name,
-    required this.photoId,
+    this.photoId,
   });
 
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
@@ -18,43 +18,10 @@ class LoginResponseModel {
 
     return LoginResponseModel(
       accessToken: json["access_token"] as String? ?? "",
-      hasAccess: user["has_access"] as bool? ?? false,
+      refreshToken: json["refresh_token"] as String? ?? "",
       username: user["username"] as String? ?? "",
       name: user["name"] as String? ?? "",
-      photoId: user["photo_id"] as int? ?? 0,
+      photoId: user["photo_id"] as int?, // pode ser null
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "access_token": accessToken,
-      "user": {
-        "has_access": hasAccess,
-        "username": username,
-        "name": name,
-        "photo_id": photoId,
-      },
-    };
-  }
-
-  LoginResponseModel copyWith({
-    String? accessToken,
-    bool? hasAccess,
-    String? username,
-    String? name,
-    int? photoId,
-  }) {
-    return LoginResponseModel(
-      accessToken: accessToken ?? this.accessToken,
-      hasAccess: hasAccess ?? this.hasAccess,
-      username: username ?? this.username,
-      name: name ?? this.name,
-      photoId: photoId ?? this.photoId,
-    );
-  }
-
-  @override
-  String toString() {
-    return "LoginResponseModel(accessToken: $accessToken, hasAccess: $hasAccess, username: $username, name: $name, photoId: $photoId)";
   }
 }

@@ -1,8 +1,6 @@
-import "package:flutter/foundation.dart" show kIsWeb;
 import "package:get/get.dart";
 import "package:json_app/app/components/snackbar/snackbar_widget.dart";
 import "package:json_app/app/models/auth/login_response_model.dart";
-import "package:json_app/app/services/auth_service.dart";
 import "package:json_app/app/services/auth_service_web.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
 
@@ -54,30 +52,16 @@ class LoginPageController extends GetxController {
       print("[LoginPageController._performLogin] Iniciando login para: $user");
 
       final LoginResponseModel loginResponse;
-      if (kIsWeb) {
-        print(
-          "[LoginPageController._performLogin] Usando AuthServiceWeb para Flutter Web",
-        );
-        loginResponse = await AuthServiceWeb.loginUser(
-          username: user,
-          password: password,
-        );
-      } else {
-        print(
-          "[LoginPageController._performLogin] Usando AuthService para Flutter Mobile",
-        );
-        loginResponse = await AuthService.loginUser(
-          username: user,
-          password: password,
-        );
-      }
+
+      loginResponse = await AuthServiceWeb.loginUser(
+        username: user,
+        password: password,
+      );
 
       userData.value = loginResponse;
 
       // Verifica acesso usando o serviço apropriado
-      final hasAccess = kIsWeb
-          ? AuthServiceWeb.hasUserAccess(loginResponse)
-          : AuthService.hasUserAccess(loginResponse);
+      final hasAccess = AuthServiceWeb.hasUserAccess(loginResponse);
 
       if (hasAccess) {
         print(
