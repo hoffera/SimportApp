@@ -177,6 +177,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Privacy Policy'**
   String get privacyPolicy;
+
+  /// Label for the reset password
+  ///
+  /// In en, this message translates to:
+  /// **'Recover your password informing your username or email to receive the instructions'**
+  String get resetPasswordInfo;
+
+  /// Label asking for username or email
+  ///
+  /// In en, this message translates to:
+  /// **'Username or email'**
+  String get usernameOrEmail;
+
+  /// Label asking the user to provide their username or email
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your username or email.'**
+  String get pleaseEnterUsernameOrEmail;
+
+  /// Message informing that the recovery email has been sent
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery email sent.'**
+  String get recoveryEmailSent;
+
+  /// Label for a confirm button
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
 }
 
 class _AppLocalizationsDelegate

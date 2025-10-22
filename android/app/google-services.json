@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "652838435599",
-    "project_id": "climaapp-61faf",
-    "storage_bucket": "climaapp-61faf.firebasestorage.app"
+    "project_number": "741665840173",
+    "project_id": "simport-plus",
+    "storage_bucket": "simport-plus.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:652838435599:android:7d96b87df365a3e1499c7a",
+        "mobilesdk_app_id": "1:741665840173:android:11772fec34b11e62df2ca4",
         "android_client_info": {
           "package_name": "com.example.json_app"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBwemWNjtnrRSdC7k3XdDnUECHJ9TEBuUM"
+          "current_key": "AIzaSyDP5xEjRXKWq6f8CnM0z7YfnYUTOx2Cf24"
         }
       ],
       "services": {

@@ -46,4 +46,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyPolicy => 'Privacy Policy';
+
+  @override
+  String get resetPasswordInfo =>
+      'Recover your password informing your username or email to receive the instructions';
+
+  @override
+  String get usernameOrEmail => 'Username or email';
+
+  @override
+  String get pleaseEnterUsernameOrEmail =>
+      'Please enter your username or email.';
+
+  @override
+  String get recoveryEmailSent => 'Recovery email sent.';
+
+  @override
+  String get confirm => 'Confirm';
 }

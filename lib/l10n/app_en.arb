@@ -18,5 +18,25 @@
     "privacyPolicy": "Privacy Policy",
     "@privacyPolicy": {
         "description": "Label for the Privacy Policy agreement"
+    },
+    "resetPasswordInfo": "Recover your password informing your username or email to receive the instructions",
+    "@resetPasswordInfo": {
+        "description": "Label for the reset password"
+    },
+    "usernameOrEmail": "Username or email",
+    "@usernameOrEmail": {
+        "description": "Label asking for username or email"
+    },
+    "pleaseEnterUsernameOrEmail": "Please enter your username or email.",
+    "@pleaseEnterUsernameOrEmail": {
+        "description": "Label asking the user to provide their username or email"
+    },
+    "recoveryEmailSent": "Recovery email sent.",
+    "@recoveryEmailSent": {
+        "description": "Message informing that the recovery email has been sent"
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+        "description": "Label for a confirm button"
     }
 }

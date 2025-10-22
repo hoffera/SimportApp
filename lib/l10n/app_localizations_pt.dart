@@ -46,4 +46,21 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get privacyPolicy => 'Política de Privacidade';
+
+  @override
+  String get resetPasswordInfo =>
+      'Recupere sua senha informando seu nome de usuário ou e-mail para receber as instruções';
+
+  @override
+  String get usernameOrEmail => 'Usuário ou email';
+
+  @override
+  String get pleaseEnterUsernameOrEmail =>
+      'Por favor, informe seu usuário ou email.';
+
+  @override
+  String get recoveryEmailSent => 'Email de recuperação enviado.';
+
+  @override
+  String get confirm => 'Confirmar';
 }

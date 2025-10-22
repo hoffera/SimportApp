@@ -1,95 +1,62 @@
+import "dart:convert";
+
+import "package:firebase_core/firebase_core.dart";
+import "package:flutter_dotenv/flutter_dotenv.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
-import "package:get/get.dart";
-import "package:get_storage/get_storage.dart";
-import "package:json_app/app/components/custom_widget_registrar.dart";
-import "package:json_app/app/json dynamic widget/register/register_functions.dart";
-import "package:json_app/app/pages/login_page/bindings/login_page_binding.dart";
-import "package:json_app/app/pages/login_page/views/login_page_view.dart";
-import "package:json_app/app/routes/app_pages.dart";
-import "package:json_app/app/theme/app_theme.dart";
-import "package:json_app/app/theme/theme_controller.dart";
+import "package:get_it/get_it.dart";
+import "package:json_app/firebase_options.dart";
 import "package:json_app/l10n/app_localizations.dart";
+import "package:json_app/src/data/services/auth_notifier.dart";
+import "package:json_app/src/data/services/secure_storage_service.dart";
+import "package:json_app/src/data/store/language_store.dart";
+import "package:json_app/src/data/store/theme_store.dart";
+import "package:json_app/src/json%20dynamic%20widget/register/register_functions.dart";
+import "package:json_app/src/json%20dynamic%20widget/register/register_widgets.dart";
+import "package:json_app/src/utils/dependency_injection.dart";
+import "package:json_app/src/utils/routes/go_router_config.dart";
 import "package:json_dynamic_widget/json_dynamic_widget.dart";
-import "package:mapbox_maps_flutter/mapbox_maps_flutter.dart";
+import "package:simport_design_system/widgets/custom_widget_registrar.dart";
+
+import "src/data/models/theme_model/theme_model.dart";
 
 final JsonWidgetRegistry registry = JsonWidgetRegistry.instance;
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+GetIt getIt = GetIt.instance;
 
 void main() async {
-  await _initializeApp();
-  await _setupRegistry();
-  await _setupServices();
-  await _runApp();
-}
-
-Future<void> _initializeApp() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-}
 
-Future<void> _setupRegistry() async {
-  registry.navigatorKey = GlobalKey<NavigatorState>();
+  // runApp(const SplashScreen());
+
+  await dotenv.load(fileName: ".env");
+  await setupDependencyInjection();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await Future.wait([
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]),
+    setupTheme(),
+    setupLanguage(),
+    getIt<AuthNotifier>().refresh(),
+  ]);
   CustomWidgetRegistrar.registerDefaults(registry: registry);
   RegisterFunctions.registerAllFunctions(registry);
-}
+  RegisterWidgets.registerDefaults(registry: registry);
+  registry.navigatorKey = navigatorKey;
 
-Future<void> _setupServices() async {
-  final appTheme = AppTheme();
-  await appTheme.loadThemes();
-  await GetStorage.init();
-  final controller = Get.put(ThemeController());
+  // await NotificationService.localNotInit();
+  // await NotificationService.init();
 
-  // Obtém o token de acesso do ambiente ou usa um valor padrão
-  String accessToken = const String.fromEnvironment(
-    "ACCESS_TOKEN",
-    defaultValue: "",
-  );
-
-  // Verifica se o token foi fornecido
-  if (accessToken.isEmpty) {
-    print("[main] Aviso: ACCESS_TOKEN não foi fornecido via --dart-define");
-  }
-
-  MapboxOptions.setAccessToken(accessToken);
-}
-
-Future<void> _runApp() async {
-  final controller = Get.find<ThemeController>();
-  final appTheme = AppTheme();
-  await appTheme.loadThemes();
-
-  runApp(
-    Obx(
-      () => MyApp(
-        theme: appTheme.light,
-        darkTheme: appTheme.dark,
-        themeMode: controller.isDarkMode.value
-            ? ThemeMode.dark
-            : ThemeMode.light,
-      ),
-    ),
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final ThemeData theme;
-  final ThemeData darkTheme;
-  final ThemeMode themeMode;
-
-  const MyApp({
-    super.key,
-    required this.theme,
-    required this.darkTheme,
-    required this.themeMode,
-  });
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: theme,
-      darkTheme: darkTheme,
-      themeMode: Get.find<ThemeController>().isDarkMode.value
-          ? ThemeMode.dark
-          : ThemeMode.light,
+    return MaterialApp.router(
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -97,11 +64,42 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [Locale("en"), Locale("pt", "BR"), Locale("es")],
-      navigatorKey: registry.navigatorKey,
       debugShowCheckedModeBanner: false,
-      home: LoginPageView(),
-      initialBinding: LoginPageBinding(),
-      getPages: AppPages.routes,
+      routerConfig: SimportRouter().router(authNotifier: getIt<AuthNotifier>()),
     );
+  }
+}
+
+Future<void> setupTheme() async {
+  final themeLight = await rootBundle.loadString(
+    "assets/theme/simport_theme_light.json",
+  );
+
+  final themeDark = await rootBundle.loadString(
+    "assets/theme/simport_theme_dark.json",
+  );
+  ThemeModel simportThemeModel = ThemeModel(
+    light: ThemeDecoder.decodeThemeData(jsonDecode(themeLight))!,
+    dark: ThemeDecoder.decodeThemeData(jsonDecode(themeDark))!,
+  );
+
+  final themeJson = jsonDecode(themeDark);
+  final themeDefault = ThemeDecoder.decodeThemeData(themeJson)!;
+
+  final themeStore = getIt<ThemeStore>();
+  themeStore.saveSimportThemeModel(simportThemeModel);
+  themeStore.saveThemeDefault(themeDefault);
+
+  final themeMode = await SecureStorageService().getThemeMode();
+  themeStore.isDarkMode = themeMode;
+}
+
+Future<void> setupLanguage() async {
+  final languageStore = getIt<LanguageStore>();
+  final language = await SecureStorageService().getLanguage();
+  if (language != null) {
+    languageStore.setLocale(Locale(language));
+  } else {
+    languageStore.detectDeviceLanguage();
   }
 }

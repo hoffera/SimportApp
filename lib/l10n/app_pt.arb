@@ -12,5 +12,11 @@
     "english": "Inglês",
     "spanish": "Espanhol",
     "termsOfService": "Termos de Serviço",
-    "privacyPolicy": "Política de Privacidade"
+    "privacyPolicy": "Política de Privacidade",
+    "resetPasswordInfo": "Recupere sua senha informando seu nome de usuário ou e-mail para receber as instruções",
+    "usernameOrEmail": "Usuário ou email",
+    "pleaseEnterUsernameOrEmail": "Por favor, informe seu usuário ou email.",
+    "recoveryEmailSent": "Email de recuperação enviado.",
+    "confirm": "Confirmar"
+
 }

@@ -44,8 +44,9 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Token Mapbox 
-.mapbox
+
 
 # FVM Version Cache
 .fvm/
+
+.env
